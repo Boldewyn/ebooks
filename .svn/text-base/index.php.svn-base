@@ -1,0 +1,230 @@
+<?php
+
+$last_modified = mktime(0, 0, 0, 10, 1, 2009);
+
+$catalog = array("en"=>array());
+$catalog['de'] = array(
+  'E-books in the Public Domain' => 'Gemeinfreie E-Bücher',
+  'A collection of freely available, public domain e-books converted to XHTML.' =>
+      'Eine Sammlung frei verfügbarer, gemeinfreier E-Bücher konvertiert nach XHTML.',
+  'The following e-books are all in the public domain and are taken either from %s or from %s.' =>
+      'Die folgenden E-Bücher sind alle gemeinfrei und stammen entweder aus dem %s oder von %s.',
+  'The stylesheet is © 2009 Manuel Strehl and is subject to the CreativeCommons Attribution-Share '.
+      'Alike 3.0 license (Germany). The ebooks’ texts are in the public domain.' =>
+      'Das Stylesheet ist © 2009 Manuel Strehl und unterliegt der CreativeCommons Attribution-Share '.
+      'Alike 3.0-Lizenz (Deutschland). Die Texte der E-Bücher sind gemeinfrei.',
+  'Table of Contents' => 'Inhaltsangabe',
+  'License' => 'Lizenz',
+  'Details on Wikipedia' => 'Details bei der Wikipedia',
+  'Switch language:' => 'Sprache ändern:',
+  'Please note, that I don’t take any responsibility for the '.
+      'content of the single books. They are published here as a '.
+      'service to the reader, but without any warranty. There even '.
+      'is no guarantee, that a particular book is complete or error free.' => 'Bitte beachten Sie, '.
+      'dass ich keinerlei Verantwortung für den Inhalt der Bücher übernehmen kann. Sie '.
+      'werden hier als Dienst für den Leser angeboten, jedoch ausdrücklich '.
+      'ohne Garantie. Das schließt auch Vollständigkeit und Fehlerfreiheit ein.',
+  'Each book comes with a (sufficient) set of metadata according '.
+      'to %s attached. Hit <kbd>M</kbd> to see the information (JavaScript '.
+      'needed). Also, each book is in the public domain. The font used for display '.
+      'is <a href="http://www.artifex.com/downloads/">GaramondNo8</a>, published '.
+      'under the AFPL, and stylesheet and JavaScript are authored by me and '.
+      'published under the CreativeCommons Attribution-Share Alike 3.0 license (Germany).' =>
+      'Jedes Buch kommt mit einem vollständigen Satz Metadaten nach %s. '.
+      'Drücken Sie <kbd>M</kbd>, um die Information anzuzeigen (benötigt JavaScript).'.
+      'Zudem ist jedes Buch gemeinfrei. Die verwendete Schriftart ist '.
+      '<a href="http://www.artifex.com/downloads/">GaramondNo8</a>, veröffentlicht '.
+      'unter der AFPL, und Stylesheet und JavaScript sind meine Schöpfung '.
+      'und stehen unter der CreativeCommons Attribution-Share Alike 3.0-Lizenz (Deutschland).',
+  'Page Not Found' => 'Seite nicht gefunden',
+  'An error occured: This page does not exist (HTTP error 404).' =>
+      'Ein Fehler ist aufgetaucht: Diese Seite existiert nicht (HTTP-Fehler 404).',
+  'The page %s could not be found. We apologize for any inconvenience.' =>
+      'Die Seite %s konnte nicht gefunden werden. Wir entschuldigen uns für Unannehmlichkeiten.',
+  'Please go back to the index page.' => 'Bitte gehen Sie zurück zur Indexseite.',
+);
+$supported_langs = array_keys($catalog);
+
+$lang = isset($_GET['lang'])? substr($_GET['lang'], 0, 2)
+        : (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)
+        : "en");
+if (! in_array($lang, $supported_langs)) {
+    $lang = "en";
+}
+
+
+if (isset($_GET['error']) and $_GET['error'] == "404"):
+    /** An invalid URL requested */
+    send_404($_SERVER['REQUEST_URI']);
+else:
+    /** show the index page */
+    $title = __("E-books in the Public Domain");
+
+    header("Content-Type: application/xhtml+xml; charset=utf-8");
+    header("Content-Language: $lang");
+    header("Last-Modified: ".date("r", $last_modified));
+    header("Expires: ".date('r', $last_modified));
+    ?><<?php ?>?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//Manuel Strehl//DTD XHTML for eBooks//EN"
+    "http://static.manuel-strehl.de/Dataset/ebook.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang; ?>">
+  <head profile="http://www.w3.org/2003/g/data-view
+                 http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="content-type"   content="application/xhtml+xml; charset=utf-8"/>
+    <meta name="dcterms.title"        content="<?php echo $title; ?>" />
+    <meta name="dcterms.description"  content="<?php _e('A collection of freely available, public domain e-books converted to XHTML.');?>" />
+    <meta name="dcterms.subject"      content="book, ebook" />
+    <meta name="dcterms.creator"      content="Manuel Strehl" />
+    <meta name="dcterms.publisher"    content="http://www.manuel-strehl.de" />
+    <meta name="dcterms.type"         content="Text" scheme="dcterms.DCMIType" />
+    <meta name="dcterms.format"       content="application/xhtml+xml; charset=utf-8" scheme="dcterms.IMT" />
+    <meta name="dcterms.date"         content="2009-09-30" scheme="dcterms.W3CDTF" />
+    <meta name="dcterms.issued"       content="2009-09-30" scheme="dcterms.W3CDTF" />
+    <meta name="dcterms.language"     content="<?php echo $lang; ?>" scheme="dcterms.RFC4646" />
+    <meta name="dcterms.rights"       content="<?php _e('The stylesheet is © 2009 Manuel Strehl and is subject to the CreativeCommons Attribution-Share Alike 3.0 license (Germany). The ebooks’ texts are in the public domain.')?>" />
+    <link rel="dcterms.identifier"    href="http://www.manuel-strehl.de/ebooks/<?php echo $lang?>" />
+    <link rel="dcterms.tableofContents" href="#Table_of_Contents" title="<?php _e('Table of Contents')?>" />
+    <link rel="dcterms.license"       href="http://creativecommons.org/licenses/publicdomain/" title="<?php _e('License')?>" />
+    <link rel="dcterms.description"   href="http://<?php echo substr($lang, 0, 2); ?>.wikipedia.org/wiki/E-book" title="<?php _e('Details on Wikipedia')?>" />
+    <link rel="schema.dcterms"        href="http://purl.org/dc/terms/" />
+    <link rel="stylesheet"            href="http://static.manuel-strehl.de/Style/ebook" type="text/css" media="all" />
+    <link rel="start"                 href="/" title="<?php _e('Start')?>" />
+    <link rel="contents"              href="#Table_of_Contents" title="<?php _e('Table of Contents')?>" />
+    <link rel="copyright"             href="http://creativecommons.org/licenses/publicdomain/" />
+    <link rel="transformation"        href="http://static.manuel-strehl.de/Style/data-view" type="application/xslt+xml" />
+    <title><?php echo $title; ?></title>
+  </head>
+  <body>
+    <div class="index book">
+      <h1><?php echo $title; ?></h1>
+      <p>
+        <?php _e('Switch language:')?>
+        <a href="/ebooks/de"><abbr title="deutsch">de</abbr></a>
+        <a href="/ebooks/en"><abbr title="english">en</abbr></a>
+      </p>
+      <p>
+        <?php printf(__("The following e-books are all in the public domain and are taken either from %s or from %s."),
+        '<a href="http://www.gutenberg.org">Project Gutenberg</a>',
+        '<a href="http://'.substr($lang, 0, 2).'.wikisource.org">WikiSource</a>') ?>
+      </p>
+      <ul id="Table_of_Contents">
+        <?php foreach (glob('*.xhtml') as $ebook): ?>
+          <li><a href="<?php echo substr(str_replace("_", "%20", $ebook), 0, -6); ?>"><?php echo substr(str_replace("_", " ", $ebook), 0, -6); ?></a></li>
+        <?php endforeach; ?>
+      </ul>
+      <p>
+        <?php _e('Please note, that I don’t take any responsibility for the '.
+                 'content of the single books. They are published here as a '.
+                 'service to the reader, but without any warranty. There even '.
+                 'is no guarantee, that a particular book is complete or error free.')?>
+      </p>
+      <p>
+        <?php printf(__('Each book comes with a (sufficient) set of metadata according '.
+                 'to %s attached. Hit <kbd>M</kbd> to see the information (JavaScript '.
+                 'needed). Also, each book is in the public domain. The font used for display '.
+                 'is <a href="http://www.artifex.com/downloads/">GaramondNo8</a>, published '.
+                 'under the AFPL, and stylesheet and JavaScript are authored by me and '.
+                 'published under the CreativeCommons Attribution-Share Alike 3.0 license (Germany).'), '<a href="http://www.dublincore.org">Dublin Core</a>')?>
+      </p>
+    </div>
+  </body>
+</html>
+
+<?php endif;
+
+
+
+
+
+/**
+ * Get the currently used HTTP protocol (sanitized)
+ *
+ * @return string either 'HTTP/1.0' or 'HTTP/1.1'
+ */
+function get_http_protocol () {
+    $server_protocol = $_SERVER['SERVER_PROTOCOL'];
+    if (strlen($server_protocol) != 8 &&
+        substr($server_protocol, 0, 7) != "HTTP/1.") {
+        $server_protocol = "HTTP/1.0";
+    }
+    return $server_protocol;
+}
+
+
+function __($string) {
+    global $lang, $catalog;
+    if (isset($catalog[$lang]) && isset($catalog[$lang][$string])) {
+        return $catalog[$lang][$string];
+    } else {
+        return $string;
+    }
+}
+
+function _e($string) {
+    echo __($string);
+}
+
+
+
+/**
+ * Send a 404 page
+ */
+function send_404 ($url) {
+    global $lang, $last_modified;
+    $url = htmlspecialchars($url);
+    header(get_http_protocol()." 404 Not Found", true, 404);
+    header("Content-Type: application/xhtml+xml; charset=utf-8");
+    header("Content-Language: $lang");
+    header("Expires: ".date('r', $last_modified));
+    ?><<?php ?>?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//Manuel Strehl//DTD XHTML for eBooks//EN"
+    "http://static.manuel-strehl.de/Dataset/ebook.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang; ?>">
+  <head profile="http://www.w3.org/2003/g/data-view
+                 http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="content-type"   content="application/xhtml+xml; charset=utf-8"/>
+    <meta name="dcterms.title"        content="<?php _e('Page Not Found'); ?>" />
+    <meta name="dcterms.description"  content="<?php _e('An error occured: This page does not exist (HTTP error 404).');?>" />
+    <meta name="dcterms.subject"      content="book, ebook" />
+    <meta name="dcterms.creator"      content="Manuel Strehl" />
+    <meta name="dcterms.publisher"    content="http://www.manuel-strehl.de" />
+    <meta name="dcterms.type"         content="Text" scheme="dcterms.DCMIType" />
+    <meta name="dcterms.format"       content="application/xhtml+xml; charset=utf-8" scheme="dcterms.IMT" />
+    <meta name="dcterms.date"         content="<?php echo date("c")?>" scheme="dcterms.W3CDTF" />
+    <meta name="dcterms.issued"       content="<?php echo date("c")?>" scheme="dcterms.W3CDTF" />
+    <meta name="dcterms.language"     content="<?php echo $lang; ?>" scheme="dcterms.RFC4646" />
+    <meta name="dcterms.rights"       content="<?php _e('The stylesheet is © 2009 Manuel Strehl and is subject to the CreativeCommons Attribution-Share Alike 3.0 license (Germany). The ebooks’ texts are in the public domain.')?>" />
+    <link rel="dcterms.identifier"    href="http://www.manuel-strehl.de/ebooks/<?php echo $lang; ?>/<?php echo $url; ?>" />
+    <link rel="schema.dcterms"        href="http://purl.org/dc/terms/" />
+    <link rel="stylesheet"            href="http://static.manuel-strehl.de/Style/ebook" type="text/css" media="all" />
+    <link rel="start"                 href="/" title="<?php _e('Start')?>" />
+    <link rel="index"                 href="/ebooks/" title="<?php _e('Index')?>" />
+    <link rel="up"                    href="/ebooks/" />
+    <link rel="contents"              href="#Table_of_Contents" title="<?php _e('Table of Contents')?>" />
+    <link rel="copyright"             href="http://creativecommons.org/licenses/publicdomain/" />
+    <link rel="transformation"        href="http://static.manuel-strehl.de/Style/data-view" type="application/xslt+xml" />
+    <title><?php _e('Page Not Found'); ?></title>
+  </head>
+  <body>
+    <div class="index book">
+      <h1><?php _e('Page Not Found'); ?></h1>
+      <p>
+        <?php _e('Switch language:')?>
+        <a href="/ebooks/de<?php echo $url; ?>"><abbr title="deutsch">de</abbr></a>
+        <a href="/ebooks/en<?php echo $url; ?>"><abbr title="english">en</abbr></a>
+      </p>
+      <p>
+        <?php printf(__("The page %s could not be found. We apologize for any inconvenience."), "<em>&lt;$url&gt;</em>") ?>
+      </p>
+      <p>
+        <a href="/ebooks/<?php echo $lang; ?>/"><?php _e('Please go back to the index page.')?></a>
+      </p>
+    </div>
+  </body>
+</html>
+
+<?php
+}
+
+
+//__END__

@@ -1,0 +1,43 @@
+# Makefile
+
+YUI = C:/cygwin/home/Manuel/lib/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar
+SUBPATH = static/
+
+.PHONY: all css js clean full-clean
+
+#.SILENT: all css js clean
+
+all: css js gz static
+
+# Gzip all ebooks
+gz:
+	for i in *.xhtml; do gzip -c $$i > $$i".gz"; done
+
+# combine the CSS files in one, minimize and gzip the result
+css: $(SUBPATH)ebook.src.css $(SUBPATH)screen.css $(SUBPATH)print.css
+	$(SUBPATH)mkstyle.sh
+	java -jar $(YUI) --charset UTF-8 -o $(SUBPATH)ebook.css $(SUBPATH)ebook.combined.css
+	rm -f $(SUBPATH)ebook.combined.css
+	gzip -c $(SUBPATH)ebook.css > $(SUBPATH)ebook.css.gz
+
+# minimize and gzip the JS file
+js: $(SUBPATH)ebook.src.js
+	java -jar $(YUI) --charset UTF-8 -o $(SUBPATH)ebook.min.js $(SUBPATH)ebook.src.js
+	cat $(SUBPATH)ebook.lib.js $(SUBPATH)ebook.license.js $(SUBPATH)ebook.min.js > $(SUBPATH)ebook.js
+	rm -f $(SUBPATH)ebook.min.js
+	gzip -c $(SUBPATH)ebook.js > $(SUBPATH)ebook.js.gz
+
+# copy the stuff to the folder for static files
+static: css js
+	-cp $(SUBPATH)ebook.css* ../../static/Style/
+	-cp $(SUBPATH)data-view.xsl* ../../static/Style/
+	-cp $(SUBPATH)ebook.js* ../../static/Software/
+	-cp $(SUBPATH)Garamond* ../../static/Dataset/
+
+full-clean: clean
+	rm -f $(SUBPATH)ebook.css $(SUBPATH)ebook.js $(SUBPATH)ebook.css.gz $(SUBPATH)ebook.js.gz
+	rm -f *.gz
+
+clean:
+	rm -f $(SUBPATH)ebook.min.js
+	rm -f $(SUBPATH)ebook.combined.css

@@ -1,0 +1,86 @@
+#!/usr/bin/perl -w
+
+use strict;
+use utf8;
+
+my $file = "";
+
+open(FILE, "<".$ARGV[0]);
+while (<FILE>) {
+  $file .= $_;
+}
+close(FILE);
+
+my $ldquo = '“';
+utf8::encode($ldquo);
+my $rdquo = '”';
+utf8::encode($rdquo);
+my $lsquo = '‘';
+utf8::encode($lsquo);
+my $rsquo = '’';
+utf8::encode($rsquo);
+my $apos = '’';
+utf8::encode($apos);
+my $mdash = '—';
+utf8::encode($mdash);
+my $prime = '′';
+utf8::encode($prime);
+my $dblprime = 'ʺ';
+utf8::encode($dblprime);
+my $thin_space = ' ';
+utf8::encode($thin_space);
+my $ellipsis = '…';
+utf8::encode($ellipsis);
+
+# p start tag on same line with text
+$file =~ s/<p>\n([A-Za-z"&])/<p>$1/g;
+
+# p end tag on same line with text
+$file =~ s/\n<\/p>/<\/p>/g;
+
+# paragraph text on one line
+$file =~ s/\n([A-Za-z0-9"_&\(]|<i>|<\/i>)/ $1/g;
+
+# b|i tag correction
+$file =~ s/<(b|i)> / <$1>/g;
+$file =~ s/<p> <(b|i)>/<p><$1>/g;
+$file =~ s/ <\/(b|i)>/<\/$1> /g;
+$file =~ s/<(\/?)b((: [^>]*)?)>/<$1strong$2>/g;
+$file =~ s/<(\/?)i((: [^>]*)?)>/<$1em$2>/g;
+
+# typography
+$file =~ s/&#8212;/$mdash/g;
+$file =~ s/([A-Z]\.) ?([A-Z]\.)/$1$thin_space$2/g;
+$file =~ s/([A-Z]\.) ?([A-Z]\.)/$1$thin_space$2/g;
+$file =~ s/([0-9])'([ ,;:\.\?!])/$1$prime$2/g;
+$file =~ s/([0-9])"([ ,;:\.\?!])/$1$dblprime$2/g;
+$file =~ s/([0-9])(st|nd|rd|th)/$1<sup>$2<\/sup>/g;
+$file =~ s/([a-zA-Z])'([A-Za-z ])/$1$apos$2/g;
+$file =~ s/\.\.\./$ellipsis/g;
+
+# quotes
+$file =~ s/(<p>| |$mdash)"(['A-Z0-9a-z]|$mdash)/$1$ldquo$2/g;
+$file =~ s/([a-zA-Z\.\?!,;:0-9']|$mdash)"(<\/p>| |$mdash)/$1$rdquo$2/g;
+$file =~ s/<(meta|link) (.*)($ldquo|$rdquo|$dblprime)/<$1 $2"/g;
+$file =~ s/<(meta|link) (.*)($ldquo|$rdquo|$dblprime)/<$1 $2"/g;
+$file =~ s/<(meta|link) (.*)($ldquo|$rdquo|$dblprime)/<$1 $2"/g;
+$file =~ s/<(meta|link) (.*)($ldquo|$rdquo|$dblprime)/<$1 $2"/g;
+$file =~ s#    $ldquo(http://www\.manuel-strehl\.de/ebooks/static/ebook\.dtd">)#    "$1#g;
+$file =~ s#<\?xml version="1\.0$dblprime encoding="UTF-8$dblprime\?>#<?xml version="1.0" encoding="UTF-8"?>#;
+$file =~ s#<html xmlns="http://www.w3.org/1999/xhtml$rdquo#<html xmlns="http://www.w3.org/1999/xhtml"#;
+
+# first words not in upper case
+$file =~ s/<p>([A-Z])([A-Z]+)/"<p>$1".lc($2)/eg;
+
+# chapter divs and h2s corrected
+$file =~ s/<h2>\n    CHAPTER ([0-9]+)\n<\/h2>/        <h2 id="Chapter_$1">Chapter $1<\/h2>/g;
+$file =~ s/<a name="2HCH0[0-9]+"><!-- H2 anchor --><\/a>\n\n<div style="height: 4em;"><br><br><br><br><\/div>\n/      <\/div>\n      <div class="chapter">/g;
+$file =~ s/<a href="#2HCH0+([0-9]+)">/<a href="Chapter_$1">/g;
+
+# indent paragraphs
+$file =~ s/<p>/        <p>/g;
+
+open(FIL, ">".$ARGV[0].".new");
+print FIL $file;
+close(FIL);
+
