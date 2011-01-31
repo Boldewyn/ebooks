@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@import url(http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bold);
+@xmport url(http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bold);
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -34,7 +34,7 @@ html {
 }
 
 body {
-  font: 100%/1.25em "Crimson Text",serif;
+  font: 100%/1.25em Crimson,"Crimson Text",serif;
   font-size-adjust: .42;
   color: #222;
   background: #FDFDFD;
@@ -186,6 +186,24 @@ del {
   x-background: url(baseline.png);
 }
 
+@media (max-height: 31.25em) {
+  .book {
+    padding-top: 3.125em;
+  }
+}
+
+@media (max-width: 64em) {
+  .book {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 52em) {
+  .book {
+    margin-right: 0;
+  }
+}
+
 .book:after {
   content: "\2766";
   display: block;
@@ -193,12 +211,6 @@ del {
   font-size: 4em;
   color: #ccc;
   margin: 1.25em 0 0;
-}
-
-@media (max-height: 31.25em) {
-  .book {
-    padding-top: 3.125em;
-  }
 }
 
 .book header,
@@ -429,7 +441,7 @@ del {
   text-indent: 0;
 }
 
-@media (max-width: 64em) {
+@media (max-width: 52em) {
   .book .footnote-body {
     margin: 1.42857em 0 1.42857em 1.42857em;
     padding-left: 1.35614em;
