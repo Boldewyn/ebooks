@@ -33,6 +33,18 @@
   margin-right: .1875em;
 }
 
+#__display a:hover,
+#__display a:focus {
+  color: #fff;
+  background: #999;
+}
+
+#__display a.cur {
+  display: block;
+  width: auto;
+  text-align: left;
+}
+
 #__messages {
   width: 100%;
   position: fixed;

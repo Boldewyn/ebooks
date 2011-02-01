@@ -6,11 +6,15 @@ jQuery(function ($) {
       chapter = undefined, section = undefined;
   var display = $('<div id="__display"></div>');
 
-  var bookmark = $('<a class="bookmark-set" title="Jump to bookmark" href="#">\u00B6</a>')
+  var bookmark = $('<a class="bookmark" title="Jump to bookmark" href="#">\u00B6</a>')
                   .click(jump_to_bookmark).appendTo(display)
                   .mouseenter(function(){
                     $(this).data('pulse_stop', true);
                   });
+
+  var home_button = $('<a class="home" title="Go to start" href="#">\u21B8</a>')
+                     .click(function () { $('html, body').animate({'scrollTop': 0}, 1000); })
+                     .appendTo(display);
 
   var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="bookmark" title="current bookmark" />');
 
@@ -42,6 +46,17 @@ jQuery(function ($) {
   };
 
   /**
+   * Return the basename of a path
+   */
+  function basename(path) {
+    if (path === undefined) {
+      path = window.location.pathname;
+    }
+    var t = path.split("/");
+    return t[t.length - 1];
+  };
+
+  /**
    * Convert ems to px in the context of a certain element
    */
   function em2px(em, ctx) {
@@ -70,9 +85,11 @@ jQuery(function ($) {
    * Get the position if the bookmark
    */
   function get_bookmark() {
-    var c = document.cookie;
-    if (c.indexOf('bookmark=') > -1) {
-      c = parseFloat(c.replace(/(^|.*;)bookmark=([^;]*)($|;.*)/, '$2'));
+    if (bookmark_exists()) {
+      var c = parseFloat(document.cookie.replace(
+                new RegExp('(^|.*;\\s*)bookmark_'+
+                           basename().replace(/[.?()\[\]()]/, '\\$&')+
+                           '=([^;]*)($|\\s*;.*)'), '$2'));
       if (! isNaN(c)) {
         return c;
       }
@@ -84,7 +101,7 @@ jQuery(function ($) {
    *
    */
   function bookmark_exists() {
-    return (document.cookie.indexOf('bookmark=') > -1);
+    return (document.cookie.indexOf('bookmark_'+basename()+'=') > -1);
   };
 
   /**
@@ -96,7 +113,7 @@ jQuery(function ($) {
     if (isNaN(height)) {
       height = $html.scrollTop();
     }
-    document.cookie = 'bookmark='+height+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
+    document.cookie = 'bookmark_'+basename()+'='+height+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
     new Message('Bookmark set.');
     bm_indicator.css('top', get_bookmark());
     return false;
@@ -122,7 +139,7 @@ jQuery(function ($) {
     var name = $('<a class="cur" href="#" title="">\u2192</a>'),
         prev = $('<a class="prev" href="#" title="">\u2191</a>');
         next = $('<a class="next" href="#" title="">\u2193</a>');
-    display.append(prev).append(name).append(next);
+    display.append(prev).append(next).append(name);
     window.setInterval(function () {
       if (didScroll) {
         didScroll = false;
@@ -152,7 +169,9 @@ jQuery(function ($) {
                   co[i][0].attr('id', '__chapter_'+(1+i));
                   id = '__chapter_'+(1+i);
                 }
-                name.attr('href', '#'+id).attr('title', "Chapter start: "+chapter.find('h2:eq(0)').text());
+                var cur_title = chapter.find('h2:eq(0)').text();
+                name.text("\u2192 "+cur_title).attr('href', '#'+id)
+                    .attr('title', "Chapter start: "+cur_title);
                 if (i > 0) {
                   id = co[i-1][0].attr('id');
                   if (! id) {
@@ -207,6 +226,19 @@ jQuery(function ($) {
   $(window).unload(function () {
     if (! bookmark_exists()) {
       set_bookmark();
+    }
+  });
+
+  /**
+   * Smooth scrolling away from the table of contents
+   */
+  $('#Table_of_Contents a').click(function () {
+    var v = $(this).attr("href");
+    if (v.substr(0, 1) === "#" && $(v).length > 0) {
+      $('html, body').animate({'scrollTop': $(v).offset().top}, 1000, function () {
+        window.location.hash = v;
+      });
+      return false;
     }
   });
 });
