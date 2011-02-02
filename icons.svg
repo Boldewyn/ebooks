@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="9.0344828"
-     inkscape:cx="41.723282"
-     inkscape:cy="-5.1450382"
+     inkscape:zoom="11.313708"
+     inkscape:cx="58.349778"
+     inkscape:cy="9.3862612"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -81,5 +81,89 @@
        d="m 32,8 16,-8 -4,8 4,8 z"
        id="path2994"
        inkscape:connector-curvature="0" />
+    <path
+       sodipodi:type="arc"
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path2997"
+       sodipodi:cx="49"
+       sodipodi:cy="1"
+       sodipodi:rx="1"
+       sodipodi:ry="1"
+       d="m 50,1 a 1,1 0 1 1 -2,0 1,1 0 1 1 2,0 z" />
+    <rect
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2999"
+       width="13"
+       height="2"
+       x="51"
+       y="0" />
+    <path
+       transform="translate(6,9)"
+       sodipodi:type="arc"
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path2997-6"
+       sodipodi:cx="49"
+       sodipodi:cy="1"
+       sodipodi:rx="1"
+       sodipodi:ry="1"
+       d="m 50,1 a 1,1 0 1 1 -2,0 1,1 0 1 1 2,0 z" />
+    <rect
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2999-8"
+       width="7"
+       height="2"
+       x="57"
+       y="9" />
+    <path
+       transform="translate(0,12)"
+       sodipodi:type="arc"
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path2997-6-0"
+       sodipodi:cx="49"
+       sodipodi:cy="1"
+       sodipodi:rx="1"
+       sodipodi:ry="1"
+       d="m 50,1 a 1,1 0 1 1 -2,0 1,1 0 1 1 2,0 z" />
+    <rect
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2999-8-2"
+       width="13"
+       height="2"
+       x="51"
+       y="12" />
+    <path
+       transform="translate(3,3)"
+       sodipodi:type="arc"
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path2997-6-1"
+       sodipodi:cx="49"
+       sodipodi:cy="1"
+       sodipodi:rx="1"
+       sodipodi:ry="1"
+       d="m 50,1 a 1,1 0 1 1 -2,0 1,1 0 1 1 2,0 z" />
+    <rect
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2999-8-0"
+       width="10"
+       height="2"
+       x="54"
+       y="3" />
+    <path
+       transform="translate(3,6)"
+       sodipodi:type="arc"
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="path2997-6-1-2"
+       sodipodi:cx="49"
+       sodipodi:cy="1"
+       sodipodi:rx="1"
+       sodipodi:ry="1"
+       d="m 50,1 a 1,1 0 1 1 -2,0 1,1 0 1 1 2,0 z" />
+    <rect
+       style="color:#000000;fill:#ac9393;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2999-8-0-5"
+       width="10"
+       height="2"
+       x="54"
+       y="6" />
   </g>
 </svg>
