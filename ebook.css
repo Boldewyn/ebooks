@@ -204,6 +204,15 @@ del {
   }
 }
 
+.full-width .book {
+  max-width: none;
+  line-height: 1.5em;
+}
+
+.sans-serif .book {
+  font-family: "DejaVu Sans", "Bitstream Vera Sans", Helvetica, "Segoe UI", Arial, sans-serif;
+}
+
 .book:after {
   content: "\2766";
   display: block;
