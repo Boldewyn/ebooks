@@ -23,20 +23,52 @@ jQuery(function ($) {
   var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="'+
                        _('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
-  var config = $('<div id="__config" class="__modal"><div><h3>'+_('Settings')+'</h3></div></div>').hide()
-                .appendTo('body').click(function () { $(this).fadeOut(); });
-  $('div', config).click(function (e) { e.stopPropagation(); });
+  var config = new Modal('config', _('Settings'), $('<p></p>'));
   var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
                         '" title="'+_('settings')+'" />')
-  .click(function () {
-    config.fadeIn();
-  }).appendTo($('body'));
+      .click(function () {
+        config.show();
+      }).appendTo($('body'));
 
+  var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol').clone(false).find('a').click(function () {
+      toc.hide();
+    }).end());
   var toc_opener = $('<img class="__ctrl" style="right:76px" src="toc.png" alt="'+_('show contents')+
                         '" title="'+_('show contents')+'" />')
-  .click(function () {
-    var toc = $('<div id="__toc" class="__modal""><div><h3>Contents</h3></div></div>');
-  }).appendTo($('body'));
+      .click(function () {
+        toc.show();
+      }).appendTo($('body'));
+
+  /**
+   * Modal window
+   */
+  function Modal(id, title, $content) {
+    var that = this;
+    this.frame = $('<div id="__'+id+'" class="__modal""><div><h3>'+title+'</h3></div></div>')
+              .children('div:eq(0)').append($content).end().hide()
+              .bind('click', function (e) { if (e.target === this) { that.hide(); } });
+    this.frame.prepend($('<a href="#" title="'+_('close window')+'" class="__modal_close">X</a>')
+                       .click(function () { that.hide(); }));
+    this.show = function () {
+      that.frame
+        .appendTo($('body')).fadeIn()
+        .find('a.__modal_close').attr('tabindex', '0'); };
+    this.hide = function () {
+      that.frame
+        .fadeOut()
+        .find('a.__modal_close').removeAttr('tabindex');
+    };
+    this.destroy = function () {
+      that.frame
+        .find('a.__modal_close').removeAttr('tabindex').end()
+        .fadeOut(function () {
+          that.frame.remove();
+          that.frame = undefined;
+          that = undefined;
+        });
+    };
+    return this;
+  };
 
   /**
    * Unobstrusive messaging system
@@ -52,6 +84,7 @@ jQuery(function ($) {
       .fadeIn('slow').delay(2000).fadeOut('slow', function () {
         $(this).remove();
       });
+    return this;
   };
 
   /**
@@ -104,7 +137,7 @@ jQuery(function ($) {
    * Scroll the view to the bookmark position
    */
   function jump_to_bookmark() {
-    $('html, body').animate({'scrollTop': get_bookmark()}, 1000);
+    $('html, body').animate({'scrollTop': get_bookmark().offset().top}, 1000);
     return false;
   };
 
@@ -113,15 +146,15 @@ jQuery(function ($) {
    */
   function get_bookmark() {
     if (bookmark_exists()) {
-      var c = parseFloat(document.cookie.replace(
+      var c = parseInt(document.cookie.replace(
                 new RegExp('(^|.*;\\s*)bookmark_'+
                            basename().replace(/[.?()\[\]()]/, '\\$&')+
                            '=([^;]*)($|\\s*;.*)'), '$2'));
       if (! isNaN(c)) {
-        return c;
+        return $('*:eq('+c+')', $('.book'));
       }
     }
-    return $html.scrollTop();
+    return $('.book');
   };
 
   /**
@@ -133,16 +166,27 @@ jQuery(function ($) {
 
   /**
    * Set the bookmark
-   *
-   * @TODO: Doesn't survive window size changes
    */
   function set_bookmark(height) {
     if (isNaN(height)) {
       height = $html.scrollTop();
     }
-    document.cookie = 'bookmark_'+basename()+'='+height+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
+    var el, off, index = 0, best_index = 0, diff = height;
+    $('*', $('.book')).each(function () {
+      off = $(this).offset().top;
+      if (off > height) {
+        if (off - height < diff) {
+          el = $(this);
+          best_index = index;
+          diff = el.offset().top - height;
+        }
+      }
+      index++;
+    });
+    document.cookie = 'bookmark_'+basename()+'='+best_index+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
     new Message(_('Bookmark successfully set.'));
-    bm_indicator.css('top', get_bookmark());
+    $('body').append(bm_indicator);
+    bm_indicator.css('top', get_bookmark().offset().top+'px');
     return false;
   };
 
@@ -172,7 +216,7 @@ jQuery(function ($) {
     window.setInterval(function () {
       if (! settings.hide_display && didScroll) {
         didScroll = false;
-        var found = false, id;
+        var found = false, opacity = 1, id;
         var pos = $html.scrollTop()+scroll_var;
         for (var i = 0; i < co.length; i++) {
           if (pos >= co[i][1]) {
@@ -183,11 +227,9 @@ jQuery(function ($) {
 
               // between sections fade me out
               if (pos < co[i][1] + hide_var) {
-                display.css('opacity', Math.max(0.1, (pos-co[i][1])/hide_var));
+                opacity = Math.max(0.1, (pos-co[i][1])/hide_var);
               } else if (co.length > 1+i && pos > co[1+i][1]-hide_var) {
-                display.css('opacity', Math.max(0.1, (co[1+i][1]-pos)/hide_var));
-              } else {
-                display.css('opacity', 1);
+                opacity = Math.max(0.1, (co[1+i][1]-pos)/hide_var);
               }
 
               // if the chapter has changed since last time, update display
@@ -229,9 +271,9 @@ jQuery(function ($) {
 
         // hide the display, if we're not in a chapter
         if (found === false) {
-          display.hide();
+          display.css('opacity', 0.1).find('.prev, .cur, .next').hide();
         } else {
-          display.show();
+          display.css('opacity', opacity).find('.prev, .cur, .next').show();
         }
       }
     }, 100);
@@ -246,7 +288,7 @@ jQuery(function ($) {
     if (bookmark_exists()) {
       _pulse(bookmark);
       $('body').append(bm_indicator);
-      bm_indicator.css('top', get_bookmark());
+      bm_indicator.css('top', get_bookmark().offse().top+"px");
     }
   });
   if (__hasLoaded) {
