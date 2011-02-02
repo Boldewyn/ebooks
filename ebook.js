@@ -288,7 +288,7 @@ jQuery(function ($) {
     if (bookmark_exists()) {
       _pulse(bookmark);
       $('body').append(bm_indicator);
-      bm_indicator.css('top', get_bookmark().offse().top+"px");
+      bm_indicator.css('top', get_bookmark().offset().top+"px");
     }
   });
   if (__hasLoaded) {
@@ -299,6 +299,10 @@ jQuery(function ($) {
     if (! bookmark_exists()) {
       set_bookmark();
     }
+  });
+
+  $(window).resize(function () {
+    update_offsets();
   });
 
   /**
