@@ -45,7 +45,11 @@
   text-align: left;
 }
 
+
+
+
 #__messages {
+  z-index: 1000;
   width: 100%;
   position: fixed;
   top: 0;
@@ -60,4 +64,43 @@
 #__messages li {
   background: #3C3B37;
   color: #F2F1F0;
+}
+
+
+
+.__ctrl {
+  cursor: pointer;
+  padding: 4px;
+  position: fixed;
+  top: 10px;
+}
+.__ctrl:hover {
+  background: #ff9;
+}
+
+
+
+.__modal {
+  z-index: 800;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(60, 59, 55, .5);
+}
+
+.__modal div {
+  background: white;
+  width: 800px;
+  padding: 10px;
+  border: 5px solid rgb(60, 59, 55);
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-left: -415px;
 }

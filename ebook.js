@@ -2,21 +2,41 @@ var __hasLoaded = false;
 jQuery(window).load(function () { __hasLoaded = true; });
 jQuery(function ($) {
 
+  var settings = {
+    'hide_display': false
+  };
+
   var co = [], didScroll = true, $html = $('html'),
-      chapter = undefined, section = undefined;
+      chapter = undefined;
   var display = $('<div id="__display"></div>');
 
-  var bookmark = $('<a class="bookmark" title="Jump to bookmark" href="#">\u00B6</a>')
+  var bookmark = $('<a class="bookmark" title="'+_('Jump to bookmark')+'" href="#">\u00B6</a>')
                   .click(jump_to_bookmark).appendTo(display)
                   .mouseenter(function(){
                     $(this).data('pulse_stop', true);
                   });
 
-  var home_button = $('<a class="home" title="Go to start" href="#">\u21B8</a>')
+  var home_button = $('<a class="home" title="'+_('Go to start')+'" href="#">\u21B8</a>')
                      .click(function () { $('html, body').animate({'scrollTop': 0}, 1000); })
                      .appendTo(display);
 
-  var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="bookmark" title="current bookmark" />');
+  var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="'+
+                       _('current bookmark')+'" title="'+_('current bookmark')+'" />');
+
+  var config = $('<div id="__config" class="__modal"><div><h3>'+_('Settings')+'</h3></div></div>').hide()
+                .appendTo('body').click(function () { $(this).fadeOut(); });
+  $('div', config).click(function (e) { e.stopPropagation(); });
+  var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
+                        '" title="'+_('settings')+'" />')
+  .click(function () {
+    config.fadeIn();
+  }).appendTo($('body'));
+
+  var toc_opener = $('<img class="__ctrl" style="right:76px" src="toc.png" alt="'+_('show contents')+
+                        '" title="'+_('show contents')+'" />')
+  .click(function () {
+    var toc = $('<div id="__toc" class="__modal""><div><h3>Contents</h3></div></div>');
+  }).appendTo($('body'));
 
   /**
    * Unobstrusive messaging system
@@ -35,7 +55,14 @@ jQuery(function ($) {
   };
 
   /**
+   * i18n stub
+   */
+  function _(s) { return s; }
+
+  /**
+   * Add a pulsing effect to element a
    *
+   * Stops, when the 'pulse_stop' data item is set.
    */
   function _pulse(a) {
     a.delay(2000).fadeOut('slow').fadeIn('slow', function() {
@@ -98,7 +125,7 @@ jQuery(function ($) {
   };
 
   /**
-   *
+   * Check, if the user has already set the bookmark
    */
   function bookmark_exists() {
     return (document.cookie.indexOf('bookmark_'+basename()+'=') > -1);
@@ -114,7 +141,7 @@ jQuery(function ($) {
       height = $html.scrollTop();
     }
     document.cookie = 'bookmark_'+basename()+'='+height+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
-    new Message('Bookmark set.');
+    new Message(_('Bookmark successfully set.'));
     bm_indicator.css('top', get_bookmark());
     return false;
   };
@@ -134,14 +161,16 @@ jQuery(function ($) {
     var scroll_var = em2px(5); // switch display 5em above a chapter
     var hide_var = em2px(20); // do the "hide me-show me" trick in +/- this area around a section
     $('body').append(display);
-    display.show();
+    if (! settings.hide_display) {
+      display.show();
+    }
     update_offsets();
     var name = $('<a class="cur" href="#" title="">\u2192</a>'),
         prev = $('<a class="prev" href="#" title="">\u2191</a>');
         next = $('<a class="next" href="#" title="">\u2193</a>');
     display.append(prev).append(next).append(name);
     window.setInterval(function () {
-      if (didScroll) {
+      if (! settings.hide_display && didScroll) {
         didScroll = false;
         var found = false, id;
         var pos = $html.scrollTop()+scroll_var;
@@ -171,14 +200,14 @@ jQuery(function ($) {
                 }
                 var cur_title = chapter.find('h2:eq(0)').text();
                 name.text("\u2192 "+cur_title).attr('href', '#'+id)
-                    .attr('title', "Chapter start: "+cur_title);
+                    .attr('title', _("Chapter start: ")+cur_title);
                 if (i > 0) {
                   id = co[i-1][0].attr('id');
                   if (! id) {
                     co[i-1][0].attr('id', '__chapter_'+i);
                     id = '__chapter_'+i;
                   }
-                  prev.show().attr('href', '#'+id).attr('title', "Previous chapter: "+co[i-1][0].find('h2:eq(0)').text());
+                  prev.show().attr('href', '#'+id).attr('title', _("Previous chapter: ")+co[i-1][0].find('h2:eq(0)').text());
                 } else {
                   prev.hide();
                 }
@@ -188,7 +217,7 @@ jQuery(function ($) {
                     co[i+1][0].attr('id', '__chapter_'+(i+2));
                     id = '__chapter_'+(i+2);
                   }
-                  next.show().attr('href', '#'+id).attr('title', "Next chapter: "+co[i+1][0].find('h2:eq(0)').text());
+                  next.show().attr('href', '#'+id).attr('title', _("Next chapter: ")+co[i+1][0].find('h2:eq(0)').text());
                 } else {
                   next.hide();
                 }
@@ -207,8 +236,9 @@ jQuery(function ($) {
       }
     }, 100);
 
-    var bm_setter = $('<img style="position:fixed;top:10px;right:16px" \
-          src="bookmark.png" alt="set bookmark" title="set bookmark" />')
+    var bm_setter = $('<img class="__ctrl" style="right:16px" '+
+                      'src="bookmark.png" alt="'+_('set bookmark')+
+                      '" title="'+_('set bookmark')+'" />')
     .click(function () {
       set_bookmark();
     }).appendTo($('body'));
