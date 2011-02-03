@@ -7,8 +7,10 @@ jQuery(function ($) {
     '__hide_display': function () {
       settings.hide_display = !settings.hide_display;
       if (settings.hide_display) {
+        document.cookie = "ebook_hide_display=1";
         display.hide();
       } else {
+        document.cookie = "ebook_hide_display=0";
         display.show();
       }
     },
@@ -20,36 +22,53 @@ jQuery(function ($) {
           return Math.max(parseFloat(value) - 2, 6);
         });
       } else if (mode === "__cfg_fs_std") {
-        $('html').css('font-size', '100%');
         settings.font_size = '100%';
+        $('html').css('font-size', '100%');
       } else {
         $('html').css('font-size', function(index, value) {
           settings.font_size = Math.min(parseFloat(value) + 2, 48);
           return Math.min(parseFloat(value) + 2, 48);
         });
       }
+      document.cookie = 'ebook_font_size='+settings.font_size;
       update_offsets();
-      window.location.hash = "#__fs"+Math.random();
     },
     'full_width': false,
     '__full_width': function () {
-       settings.full_width = !settings.full_width;
-       if (settings.full_width) {
-          $('body').addClass('full-width');
+      settings.full_width = !settings.full_width;
+      if (settings.full_width) {
+        document.cookie = "ebook_full_width=1";
+        $('body').addClass('full-width');
       } else {
-          $('body').removeClass('full-width');
+        document.cookie = "ebook_full_width=0";
+        $('body').removeClass('full-width');
       }
     },
     'sans_serif': false,
     '__sans_serif': function () {
-       settings.sans_serif = !settings.sans_serif;
-       if (settings.sans_serif) {
-          $('body').addClass('sans-serif');
+      settings.sans_serif = !settings.sans_serif;
+      if (settings.sans_serif) {
+        document.cookie = "ebook_sans_serif=1";
+        $('body').addClass('sans-serif');
       } else {
-          $('body').removeClass('sans-serif');
+        document.cookie = "ebook_sans_serif=0";
+        $('body').removeClass('sans-serif');
       }
     }
   };
+  if (document.cookie.indexOf('ebook_sans_serif=1') > -1) {
+    settings.__sans_serif();
+  }
+  if (document.cookie.indexOf('ebook_full_width=1') > -1) {
+    settings.__full_width();
+  }
+  if (document.cookie.indexOf('ebook_hide_display=1') > -1) {
+    settings.__hide_display();
+  }
+  if (document.cookie.indexOf('ebook_font_size=') > -1) {
+    settings.font_size = document.cookie.replace(/.*ebook_font_size=([^;]*).*/, '$1');
+    $('html').css('font-size', settings.font_size);
+  }
 
   var co = [], didScroll = true, $html = $('html'),
       chapter = undefined;
@@ -187,6 +206,7 @@ jQuery(function ($) {
    * Set the offsets of chapters
    */
   function update_offsets() {
+    co = [];
     $('.book > section:not(#Table_of_Contents)').each(function () {
       co.push([$(this), $(this).offset().top, $(this).innerHeight()]);
     });

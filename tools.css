@@ -40,7 +40,7 @@
     padding: .1875em;
     left: 0;
     top: 0;
-    background: rgba(255, 255, 255, .8);
+    background: rgba(255, 255, 255, .9);
     -moz-border-radius-bottomright: 1.25em;
     border-bottom-right-radius: 1.25em;
   }
@@ -48,6 +48,21 @@
   #__display a.cur {
     display: none;
   }
+}
+
+.full-width #__display {
+  margin-left: 0;
+  padding: .1875em;
+  left: 0;
+  top: 0;
+  background: rgba(255,255,255,.9);
+  -moz-border-radius-bottomright: 1.25em;
+  border-bottom-right-radius: 1.25em;
+  width: 28.2%;
+}
+
+.full-width #__display a.cur {
+  display: inline-block;
 }
 
 
