@@ -3,7 +3,52 @@ jQuery(window).load(function () { __hasLoaded = true; });
 jQuery(function ($) {
 
   var settings = {
-    'hide_display': false
+    'hide_display': false,
+    '__hide_display': function () {
+      settings.hide_display = !settings.hide_display;
+      if (settings.hide_display) {
+        display.hide();
+      } else {
+        display.show();
+      }
+    },
+    'font_size': '100%',
+    '__font_size': function (mode) {
+      if (mode === "__cfg_fs_dwn") {
+        $('html').css('font-size', function(index, value) {
+          settings.font_size = Math.max(parseFloat(value) - 2, 6);
+          return Math.max(parseFloat(value) - 2, 6);
+        });
+      } else if (mode === "__cfg_fs_std") {
+        $('html').css('font-size', '100%');
+        settings.font_size = '100%';
+      } else {
+        $('html').css('font-size', function(index, value) {
+          settings.font_size = Math.min(parseFloat(value) + 2, 48);
+          return Math.min(parseFloat(value) + 2, 48);
+        });
+      }
+      update_offsets();
+      window.location.hash = "#__fs"+Math.random();
+    },
+    'full_width': false,
+    '__full_width': function () {
+       settings.full_width = !settings.full_width;
+       if (settings.full_width) {
+          $('body').addClass('full-width');
+      } else {
+          $('body').removeClass('full-width');
+      }
+    },
+    'sans_serif': false,
+    '__sans_serif': function () {
+       settings.sans_serif = !settings.sans_serif;
+       if (settings.sans_serif) {
+          $('body').addClass('sans-serif');
+      } else {
+          $('body').removeClass('sans-serif');
+      }
+    }
   };
 
   var co = [], didScroll = true, $html = $('html'),
@@ -25,52 +70,18 @@ jQuery(function ($) {
 
   // TODO: make config persistent
   var config_content = $('<section></section>');
-  config_content.append($('<p><input type="checkbox" id="__cfg_full" /> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
-      .find('input').change(function () {
-        if (this.checked) {
-          $('body').addClass('full-width');
-        } else {
-          $('body').removeClass('full-width');
-        }
-      }).end()
-  ).append($('<p><input type="checkbox" id="__cfg_sans" /> <label for="__cfg_sans">'+_('View in sans-serif font')+'</label></p>')
-      .find('input').change(function () {
-        if (this.checked) {
-          $('body').addClass('sans-serif');
-        } else {
-          $('body').removeClass('sans-serif');
-        }
-      }).end()
-  ).append($('<p><input type="checkbox" id="__cfg_hide_dspl" /> <label for="__cfg_hide_dspl">'+_('Hide the quick navigation')+'</label></p>')
-      .find('input').change(function () {
-        if (this.checked) {
-          display.hide();
-          settings.hide_dialog = true;
-        } else {
-          display.show();
-          settings.hide_dialog = false;
-        }
-      }).end()
+  config_content.append($('<p><input type="checkbox" id="__cfg_full" '+(settings.full_width?'checked="checked"':'')+'/> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
+      .find('input').change(settings.__full_width).end()
+  ).append($('<p><input type="checkbox" id="__cfg_sans" '+(settings.sans_serif?'checked="checked"':'')+'/> <label for="__cfg_sans">'+_('View in sans-serif font')+'</label></p>')
+      .find('input').change(settings.__sans_serif).end()
+  ).append($('<p><input type="checkbox" id="__cfg_hide_dspl" '+(settings.hide_display?'checked="checked"':'')+'/> <label for="__cfg_hide_dspl">'+_('Hide the quick navigation')+'</label></p>')
+      .find('input').change(settings.__hide_display).end()
   ).append($('<p>'+_('Font size:')+' <button type="button" id="__cfg_fs_dwn">\u25BC</button> '+
-                                    '<button type="button" id="__cfg_fs_std">\u25D9</button> '+
+                                    '<button type="button" id="__cfg_fs_std">\u25CF</button> '+
                                     '<button type="button" id="__cfg_fs_up">\u25B2</button></p>')
-    .find('button').click(function () {
-      if (this.getAttribute("id") === "__cfg_fs_dwn") {
-        $('.book').css('font-size', function(index, value) {
-          return Math.max(parseFloat(value) - 2, 6);
-        });
-        } else if (this.getAttribute("id") === "__cfg_fs_std") {
-        $('.book').css('font-size', 'inherit');
-      } else {
-        $('.book').css('font-size', function(index, value) {
-          return Math.min(parseFloat(value) + 2, 48);
-        });
-      }
-    }).end()
+    .find('button').click(function () { settings.__font_size(this.getAttribute("id")); }).end()
   ).append($('<p><button type="button">'+_('Exit')+'</button></p>')
-    .find('button').click(function () {
-      $(this).closest('.__modal').data('__modal').hide();
-    }).end());
+    .find('button').click(function () { $(this).closest('.__modal').data('__modal').hide(); }).end());
   var config = new Modal('config', _('Settings'), config_content);
   var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
                         '" title="'+_('settings')+'" />')
