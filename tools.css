@@ -6,6 +6,7 @@
   margin-left: -31.25em;
   width: 10em;
   color:#999;
+  text-align: right;
 }
 
 #__display:hover {
@@ -30,7 +31,7 @@
 #__display a.cur {
   display: block;
   width: auto;
-  text-align: left;
+  text-align: right;
 }
 
 @media (max-width: 64em) {
@@ -166,4 +167,8 @@
 
 .__modal li {
   margin-left: 1.25em;
+}
+
+.__modal p {
+  margin-bottom: .625em;
 }

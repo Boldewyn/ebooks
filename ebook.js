@@ -23,7 +23,51 @@ jQuery(function ($) {
   var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="'+
                        _('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
-  var config = new Modal('config', _('Settings'), $('<p></p>'));
+  var config_content = $('<section></section>');
+  config_content.append($('<p><input type="checkbox" id="__cfg_full" /> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
+      .find('input').change(function () {
+        if (this.checked) {
+          $('body').addClass('full-width');
+        } else {
+          $('body').removeClass('full-width');
+        }
+      }).end()
+  ).append($('<p><input type="checkbox" id="__cfg_sans" /> <label for="__cfg_sans">'+_('View in sans-serif font')+'</label></p>')
+      .find('input').change(function () {
+        if (this.checked) {
+          $('body').addClass('sans-serif');
+        } else {
+          $('body').removeClass('sans-serif');
+        }
+      }).end()
+  ).append($('<p><input type="checkbox" id="__cfg_hide_dspl" /> <label for="__cfg_hide_dspl">'+_('Hide the quick navigation')+'</label></p>')
+      .find('input').change(function () {
+        if (this.checked) {
+          display.hide();
+          settings.hide_dialog = true;
+        } else {
+          display.show();
+          settings.hide_dialog = false;
+        }
+      }).end()
+  ).append($('<p>'+_('Font size:')+' <button type="button" id="__cfg_fs_dwn">\u25BC</button> '+
+                                    '<button type="button" id="__cfg_fs_std">\u25D9</button> '+
+                                    '<button type="button" id="__cfg_fs_up">\u25B2</button></p>')
+    .find('button').click(function () {
+      if (this.getAttribute("id") === "__cfg_fs_dwn") {
+        $('.book').css('font-size', function(index, value) {
+          return Math.max(parseFloat(value) - 2, 6);
+        });
+        } else if (this.getAttribute("id") === "__cfg_fs_std") {
+        $('.book').css('font-size', 'inherit');
+      } else {
+        $('.book').css('font-size', function(index, value) {
+          return Math.min(parseFloat(value) + 2, 48);
+        });
+      }
+    }).end()
+  );
+  var config = new Modal('config', _('Settings'), config_content);
   var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
                         '" title="'+_('settings')+'" />')
       .click(function () {
@@ -48,7 +92,7 @@ jQuery(function ($) {
               .children('div:eq(0)').append($content).end().hide()
               .bind('click', function (e) { if (e.target === this) { that.hide(); } });
     this.frame.prepend($('<a href="#" title="'+_('close window')+'" class="__modal_close">X</a>')
-                       .click(function () { that.hide(); }));
+                       .click(function () { that.hide(); return false; }));
     this.show = function () {
       that.frame
         .appendTo($('body')).fadeIn()
@@ -151,7 +195,10 @@ jQuery(function ($) {
                            basename().replace(/[.?()\[\]()]/, '\\$&')+
                            '=([^;]*)($|\\s*;.*)'), '$2'));
       if (! isNaN(c)) {
-        return $('*:eq('+c+')', $('.book'));
+        c = $('.book').find('*').eq(c);
+        if (c.length) {
+          return c;
+        }
       }
     }
     return $('.book');
