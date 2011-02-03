@@ -3,6 +3,7 @@ jQuery(window).load(function () { __hasLoaded = true; });
 jQuery(function ($) {
 
   var settings = {
+    '__bool': ['hide_display', 'full_width', 'sans_serif'],
     'hide_display': false,
     '__hide_display': function () {
       settings.hide_display = !settings.hide_display;
@@ -56,15 +57,11 @@ jQuery(function ($) {
       }
     }
   };
-  if (document.cookie.indexOf('ebook_sans_serif=1') > -1) {
-    settings.__sans_serif();
-  }
-  if (document.cookie.indexOf('ebook_full_width=1') > -1) {
-    settings.__full_width();
-  }
-  if (document.cookie.indexOf('ebook_hide_display=1') > -1) {
-    settings.__hide_display();
-  }
+  $.each(settings.__bool, function(i, x) {
+    if (document.cookie.indexOf('ebook_'+x+'=1') > -1) {
+      settings['__'+x]();
+    }
+  });
   if (document.cookie.indexOf('ebook_font_size=') > -1) {
     settings.font_size = document.cookie.replace(/.*ebook_font_size=([^;]*).*/, '$1');
     $('html').css('font-size', settings.font_size);
