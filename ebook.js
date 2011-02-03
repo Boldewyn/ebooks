@@ -23,6 +23,7 @@ jQuery(function ($) {
   var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="'+
                        _('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
+  // TODO: make config persistent
   var config_content = $('<section></section>');
   config_content.append($('<p><input type="checkbox" id="__cfg_full" /> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
       .find('input').change(function () {
@@ -66,7 +67,10 @@ jQuery(function ($) {
         });
       }
     }).end()
-  );
+  ).append($('<p><button type="button">'+_('Exit')+'</button></p>')
+    .find('button').click(function () {
+      $(this).closest('.__modal').data('__modal').hide();
+    }).end());
   var config = new Modal('config', _('Settings'), config_content);
   var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
                         '" title="'+_('settings')+'" />')
@@ -92,7 +96,7 @@ jQuery(function ($) {
               .children('div:eq(0)').append($content).end().hide()
               .bind('click', function (e) { if (e.target === this) { that.hide(); } });
     this.frame.prepend($('<a href="#" title="'+_('close window')+'" class="__modal_close">X</a>')
-                       .click(function () { that.hide(); return false; }));
+                       .click(function () { that.hide(); return false; })).data('__modal', that);
     this.show = function () {
       that.frame
         .appendTo($('body')).fadeIn()
