@@ -81,8 +81,9 @@ jQuery(function ($) {
                      .click(function () { $('html, body').animate({'scrollTop': 0}, 1000); })
                      .appendTo(display);
 
-  var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="here.png" alt="'+
-                       _('current bookmark')+'" title="'+_('current bookmark')+'" />');
+  var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="data:image/png;base64,'+
+                       'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACbSURBVDiNnZLBEcMgDAQXxn0ZWkhchopwES4jRdiNRfmEGSJbQHz/vVsxBFXlTl7bloA03QEjrAFmhTxcYEACHE+RvVtgwZI3rABugQdSrV8WtEC7/lMwAtp1gGkUvFoHiANMM3ER2R8iSSEHOLqAMQj2J5aTFGavRCEv33c4nTBiVFucDGw8o2LRfUTPqFh0DVpGCvnvgroISB9kz1/6dVLwMwAAAABJRU5ErkJggg=='+
+                       '" alt="'+_('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
   // TODO: make config persistent
   var config_content = $('<section></section>');
@@ -99,7 +100,9 @@ jQuery(function ($) {
   ).append($('<p><button type="button">'+_('Exit')+'</button></p>')
     .find('button').click(function () { $(this).closest('.__modal').data('__modal').hide(); }).end());
   var config = new Modal('config', _('Settings'), config_content);
-  var config_opener = $('<img class="__ctrl" style="right:46px" src="tool.png" alt="'+_('settings')+
+  var config_opener = $('<img class="__ctrl" style="right:46px" src="data:image/png;base64,'+
+                        'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEnSURBVDiNnZGxSgNBFEXPm6SIdULQSssIAVsrsbNcw/6Alm4ytjZapPADTCZYpbRzRexFsAn+gGhhY/ADTCUszLNINiSwWchONe/Cue9enqgqea/b7ZpmtWqBU2Bb4VXgIux0PgDKuTTQrNWGqJ6ks6j+hNZ+LsyrEzz0+/sqMpoLqrehtW1A48Hg5s/7K5O7XuRgAX5O4Xvneqieb4gc5lZQVUVk+heZPDm3laheisjZTKvkG8CXpGGglUArNQSSsshoZYXYuYaIDFa2g+sgisaZCWLnGsALsDmTJsA3sCPw7lV7obV3kHHGDPgXkaOw3X7LWrZUYV14yaAIPDcoCgOU9ur1XVUtBAMY9X5YFJ4aQKUoDFD23h+XjAlKxjwGUTReBwb4B+LUggpBuvHaAAAAAElFTkSuQmCC'+
+                        '" alt="'+_('settings')+
                         '" title="'+_('settings')+'" />')
       .click(function () {
         config.show();
@@ -108,7 +111,9 @@ jQuery(function ($) {
   var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol').clone(false).find('a').click(function () {
       toc.hide();
     }).end());
-  var toc_opener = $('<img class="__ctrl" style="right:76px" src="toc.png" alt="'+_('show contents')+
+  var toc_opener = $('<img class="__ctrl" style="right:76px" src="data:image/png;base64,'+
+                     'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABISURBVDiNY1wzefIOBgYGhuCcHI+1U6b8ZyARMJGqAR0w/v9PsqUogAWZs3bKFJK9M+oFansBGRDrnUHgBXJCHhkMvBcodgEArpUxNVDPcqwAAAAASUVORK5CYII='+
+                     '" alt="'+_('show contents')+
                         '" title="'+_('show contents')+'" />')
       .click(function () {
         toc.show();
@@ -358,8 +363,9 @@ jQuery(function ($) {
     }, 100);
 
     var bm_setter = $('<img class="__ctrl" style="right:16px" '+
-                      'src="bookmark.png" alt="'+_('set bookmark')+
-                      '" title="'+_('set bookmark')+'" />')
+                      'src="data:image/png;base64,'+
+                      'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACWSURBVDiN7ZNBCsIwEEVfpNS7uPcW3UmukIVtTtNewL1eJ0cJ2EW/C01pIYrRhRsfDExmJp+BzxhJAFyG4Z4sOHSdydVTD6DKFUvYlH74C/xY4PSIFVVmMEfY1vUR4DqOe2BXskGcJNs4Fxvn4iRZIL4tYKTWeh/S23ofjNTOA5KQxLnvlfKS+MiF5YF9bePKhWen+4obbQZdAg19UokAAAAASUVORK5CYII='+
+                      '" alt="'+_('set bookmark')+'" title="'+_('set bookmark')+'" />')
     .click(function () {
       set_bookmark();
     }).appendTo($('body'));
