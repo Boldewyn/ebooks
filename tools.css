@@ -58,11 +58,11 @@
   background: rgba(255,255,255,.9);
   -moz-border-radius-bottomright: 1.25em;
   border-bottom-right-radius: 1.25em;
-  width: 28.2%;
+  width: 1.25em;
 }
 
 .full-width #__display a.cur {
-  display: inline-block;
+  display: none;
 }
 
 
@@ -88,11 +88,19 @@
 
 
 
+#__ctrl_container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 96px;
+}
+.full-width #__ctrl_container {
+  width: 24px;
+}
 .__ctrl {
   cursor: pointer;
   padding: 4px;
-  position: fixed;
-  top: 10px;
+  background: white;
 }
 .__ctrl:hover {
   background: #ff9;

@@ -44,6 +44,7 @@ jQuery(function ($) {
         document.cookie = "ebook_full_width=0";
         $('body').removeClass('full-width');
       }
+      update_offsets();
     },
     'sans_serif': false,
     '__sans_serif': function () {
@@ -55,6 +56,7 @@ jQuery(function ($) {
         document.cookie = "ebook_sans_serif=0";
         $('body').removeClass('sans-serif');
       }
+      update_offsets();
     }
   };
   $.each(settings.__bool, function(i, x) {
@@ -70,11 +72,12 @@ jQuery(function ($) {
   var co = [], didScroll = true, $html = $('html'),
       chapter = undefined;
   var display = $('<div id="__display"></div>');
+  var ctrl_container = $('<div id="__ctrl_container"></div>').appendTo('body');
 
   var bookmark = $('<a class="bookmark" title="'+_('Jump to bookmark')+'" href="#">\u00B6</a>')
                   .click(jump_to_bookmark).appendTo(display)
                   .mouseenter(function(){
-                    $(this).data('pulse_stop', true);
+                    $(this).data('pulse_stop', true).stop(true, true).show();
                   });
 
   var home_button = $('<a class="home" title="'+_('Go to start')+'" href="#">\u21B8</a>')
@@ -103,7 +106,7 @@ jQuery(function ($) {
                         '" title="'+_('settings')+'" />')
       .click(function () {
         config.show();
-      }).appendTo($('body'));
+      }).appendTo(ctrl_container);
 
   var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol').clone(false).find('a').click(function () {
       toc.hide();
@@ -112,7 +115,7 @@ jQuery(function ($) {
                         '" title="'+_('show contents')+'" />')
       .click(function () {
         toc.show();
-      }).appendTo($('body'));
+      }).appendTo(ctrl_container);
 
   /**
    * Modal window
@@ -269,7 +272,8 @@ jQuery(function ($) {
     return false;
   };
 
-  $('head').append($('<link rel="stylesheet" href="tools.css">'));
+  $('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
+  $('<link rel="stylesheet" href="tools.css" />').appendTo('head');
 
   // if resized, update the offsets of chapters
   $(window).resize(update_offsets);
@@ -352,7 +356,10 @@ jQuery(function ($) {
         if (found === false) {
           display.css('opacity', 0.1).find('.prev, .cur, .next').hide();
         } else {
-          display.css('opacity', opacity).find('.prev, .cur, .next').show();
+          display.css('opacity', opacity).find('.prev, .next').show();
+          if (! settings.full_width) {
+            display.find('.cur').show();
+          }
         }
       }
     }, 100);
@@ -362,7 +369,7 @@ jQuery(function ($) {
                       '" title="'+_('set bookmark')+'" />')
     .click(function () {
       set_bookmark();
-    }).appendTo($('body'));
+    }).appendTo(ctrl_container);
 
     if (bookmark_exists()) {
       _pulse(bookmark);
@@ -378,10 +385,6 @@ jQuery(function ($) {
     if (! bookmark_exists()) {
       set_bookmark();
     }
-  });
-
-  $(window).resize(function () {
-    update_offsets();
   });
 
   /**
