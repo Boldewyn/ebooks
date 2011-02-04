@@ -402,4 +402,27 @@ jQuery(function ($) {
       return false;
     }
   });
+
+  $.extend($.easing, {
+    pgmove: function (x, t, b, c, d) {
+      return c*Math.sqrt(1-(t=t/d-1)*t)+b;
+    }
+  });
+  $(document).keydown(function (e) {
+    switch(e.which) {
+      case 33: //PgUp
+        $('html, body').animate({'scrollTop': $html.scrollTop()-$(window).height()+2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
+        return false;
+      case 34: //PgDwn
+        $('html, body').animate({'scrollTop': $html.scrollTop()+$(window).height()-2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
+        return false;
+      case 38: // ArrUp
+        $('html, body').animate({'scrollTop': $html.scrollTop()-3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
+        return false;
+      case 13: // Enter
+      case 40: // ArrDwn
+        $('html, body').animate({'scrollTop': $html.scrollTop()+3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
+        return false;
+    }
+  });
 });
