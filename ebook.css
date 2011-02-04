@@ -266,6 +266,11 @@ del {
   text-indent: 1.25em;
 }
 
+.book .letter_header + p + p,
+.book .article_header,
+.book .article_header + p,
+.book p.signature,
+.book p.postscriptum,
 .book .poem p,
 .book p.noindent {
   text-indent: 0;
@@ -346,6 +351,10 @@ del {
   line-height: 1.42857;
   margin: 1.42857em 0;
   display: table;
+}
+
+.book blockquote.centered {
+  display: block;
 }
 
 .book blockquote.centered p {
