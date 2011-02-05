@@ -410,18 +410,35 @@ jQuery(function ($) {
   });
   $(document).keydown(function (e) {
     switch(e.which) {
-      case 33: //PgUp
+      case 66: // b
+      case 33: // PgUp
+        if (e.which === 66 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
+          return true;
+        }
         $('html, body').animate({'scrollTop': $html.scrollTop()-$(window).height()+2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
         return false;
-      case 34: //PgDwn
+      case 70: // f
+      case 34: // PgDwn
+        if (e.which === 70 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
+          return true;
+        }
         $('html, body').animate({'scrollTop': $html.scrollTop()+$(window).height()-2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
         return false;
+      case 75: // k
       case 38: // ArrUp
         $('html, body').animate({'scrollTop': $html.scrollTop()-3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
         return false;
+      case 74: // j
       case 13: // Enter
+      case 32: // Space
       case 40: // ArrDwn
         $('html, body').animate({'scrollTop': $html.scrollTop()+3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
+        return false;
+      case 36: // Home
+        $('html, body').animate({'scrollTop': 0}, {'duration':750, 'easing':'pgmove'});
+        return false;
+      case 35: // End
+        $('html, body').animate({'scrollTop': $(document).height()}, {'duration':750, 'easing':'pgmove'});
         return false;
     }
   });
