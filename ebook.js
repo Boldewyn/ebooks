@@ -1,5 +1,42 @@
-var __hasLoaded = false;
-jQuery(window).load(function () { __hasLoaded = true; });
+
+
+/**
+ * Determine the scrolling element
+ *
+ * @see http://stackoverflow.com/questions/2837178
+ */
+var scrollElement = (function (tags) {
+  var el, $el;
+  while (el = tags.pop()) {
+    $el = $(el);
+    if ($el.scrollTop() > 0){
+      return $el;
+    } else if($el.scrollTop(1).scrollTop() > 0) {
+      return $el.scrollTop(0);
+    }
+  }
+  return $();
+})(["html", "body"]);
+
+
+/**
+ * Easing function ~ jquery.easing's easeOutCirc
+ */
+$.extend($.easing, {
+  pgmove: function (x, t, b, c, d) {
+    return c*Math.sqrt(1-(t=t/d-1)*t)+b;
+  }
+});
+
+/**
+ * Add styles and metadata
+ */
+$('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
+$('<link rel="stylesheet" href="tools.css" />').appendTo('head');
+
+/**
+ * Start onDOMReady
+ */
 jQuery(function ($) {
 
   var settings = {
@@ -20,7 +57,7 @@ jQuery(function ($) {
       if (mode === "__cfg_fs_dwn") {
         $('html').css('font-size', function(index, value) {
           settings.font_size = Math.max(parseFloat(value) - 2, 6);
-          return Math.max(parseFloat(value) - 2, 6);
+          return settings.font_size;
         });
       } else if (mode === "__cfg_fs_std") {
         settings.font_size = '100%';
@@ -28,7 +65,7 @@ jQuery(function ($) {
       } else {
         $('html').css('font-size', function(index, value) {
           settings.font_size = Math.min(parseFloat(value) + 2, 48);
-          return Math.min(parseFloat(value) + 2, 48);
+          return settings.font_size;
         });
       }
       document.cookie = 'ebook_font_size='+settings.font_size;
@@ -69,7 +106,7 @@ jQuery(function ($) {
     $('html').css('font-size', settings.font_size);
   }
 
-  var co = [], didScroll = true, $html = $('html'),
+  var co = [], didScroll = true;
       chapter = undefined;
   var display = $('<div id="__display"></div>');
   var ctrl_container = $('<div id="__ctrl_container"></div>').appendTo('body');
@@ -81,14 +118,13 @@ jQuery(function ($) {
                   });
 
   var home_button = $('<a class="home" title="'+_('Go to start')+'" href="#">\u21B8</a>')
-                     .click(function () { $('html, body').animate({'scrollTop': 0}, 1000); })
+                     .click(function () { scrollElement.animate({'scrollTop': 0}, 1000); })
                      .appendTo(display);
 
   var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="data:image/png;base64,'+
                        'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACbSURBVDiNnZLBEcMgDAQXxn0ZWkhchopwES4jRdiNRfmEGSJbQHz/vVsxBFXlTl7bloA03QEjrAFmhTxcYEACHE+RvVtgwZI3rABugQdSrV8WtEC7/lMwAtp1gGkUvFoHiANMM3ER2R8iSSEHOLqAMQj2J5aTFGavRCEv33c4nTBiVFucDGw8o2LRfUTPqFh0DVpGCvnvgroISB9kz1/6dVLwMwAAAABJRU5ErkJggg=='+
                        '" alt="'+_('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
-  // TODO: make config persistent
   var config_content = $('<section></section>');
   config_content.append($('<p><input type="checkbox" id="__cfg_full" '+(settings.full_width?'checked="checked"':'')+'/> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
       .find('input').change(settings.__full_width).end()
@@ -127,7 +163,7 @@ jQuery(function ($) {
    */
   function Modal(id, title, $content) {
     var that = this;
-    this.frame = $('<div id="__'+id+'" class="__modal""><div><h3>'+title+'</h3></div></div>')
+    this.frame = $('<div id="__'+id+'" class="__modal"><div class="__modal_payload"><h3>'+title+'</h3></div></div>')
               .children('div:eq(0)').append($content).end().hide()
               .bind('click', function (e) { if (e.target === this) { that.hide(); } });
     this.frame.prepend($('<a href="#" title="'+_('close window')+'" class="__modal_close">X</a>')
@@ -221,7 +257,7 @@ jQuery(function ($) {
    * Scroll the view to the bookmark position
    */
   function jump_to_bookmark() {
-    $('html, body').animate({'scrollTop': get_bookmark().offset().top}, 1000);
+    scrollElement.animate({'scrollTop': get_bookmark().offset().top}, 1000);
     return false;
   };
 
@@ -256,7 +292,7 @@ jQuery(function ($) {
    */
   function set_bookmark(height) {
     if (isNaN(height)) {
-      height = $html.scrollTop();
+      height = scrollElement.scrollTop();
     }
     var el, off, index = 0, best_index = 0, diff = height;
     $('*', $('.book')).each(function () {
@@ -277,9 +313,6 @@ jQuery(function ($) {
     return false;
   };
 
-  $('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
-  $('<link rel="stylesheet" href="tools.css" />').appendTo('head');
-
   // if resized, update the offsets of chapters
   $(window).resize(update_offsets);
 
@@ -293,19 +326,19 @@ jQuery(function ($) {
     var scroll_var = em2px(5); // switch display 5em above a chapter
     var hide_var = em2px(20); // do the "hide me-show me" trick in +/- this area around a section
     $('body').append(display);
-    if (! settings.hide_display) {
-      display.show();
-    }
     update_offsets();
     var name = $('<a class="cur" href="#" title="">\u2192</a>'),
         prev = $('<a class="prev" href="#" title="">\u2191</a>');
         next = $('<a class="next" href="#" title="">\u2193</a>');
-    display.append(prev).append(next).append(name);
+    display.appendTo('body').append(prev).append(next).append(name);
+    if (! settings.hide_display) {
+      display.show();
+    }
     window.setInterval(function () {
       if (! settings.hide_display && didScroll) {
         didScroll = false;
         var found = false, opacity = 1, id;
-        var pos = $html.scrollTop()+scroll_var;
+        var pos = scrollElement.scrollTop()+scroll_var;
         for (var i = 0; i < co.length; i++) {
           if (pos >= co[i][1]) {
             if (co.length == 1+i ||
@@ -383,9 +416,6 @@ jQuery(function ($) {
       bm_indicator.css('top', get_bookmark().offset().top+"px");
     }
   });
-  if (__hasLoaded) {
-    $(window).load();
-  }
 
   $(window).unload(function () {
     if (! bookmark_exists()) {
@@ -393,56 +423,92 @@ jQuery(function ($) {
     }
   });
 
-  /**
-   * Smooth scrolling away from the table of contents
-   */
-  $('#Table_of_Contents a').click(function () {
-    var v = $(this).attr("href");
-    if (v.substr(0, 1) === "#" && $(v).length > 0) {
-      $('html, body').animate({'scrollTop': $(v).offset().top}, 1000, function () {
-        window.location.hash = v;
-      });
-      return false;
-    }
-  });
+});
 
-  $.extend($.easing, {
-    pgmove: function (x, t, b, c, d) {
-      return c*Math.sqrt(1-(t=t/d-1)*t)+b;
-    }
-  });
-  $(document).keydown(function (e) {
-    switch(e.which) {
-      case 66: // b
-      case 33: // PgUp
-        if (e.which === 66 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
-          return true;
-        }
-        $('html, body').animate({'scrollTop': $html.scrollTop()-$(window).height()+2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
-        return false;
-      case 70: // f
-      case 34: // PgDwn
-        if (e.which === 70 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
-          return true;
-        }
-        $('html, body').animate({'scrollTop': $html.scrollTop()+$(window).height()-2*parseFloat($('.book').css('line-height').replace(/px/,''))}, {'duration':400,'easing':'pgmove'});
-        return false;
-      case 75: // k
-      case 38: // ArrUp
-        $('html, body').animate({'scrollTop': $html.scrollTop()-3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
-        return false;
-      case 74: // j
-      case 13: // Enter
-      case 32: // Space
-      case 40: // ArrDwn
-        $('html, body').animate({'scrollTop': $html.scrollTop()+3*parseFloat($('.book').css('line-height').replace(/px/,''))}, 200);
-        return false;
-      case 36: // Home
-        $('html, body').animate({'scrollTop': 0}, {'duration':750, 'easing':'pgmove'});
-        return false;
-      case 35: // End
-        $('html, body').animate({'scrollTop': $(document).height()}, {'duration':750, 'easing':'pgmove'});
-        return false;
-    }
-  });
+/**
+  * Smooth scrolling away from the table of contents
+  */
+$('#Table_of_Contents a').click(function () {
+  var v = $(this).attr("href");
+  if (v.substr(0, 1) === "#" && $(v).length > 0) {
+    scrollElement.animate({'scrollTop': $(v).offset().top}, 1000, function () {
+      window.location.hash = v;
+    });
+    return false;
+  }
+});
+
+/**
+ * Register basic key bindings
+ */
+$(document).keydown(function (e) {
+  var r = true;
+  switch(e.which) {
+    case 66: // b
+    case 33: // PgUp
+      if (e.which === 66 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
+        return true;
+      }
+      scrollElement.stop(true,true).animate({'scrollTop':
+                            scrollElement.scrollTop()-$(window).height()+
+                            2*parseFloat($('.book').css('line-height'))},
+                            {'duration':400,'easing':'pgmove'});
+      r = false;
+      break;
+    case 70: // f
+    case 34: // PgDwn
+      if (e.which === 70 && (! e.ctrlKey || e.altKey || e.shiftKey)) {
+        return true;
+      }
+      scrollElement.stop(true,true).animate({'scrollTop':
+                            scrollElement.scrollTop()+$(window).height()-
+                            2*parseFloat($('.book').css('line-height'))},
+                            {'duration':400,'easing':'pgmove'});
+      r = false;
+      break;
+    case 75: // k
+    case 38: // ArrUp
+      scrollElement.stop(true,true).animate({'scrollTop':
+                            scrollElement.scrollTop()-
+                            3*parseFloat($('.book').css('line-height'))}, 200);
+      r = false;
+      break;
+    case 74: // j
+    case 13: // Enter
+    case 32: // Space
+    case 40: // ArrDwn
+      scrollElement.stop(true,true).animate({'scrollTop':
+                            scrollElement.scrollTop()+
+                            3*parseFloat($('.book').css('line-height'))}, 200);
+      r = false;
+      break;
+    case 36: // Home
+      scrollElement.stop(true,true).animate({'scrollTop': 0}, {'duration':750, 'easing':'pgmove'});
+      r = false;
+      break;
+    case 35: // End
+      scrollElement.stop(true,true).animate({'scrollTop': $(document).height()},
+                            {'duration':750, 'easing':'pgmove'});
+      r = false;
+      break;
+    case 68: // d
+      if (e.ctrlKey && ! e.altKey && ! e.shiftKey) {
+        scrollElement.stop(true,true).animate({'scrollTop': scrollElement.scrollTop()+0.5*$(window).height()},
+                              {'duration':400,'easing':'pgmove'});
+        r = false;
+      }
+      break;
+    case 85: // u
+      if (e.ctrlKey && ! e.altKey && ! e.shiftKey) {
+        scrollElement.stop(true,true).animate({'scrollTop': scrollElement.scrollTop()-0.5*$(window).height()},
+                              {'duration':400,'easing':'pgmove'});
+        r = false;
+      }
+      break;
+  }
+  if (! r) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  return e;
 });

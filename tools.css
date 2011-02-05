@@ -42,6 +42,7 @@
     top: 0;
     background: rgba(255, 255, 255, .9);
     -moz-border-radius-bottomright: 1.25em;
+    -webkit-border-bottom-right-radius: 1.25em;
     border-bottom-right-radius: 1.25em;
   }
 
@@ -57,6 +58,7 @@
   top: 0;
   background: rgba(255,255,255,.9);
   -moz-border-radius-bottomright: 1.25em;
+  -webkit-border-bottom-right-radius: 1.25em;
   border-bottom-right-radius: 1.25em;
   width: 1.25em;
 }
@@ -93,6 +95,7 @@
   top: 10px;
   right: 10px;
   width: 96px;
+  text-align: right;
 }
 .full-width #__ctrl_container {
   width: 24px;
@@ -122,13 +125,14 @@
   line-height: 20px;
 }
 
-.__modal div {
+.__modal_payload {
   z-index: 801;
   background: white;
   width: 800px;
   padding: 10px;
   border: 5px solid rgb(60, 59, 55);
   -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   position: absolute;
   top: 50px;
@@ -155,6 +159,7 @@
   padding: 5px;
   border: 5px solid rgb(60,59,55);
   -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
   border-radius: 30px;
 }
 
@@ -169,6 +174,8 @@
   .__modal div {
     width: 100%;
     -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-left: 0;
     border: none;
@@ -196,4 +203,24 @@
 
 .__modal p {
   margin-bottom: .625em;
+}
+
+.__modal button {
+  background: rgb(60,59,55);
+  color: #efede9;
+  min-width: 3em;
+  height: 1.75em;
+  line-height: 1.75em;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+  border-radius: .5em;
+}
+
+.__modal button:hover,
+.__modal button:focus {
+  background: rgb(90,88,81);
+  color: white;
 }
