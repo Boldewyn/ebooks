@@ -95,6 +95,7 @@ h3 {
   line-height: 1.25;
   margin-bottom: .5em;
   font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
   text-transform: lowercase;
   font-weight: bold;
   letter-spacing: .033em;
@@ -281,6 +282,7 @@ del {
 .book section h3+p:first-line,
 .book section > p:first-child:first-line {
   font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
   letter-spacing: .033em;
 }
 
@@ -314,6 +316,7 @@ del {
 .book strong {
   font-weight: normal;
   font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
   letter-spacing: .05em;
   padding: 0 0 0 .1em;
 }
@@ -366,6 +369,7 @@ del {
   text-align:center;
   margin: 1.25em 0;
   font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
   letter-spacing: .033em;
 }
 .book blockquote.slanted,
@@ -532,6 +536,7 @@ del {
   content: "Chapter " counter(toc, upper-roman);
   width: 8em;
   font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
   font-weight: normal;
 }
 
