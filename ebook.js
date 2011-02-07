@@ -681,7 +681,36 @@ $(document).keydown(function (e) {
     e.preventDefault();
     e.stopPropagation();
   }
-  return e;
+  return r;
+});
+$(document).bind("keypress keyup", function (e) {
+  switch(e.which) {
+    case 68: // d
+    case 85: // u
+      if (! e.ctrlKey || e.altKey || e.shiftKey) {
+        break;
+      }
+    case 13: // Enter
+    case 32: // Space
+    case 33: // PgUp
+    case 34: // PgDwn
+    case 35: // End
+    case 36: // Home
+    case 38: // ArrUp
+    case 40: // ArrDwn
+    case 66: // b
+    case 70: // f
+    case 74: // j
+    case 75: // k
+      if ((e.which === 70 || e.which === 66) &&
+          (! e.ctrlKey || e.altKey || e.shiftKey)) {
+        break;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+  }
+  return true;
 });
 
 })();
