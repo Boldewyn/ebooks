@@ -168,6 +168,11 @@ b],f.body["scroll"+b],f.documentElement["scroll"+b],f.body["offset"+b],f.documen
 
 
 /**
+ * eBook reading experience enhancer
+ */
+(function () {
+
+/**
  * Determine the scrolling element
  *
  * @see http://stackoverflow.com/questions/2837178
@@ -678,3 +683,5 @@ $(document).keydown(function (e) {
   }
   return e;
 });
+
+})();

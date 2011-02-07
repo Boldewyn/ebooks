@@ -245,7 +245,7 @@ del {
   margin-bottom: 1.25em;
 }
 
-.book header h2:before {
+.book header h2.author:before {
   content: "by ";
   display: block;
   font-size: .666em;
