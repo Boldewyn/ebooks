@@ -292,6 +292,7 @@ del {
 
 .book p.separation {
   margin-top: 1.25em;
+  text-indent: 0;
 }
 
 .book p.signature {
