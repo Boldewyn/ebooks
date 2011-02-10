@@ -235,10 +235,69 @@
 
 
 
+#__navigation {
+  margin: 1.25em auto 1.25em;
+  text-align: center;
+}
+
+#__navigation li {
+  display: inline;
+  border-left: .0625em solid #CCC;
+  padding: 0 1.875em;
+}
+
+@media (max-width: 40em) {
+  #__navigation li {
+    padding: 0 .625em;
+  }
+}
+
+#__navigation li:first-child {
+  border-left: 0;
+}
+
+#__navigation a {
+  color: #A00;
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: .0625em;
+}
+
+@media (min-width: 50em) {
+  #__navigation a {
+    min-width: 8em;
+  }
+}
+
+#__navigation a:visited {
+  color: #900;
+  padding-bottom: .0625em;
+}
+
+#__navigation a:hover,
+#__navigation a:focus {
+  outline: none;
+  color: #F00;
+  border-bottom: .0625em solid;
+  padding-bottom: .0;
+}
+
+#__navigation a:active {
+  color: white;
+  background: #F00;
+  border: none;
+  padding-bottom: .0625em;
+}
+
+
+
+
+
 /**
  * Hide all the stuff on printing
  */
 @media print {
+  #__navigation,
   #__display,
   #__messages,
   #__ctrl_container,
