@@ -204,7 +204,7 @@ $.extend($.easing, {
  * Add styles and metadata
  */
 $('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
-$('<link rel="stylesheet" href="tools.css" />').appendTo('head');
+$('<link rel="stylesheet" href="/tools.css" />').appendTo('head');
 
 /**
  * Start onDOMReady
