@@ -224,3 +224,26 @@
   background: rgb(90,88,81);
   color: white;
 }
+
+
+
+#__bookmark {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+
+/**
+ * Hide all the stuff on printing
+ */
+@media print {
+  #__display,
+  #__messages,
+  #__ctrl_container,
+  #__bookmark,
+  .__modal {
+    display: none !important;
+  }
+}

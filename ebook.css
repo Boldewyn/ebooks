@@ -2,6 +2,38 @@
 
 @import url(http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bold);
 
+
+/**
+ * Paged media setup -------------------------------------------------
+ */
+@page {
+  size: portrait;
+  margin: 2cm;
+  counter-increment: page;
+  @bottom-center {
+    margin-top: 1.6667em;
+    line-height: 1.6667em;
+    font-style: italic;
+    font-size: 75%;
+    text-align: center;
+    content: counter(page);
+  }
+}
+
+@page :left {
+  margin-left: 3cm;
+  margin-right: 1.5cm;
+}
+
+@page :right {
+  margin-left: 1.5cm;
+  margin-right: 3cm;
+}
+
+
+/**
+ * Reset -------------------------------------------------------------
+ */
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote,
 ul, ol, dl, li, dt, dd,
@@ -229,6 +261,26 @@ del {
   margin: 0 0 2.5em;
   padding: 0 0 2.4375em;
   border-bottom: .0625em solid #ccc;
+}
+
+@media print {
+  .book header,
+  .book section {
+    page-break-after: always;
+    page-break-after: right;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .book section:last-child,
+  .book section section {
+    page-break-after: auto;
+  }
+  .book section section {
+    padding-bottom: 2.5em;
+  }
+  .book section section > *:first-child {
+    page-break-before: avoid;
+  }
 }
 
 .book section section:last-child {

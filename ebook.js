@@ -293,7 +293,7 @@ jQuery(function ($) {
                      .click(function () { scrollElement.animate({'scrollTop': 0}, 1000); })
                      .appendTo(display);
 
-  var bm_indicator = $('<img style="position:absolute;top:0;right:0" src="data:image/png;base64,'+
+  var bm_indicator = $('<img id="__bookmark" src="data:image/png;base64,'+
                        'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACbSURBVDiNnZLBEcMgDAQXxn0ZWkhchopwES4jRdiNRfmEGSJbQHz/vVsxBFXlTl7bloA03QEjrAFmhTxcYEACHE+RvVtgwZI3rABugQdSrV8WtEC7/lMwAtp1gGkUvFoHiANMM3ER2R8iSSEHOLqAMQj2J5aTFGavRCEv33c4nTBiVFucDGw8o2LRfUTPqFh0DVpGCvnvgroISB9kz1/6dVLwMwAAAABJRU5ErkJggg=='+
                        '" alt="'+_('current bookmark')+'" title="'+_('current bookmark')+'" />');
 
