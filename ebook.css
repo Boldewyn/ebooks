@@ -414,6 +414,7 @@ del {
   display: block;
 }
 
+.book .centered,
 .book blockquote.centered p {
   text-align: center;
 }
