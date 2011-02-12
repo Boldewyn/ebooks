@@ -239,18 +239,7 @@ jQuery(function ($) {
 
 
   var settings = {
-    '__bool': ['hide_display', 'full_width', 'sans_serif'],
-    'hide_display': false,
-    '__hide_display': function () {
-      settings.hide_display = !settings.hide_display;
-      if (settings.hide_display) {
-        document.cookie = "ebook_hide_display=1";
-        display.hide();
-      } else {
-        document.cookie = "ebook_hide_display=0";
-        display.show();
-      }
-    },
+    '__bool': ['hide_display', 'full_width', 'sans_serif', 'bookmark_onclick'],
     'font_size': '100%',
     '__font_size': function (mode) {
       if (mode === "__cfg_fs_dwn") {
@@ -270,34 +259,31 @@ jQuery(function ($) {
       document.cookie = 'ebook_font_size='+settings.font_size;
       update_offsets();
     },
+    'hide_display': false,
     'full_width': false,
-    '__full_width': function () {
-      settings.full_width = !settings.full_width;
-      if (settings.full_width) {
-        document.cookie = "ebook_full_width=1";
-        $('body').addClass('full-width');
-      } else {
-        document.cookie = "ebook_full_width=0";
-        $('body').removeClass('full-width');
-      }
-      update_offsets();
-    },
     'sans_serif': false,
-    '__sans_serif': function () {
-      settings.sans_serif = !settings.sans_serif;
-      if (settings.sans_serif) {
-        document.cookie = "ebook_sans_serif=1";
-        $('body').addClass('sans-serif');
+    'bookmark_onclick': false,
+    '__set_bool': function (prop, val) {
+      if (val === true || val === false) {
+        settings[prop] = val;
       } else {
-        document.cookie = "ebook_sans_serif=0";
-        $('body').removeClass('sans-serif');
+        settings[prop] = val = ! settings[prop];
+      }
+      if (val) {
+        $('body').addClass(prop.replace('_', '-'));
+      } else {
+        $('body').removeClass(prop.replace('_', '-'));
       }
       update_offsets();
+      document.cookie = "ebook_"+prop+"="+(val? "1": "0");
+      $('html').trigger('configChange');
     }
   };
   $.each(settings.__bool, function(i, x) {
     if (document.cookie.indexOf('ebook_'+x+'=1') > -1) {
-      settings['__'+x]();
+      settings.__set_bool(x, true);
+    } else if (document.cookie.indexOf('ebook_'+x+'=0') > -1) {
+      settings.__set_bool(x, false);
     }
   });
   if (document.cookie.indexOf('ebook_font_size=') > -1) {
@@ -308,6 +294,13 @@ jQuery(function ($) {
   var co = [], didScroll = true;
       chapter = undefined;
   var display = $('<div id="__display"></div>');
+  $('html').bind('configChange', function () {
+    if (settings.hide_display) {
+      display.hide();
+    } else {
+      display.show();
+    }
+  });
   var ctrl_container = $('<div id="__ctrl_container"></div>').appendTo('body');
 
   var bookmark = $('<a class="bookmark" title="'+_('Jump to bookmark')+'" href="#">\u00B6</a>')
@@ -326,11 +319,13 @@ jQuery(function ($) {
 
   var config_content = $('<section></section>');
   config_content.append($('<p><input type="checkbox" id="__cfg_full" '+(settings.full_width?'checked="checked"':'')+'/> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
-      .find('input').change(settings.__full_width).end()
+      .find('input').change(function(){settings.__set_bool('full_width', $(this).filter(":checked").length);}).end()
   ).append($('<p><input type="checkbox" id="__cfg_sans" '+(settings.sans_serif?'checked="checked"':'')+'/> <label for="__cfg_sans">'+_('View in sans-serif font')+'</label></p>')
-      .find('input').change(settings.__sans_serif).end()
+      .find('input').change(function(){settings.__set_bool('sans_serif', $(this).filter(":checked").length);}).end()
   ).append($('<p><input type="checkbox" id="__cfg_hide_dspl" '+(settings.hide_display?'checked="checked"':'')+'/> <label for="__cfg_hide_dspl">'+_('Hide the quick navigation')+'</label></p>')
-      .find('input').change(settings.__hide_display).end()
+      .find('input').change(function(){settings.__set_bool('hide_display', $(this).filter(":checked").length);}).end()
+  ).append($('<p><input type="checkbox" id="__cfg_bm_onclick" '+(settings.bookmark_onclick?'checked="checked"':'')+'/> <label for="__cfg_bm_onclick">'+_('Set bookmark by clicking on paragraphs')+'</label></p>')
+      .find('input').change(function(){settings.__set_bool('bookmark_onclick', $(this).filter(":checked").length);}).end()
   ).append($('<p>'+_('Font size:')+' <button type="button" id="__cfg_fs_dwn">\u25BC</button> '+
                                     '<button type="button" id="__cfg_fs_std">\u25CF</button> '+
                                     '<button type="button" id="__cfg_fs_up">\u25B2</button></p>')
@@ -505,8 +500,37 @@ jQuery(function ($) {
       }
       index++;
     });
+    set_bookmark_cookie(best_index);
+    return false;
+  };
+
+  /**
+   * Set the bookmark directly to an element
+   */
+  function set_bookmark_by_element(el) {
+    var n = 0, found = false;
+    $('*', $('.book')).each(function () {
+      if (this === el) {
+        found = true;
+        return false;
+      }
+      n += 1;
+    });
+    if (found) {
+      set_bookmark_cookie(n);
+      return true;
+    } else {
+      new Message(_('Couldn\u2019t set bookmark'));
+      return false;
+    }
+  };
+
+  /**
+   * Do the low level bookmarking
+   */
+  function set_bookmark_cookie(best_index) {
     document.cookie = 'bookmark_'+basename()+'='+best_index+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
-    new Message(_('Bookmark successfully set.'));
+    new Message(_('Bookmark set'));
     $('body').append(bm_indicator);
     bm_indicator.css('top', get_bookmark().offset().top+'px');
     return false;
@@ -518,6 +542,15 @@ jQuery(function ($) {
   // update infos, if scrolled
   $(window).scroll(function () {
     didScroll = true;
+  });
+
+  // Clicking in the book sets the bookmark
+  $('.book *').click(function (e) {
+    if (settings.bookmark_onclick) {
+      if (set_bookmark_by_element(this)) {
+        e.stopPropagation();
+      }
+    }
   });
 
   // we start onLoad to give the fonts time to arrive
