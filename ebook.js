@@ -199,6 +199,16 @@ var scrollElement = (function (tags) {
   return $();
 })(["html", "body"]);
 
+/**
+ * The include path
+ */
+var path = $('script[src$=ebook.js]').attr('src');
+if (path) {
+  path = path.replace('ebook.js', '');
+} else {
+  path = '';
+}
+
 
 /**
  * Easing function ~ jquery.easing's easeOutCirc
@@ -213,7 +223,7 @@ $.extend($.easing, {
  * Add styles and metadata
  */
 $('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
-$('<link rel="stylesheet" href="/ebooks/tools.css" />').appendTo('head');
+$('<link rel="stylesheet" href="'+path+'tools.css" />').appendTo('head');
 
 /**
  * Start onDOMReady
