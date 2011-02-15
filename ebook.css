@@ -129,7 +129,7 @@ h3 {
   font-variant: small-caps;
   -moz-font-feature-settings: 'smcp=1';
   text-transform: lowercase;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: .033em;
 }
 
@@ -339,7 +339,13 @@ del {
 }
 
 .book figure {
+  display: table;
   margin: 1.25em auto;
+}
+
+.book figcaption {
+  font-size: .875em;
+  line-height: 1.42857;
 }
 
 .book p.separation {
