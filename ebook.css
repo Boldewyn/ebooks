@@ -305,6 +305,10 @@ del {
   font-style: italic;
 }
 
+.book header h2.author:lang(de):before {
+  content: "von ";
+}
+
 .book header p {
   width: 61.8%;
   margin: 0 auto;
@@ -598,6 +602,10 @@ del {
   font-variant: small-caps;
   -moz-font-feature-settings: 'smcp=1';
   font-weight: normal;
+}
+
+.book #Table_of_Contents.part_and_chapter ol ol li:lang(de):before {
+  content: "Kapitel " counter(toc, upper-roman);
 }
 
 
