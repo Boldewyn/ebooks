@@ -351,7 +351,7 @@ jQuery(function ($) {
         config.show();
       }).appendTo(ctrl_container);
 
-  var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol').clone(false).find('a').click(function () {
+  var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol:eq(0)').clone(false).find('a').click(function () {
       toc.hide();
     }).end());
   var toc_opener = $('<img class="__ctrl" style="right:76px" src="data:image/png;base64,'+
