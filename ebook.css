@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 @import url(http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bold);
+@import url(http://fonts.googleapis.com/css?family=DejaVu+Sans:regular,regularitalic,bold);
 
 
 /**
@@ -125,12 +126,16 @@ h2 {
 h3 {
   font-size:  2em;
   line-height: 1.25;
-  margin-bottom: .5em;
+  margin: .5em 0 .5em;
   font-variant: small-caps;
   -moz-font-feature-settings: 'smcp=1';
   text-transform: lowercase;
   font-weight: normal;
   letter-spacing: .033em;
+}
+
+h3:first-child {
+  margin-top: 0;
 }
 
 h4 {
@@ -203,6 +208,10 @@ ins {
 
 del {
   text-decoration: line-through;
+}
+
+code, kbd {
+  font-family: "DejaVu Sans Mono", monospace;
 }
 
 
