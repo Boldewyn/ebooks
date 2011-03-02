@@ -224,6 +224,7 @@ $.extend($.easing, {
  */
 $('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
 $('<link rel="stylesheet" href="'+path+'tools.css" />').appendTo('head');
+$('<link rel="shortcut icon" href="'+path+'favicon.ico" />').appendTo('head');
 
 /**
  * Start onDOMReady
