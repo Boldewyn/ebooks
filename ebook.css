@@ -373,9 +373,14 @@ code, kbd {
   text-indent: 0;
 }
 
+.book p.date,
 .book p.signature {
   text-align: right;
   font-style: italic;
+}
+
+.book p.date + p {
+  text-indent: 0;
 }
 
 .book hr {
