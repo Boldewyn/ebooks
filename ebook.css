@@ -352,8 +352,15 @@ code, kbd {
 }
 
 .book figure {
-  display: table;
+  text-align: center;
   margin: 1.25em auto;
+  max-width: 100%;
+}
+
+.book figure img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 .book figcaption {

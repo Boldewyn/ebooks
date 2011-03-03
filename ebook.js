@@ -209,6 +209,10 @@ if (path) {
   path = '';
 }
 
+/**
+ * Remove hardcoded height and width on images to allow consistent CSS styling
+ */
+$('figure img').removeAttr('width').removeAttr('height');
 
 /**
  * Easing function ~ jquery.easing's easeOutCirc
@@ -375,7 +379,7 @@ jQuery(function ($) {
                        .click(function () { that.hide(); return false; })).data('__modal', that);
     this.show = function () {
       that.frame
-        .appendTo($('body')).fadeIn()
+        .appendTo($('body')).fadeIn().focus()
         .find('a.__modal_close').attr('tabindex', '0'); };
     this.hide = function () {
       that.frame
