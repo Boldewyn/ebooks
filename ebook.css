@@ -510,8 +510,12 @@ code, kbd {
   counter-increment: none;
 }
 
-.book #Table_of_Contents {
+.book #Table_of_Contents ol {
   counter-reset: toc;
+}
+
+.book #Table_of_Contents ol.continued {
+  counter-reset: none;
 }
 
 .book #Table_of_Contents li {
