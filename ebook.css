@@ -634,6 +634,21 @@ code, kbd {
 }
 
 
+/**
+ * Dialogs -----------------------------------------------------------
+ */
+dl.dialog dt {
+  float: left;
+  font-variant: small-caps;
+  letter-spacing: .05em;
+  margin-right: .75em;
+}
+
+dl.dialog dd {
+  margin-bottom: .75em;
+  padding-left: 1.25em;
+}
+
 
 /**
  * Other special parts -----------------------------------------------
@@ -650,6 +665,18 @@ code, kbd {
 }
 
 body .book div .dedication:first-line {
+  font-variant: normal;
+}
+
+.book .annotation {
+  font-style: italic;
+  text-indent: 0;
+}
+.book .annotation:first-line {
+  font-variant: normal;
+}
+
+.dialog .annotation {
   font-variant: normal;
 }
 
