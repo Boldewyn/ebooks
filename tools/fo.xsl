@@ -24,10 +24,10 @@
           page-height="29.7cm" page-width="21cm"
           margin-right="72pt" margin-left="72pt"
           margin-bottom="36pt" margin-top="36pt">
-          <fo:region-before region-name="rb-left"
-            extent="3cm"/>
           <fo:region-body margin-top="1.5cm"
             margin-bottom="1.5cm"/>
+          <fo:region-before region-name="rb-left"
+            extent="3cm"/>
           <fo:region-after region-name="ra-left"
             extent="1cm"/>
         </fo:simple-page-master>
@@ -35,10 +35,10 @@
           page-height="29.7cm" page-width="21cm"
           margin-right="72pt" margin-left="72pt"
           margin-bottom="36pt" margin-top="36pt">
-          <fo:region-before region-name="rb-right"
-            extent="3cm"/>
           <fo:region-body margin-top="1.5cm"
             margin-bottom="1.5cm"/>
+          <fo:region-before region-name="rb-right"
+            extent="3cm"/>
           <fo:region-after region-name="ra-right"
             extent="1cm"/>
         </fo:simple-page-master>
@@ -56,7 +56,7 @@
           </fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
       </fo:layout-master-set>
-      <fo:page-sequence master-reference="standard"><!-- font-family="'Crimson Text',Crimson"-->
+      <fo:page-sequence master-reference="standard" font-family="'Crimson Text',Crimson">
         <fo:static-content flow-name="rb-right">
           <fo:block font-size="10pt" text-align="center">
             <xsl:value-of select="/h:html/h:head/h:title" />
@@ -87,7 +87,7 @@
   </xsl:template>
 
   <xsl:template match="h:header">
-    <fo:block page-break-after="odd">
+    <fo:block break-after="odd-page">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -95,7 +95,13 @@
   <xsl:template match="h:section[@id='Table_of_Contents']" />
 
   <xsl:template match="h:section">
-    <fo:block page-break-after="odd">
+    <fo:block break-after="odd-page">
+      <xsl:apply-templates select="*|text()" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:h1">
+    <fo:block font-size="5em" font-weight="bold">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -115,13 +121,13 @@
   <xsl:template match="h:p">
     <fo:block>
       <xsl:if test="local-name(./preceding-sibling::*[1]) = 'p'">
-        <xsl:attribute name="start-indent">1.2em</xsl:attribute>
+        <xsl:attribute name="text-indent">1.2em</xsl:attribute>
       </xsl:if>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
-  <xsl:template match="h:p[contains(@class, 'separation)]">
+  <xsl:template match="h:p[contains(@class, 'separation')]">
     <fo:block margin-top="1.3em">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
