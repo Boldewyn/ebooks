@@ -4,6 +4,10 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+  <xsl:param name="font-size" select="'10pt'" />
+  <xsl:param name="line-height" select="'1.3'" />
+  <xsl:param name="leading" select="'13pt'" />
+
   <xsl:template match="/">
     <xsl:apply-templates select="h:html/h:body//h:article[@class='book']" />
   </xsl:template>
@@ -56,25 +60,27 @@
           </fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
       </fo:layout-master-set>
-      <fo:page-sequence master-reference="standard" font-family="'Crimson Text',Crimson">
+      <fo:page-sequence master-reference="standard"
+        font-family="'Crimson Text',Crimson,Georgia,serif" color="#222"
+        font-size="{$font-size}" line-height="{$line-height}">
         <fo:static-content flow-name="rb-right">
-          <fo:block font-size="10pt" text-align="center">
+          <fo:block font-size="9pt" text-align="center">
             <xsl:value-of select="/h:html/h:head/h:title" />
           </fo:block>
         </fo:static-content>
         <fo:static-content flow-name="ra-right">
-          <fo:block font-size="10pt" text-align="right"
+          <fo:block font-size="9pt" text-align="right"
             font-style="italic">
             <fo:page-number/>
           </fo:block>
         </fo:static-content>
         <fo:static-content flow-name="rb-left">
-          <fo:block font-size="10pt" text-align="center">
+          <fo:block font-size="9pt" text-align="center">
             <xsl:value-of select="/h:html/h:head/h:title" />
           </fo:block>
         </fo:static-content>
         <fo:static-content flow-name="ra-left">
-          <fo:block font-size="10pt" text-align="left"
+          <fo:block font-size="9pt" text-align="left"
             font-style="italic">
             <fo:page-number/>
           </fo:block>
@@ -102,44 +108,51 @@
 
   <xsl:template match="h:h1">
     <fo:block font-size="5em" font-weight="bold">
+      <xsl:attribute name="margin-bottom">
+        <xsl:value-of select="number($line-height)*2" />
+      </xsl:attribute>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:h2">
-    <fo:block font-size="3em" font-weight="bold">
+    <fo:block font-size="3em" font-weight="bold"
+      margin-bottom="{$leading}">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:h3">
-    <fo:block font-size="2.5em" font-style="italic">
+    <fo:block font-size="2.5em" font-style="italic"
+      margin-bottom="{$leading}">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:p">
-    <fo:block>
+    <fo:block text-align="justify">
       <xsl:if test="local-name(./preceding-sibling::*[1]) = 'p'">
-        <xsl:attribute name="text-indent">1.2em</xsl:attribute>
+        <xsl:attribute name="text-indent">
+          <xsl:value-of select="$leading" />
+        </xsl:attribute>
       </xsl:if>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:p[contains(@class, 'separation')]">
-    <fo:block margin-top="1.3em">
+    <fo:block margin-top="{$leading}" text-align="justify">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:blockquote">
-    <fo:block margin="1.2em" font-size=".91em">
+    <fo:block margin="{$leading}" font-size="9pt">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
-  <xsl:template match="h:i|h:em">
+  <xsl:template match="h:i|h:em|h:var">
     <fo:inline font-style="italic">
       <xsl:apply-templates select="*|text()" />
     </fo:inline>
@@ -152,9 +165,21 @@
   </xsl:template>
 
   <xsl:template match="h:hr">
-    <fo:block>
-      <fo:leader leader-pattern="rule"/>
+    <fo:block text-align="center" margin-top="{$leading}" margin-bottom="{$leading}">
+      <fo:leader leader-pattern="rule" leader-length="61.8%"
+        color="#666"
+        rule-style="solid" rule-thickness="1pt" />
     </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:pre">
+    <fo:block white-space-collapse="false" wrap-option="no-wrap">
+      <xsl:apply-templates select="*|text()"/>
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:br">
+    <fo:block />
   </xsl:template>
 
 </xsl:stylesheet>
