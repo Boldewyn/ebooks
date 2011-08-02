@@ -71,7 +71,8 @@
         font-size="{$font-size}" line-height="{$line-height}">
         <fo:static-content flow-name="rb-right">
           <fo:block font-size="{$small-font-size}" text-align="center">
-            <fo:retrieve-marker retrieve-class-name="chapter" />
+            <fo:retrieve-marker retrieve-class-name="chapter"
+              retrieve-position="first-starting-within-page" />
           </fo:block>
         </fo:static-content>
         <fo:static-content flow-name="ra-right">
@@ -93,9 +94,105 @@
         </fo:static-content>
         <fo:flow flow-name="xsl-region-body">
           <xsl:apply-templates select="*|text()"/>
-          <fo:block-container font-size="{$small-font-size}" font-style="italic">
-            <fo:block>
+          <fo:block-container font-size="{$small-font-size}"
+            text-align="justify" font-style="italic">
+            <fo:block margin-top="2cm">
+              <fo:marker marker-class-name="chapter">&#xA0;</fo:marker>
               Thank you for reading this eBook.
+              <xsl:if test="/h:html/h:head/h:meta[@name='dc.publisher'] and
+                            /h:html/h:head/h:meta[@name='dc.issued']">
+                It was first published in
+                <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.issued']/@content" />
+                by
+                <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.publisher']/@content" />.
+                Since then it had a long journey.
+              </xsl:if>
+              The current version was scanned by volunteers and published
+              under
+              <fo:basic-link color="{$highlight-color}">
+                <xsl:attribute name="external-destination">
+                  <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
+                </xsl:attribute>
+                <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
+              </fo:basic-link>. From there it was converted to HTML5 and
+              this file by
+              <fo:basic-link color="{$highlight-color}" external-destination="http://www.manuel-strehl.de/">Manuel Strehl</fo:basic-link>.
+            </fo:block>
+            <fo:block space-before="{$leading}" text-align="center">
+              <fo:leader leader-pattern="rule" leader-length="61.8%"
+                color="{$light-color}"
+                rule-style="solid" rule-thickness="1pt" />
+            </fo:block>
+            <fo:block space-before="{$leading}">
+              Other books in the same fashion:
+            </fo:block>
+            <fo:table space-before="{$leading}" table-layout="fixed" width="100%">
+              <fo:table-body>
+                <fo:table-row>
+                  <fo:table-cell padding=".5cm">
+                    <fo:block font-weight="bold" font-size="{$font-size}"
+                      font-style="normal" text-align="center">
+                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                        A Christmas Carol
+                      </fo:basic-link>
+                    </fo:block>
+                    <fo:block font-style="normal" text-align="center">
+                      by Charles Dickens
+                    </fo:block>
+                    <fo:block>
+                      The story of Ebenezer Scrooge and how he became a philanthrop.
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding=".5cm">
+                    <fo:block font-weight="bold" font-size="{$font-size}"
+                      font-style="normal" text-align="center">
+                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                        A Christmas Carol
+                      </fo:basic-link>
+                    </fo:block>
+                    <fo:block font-style="normal" text-align="center">
+                      by Charles Dickens
+                    </fo:block>
+                    <fo:block>
+                      The story of Ebenezer Scrooge and how he became a philanthrop.
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                  <fo:table-cell padding=".5cm">
+                    <fo:block font-weight="bold" font-size="{$font-size}"
+                      font-style="normal" text-align="center">
+                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                        A Christmas Carol
+                      </fo:basic-link>
+                    </fo:block>
+                    <fo:block font-style="normal" text-align="center">
+                      by Charles Dickens
+                    </fo:block>
+                    <fo:block>
+                      The story of Ebenezer Scrooge and how he became a philanthrop.
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell padding=".5cm">
+                    <fo:block font-weight="bold" font-size="{$font-size}"
+                      font-style="normal" text-align="center">
+                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                        A Christmas Carol
+                      </fo:basic-link>
+                    </fo:block>
+                    <fo:block font-style="normal" text-align="center">
+                      by Charles Dickens
+                    </fo:block>
+                    <fo:block>
+                      The story of Ebenezer Scrooge and how he became a philanthrop.
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </fo:table-body>
+            </fo:table>
+            <fo:block space-before="{$leading}">
+              (If you read this electronically, click on the title to
+              directly load the book.)
             </fo:block>
           </fo:block-container>
         </fo:flow>
@@ -138,6 +235,11 @@
   </xsl:template>
 
   <xsl:template match="h:h2">
+    <fo:block keep-with-next="always">
+      <fo:marker marker-class-name="chapter">
+        <xsl:text>&#xA0;</xsl:text>
+      </fo:marker>
+    </fo:block>
     <fo:block font-size="2.4em"
       margin-bottom="{$leading}">
       <xsl:attribute name="line-height">
@@ -392,4 +494,23 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template match="h:figure">
+    <fo:block margin-top="{$leading}"
+      margin-bottom="{$leading}">
+      <xsl:apply-templates select="*"/>
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:img">
+    <fo:external-graphic src="{@src}" max-width="100%" />
+  </xsl:template>
+
+  <xsl:template match="h:figcaption">
+    <fo:block margin-top="{$leading}"
+      font-size="{$small-font-size}">
+      <xsl:apply-templates select="*|text()"/>
+    </fo:block>
+  </xsl:template>
+
 </xsl:stylesheet>
