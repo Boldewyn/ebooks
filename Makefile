@@ -17,8 +17,12 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 	sed -n '2,$$p' "$<" | fop -xml /proc/self/fd/0 -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
 
 
+%.fo: %.html tools/fo.xsl
+	sed -n '2,$$p' "$<" | xalan -xsl tools/fo.xsl -out "$@"
+
+
 epub:
 
 
 clean:
-	-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) $(patsubst %.html,%.epub,$(EBOOKS))
+	-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) $(patsubst %.html,%.epub,$(EBOOKS)) $(patsubst %.html,%.fo,$(EBOOKS))
