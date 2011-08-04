@@ -19,7 +19,7 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
 %.fo: %.html tools/fo.xsl
-	sed -n '2,$$p' "$<" | xalan -xsl tools/fo.xsl -out "$@"
+	sed -n '2,$$p' "$<" | xalan -indent 2 -xsl tools/fo.xsl -out "$@"
 
 
 epub:
