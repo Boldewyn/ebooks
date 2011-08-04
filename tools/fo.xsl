@@ -13,6 +13,8 @@
   <xsl:param name="light-color" select="'#777'" />
   <xsl:param name="highlight-color" select="'#922'" />
 
+  <xsl:variable name="language" select="substring-before(/h:html/@xml:lang, '-')" />
+
   <xsl:template match="/">
     <xsl:apply-templates select="h:html/h:body//h:article[@class='book']" />
   </xsl:template>
@@ -67,6 +69,7 @@
         </fo:page-sequence-master>
       </fo:layout-master-set>
       <fo:page-sequence master-reference="standard"
+        language="{$language}"
         font-family="'Crimson Text',Crimson,Georgia,serif" color="{$font-color}"
         font-size="{$font-size}" line-height="{$line-height}">
         <fo:static-content flow-name="rb-right">
@@ -281,7 +284,7 @@
   </xsl:template>
 
   <xsl:template match="h:p">
-    <fo:block text-align="justify">
+    <fo:block text-align="justify" hyphenate="true">
       <xsl:if test="local-name(./preceding-sibling::*[1]) = 'p'">
         <xsl:attribute name="text-indent">
           <xsl:value-of select="$leading" />
@@ -292,7 +295,8 @@
   </xsl:template>
 
   <xsl:template match="h:p[contains(@class, 'separation')]">
-    <fo:block space-before="{$leading}" text-align="justify">
+    <fo:block space-before="{$leading}" text-align="justify"
+      hyphenate="true">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -497,18 +501,22 @@
 
   <xsl:template match="h:figure">
     <fo:block margin-top="{$leading}"
-      margin-bottom="{$leading}">
+      keep-together="always"
+      margin-bottom="{$leading}" text-align="center">
+      <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*"/>
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:img">
-    <fo:external-graphic src="{@src}" max-width="100%" />
+    <fo:block>
+      <fo:external-graphic src="{@src}" max-width="10cm" />
+    </fo:block>
   </xsl:template>
 
   <xsl:template match="h:figcaption">
     <fo:block margin-top="{$leading}"
-      font-size="{$small-font-size}">
+      font-size="{$small-font-size}" font-style="italic">
       <xsl:apply-templates select="*|text()"/>
     </fo:block>
   </xsl:template>
