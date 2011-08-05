@@ -217,7 +217,12 @@
   </xsl:template>
 
   <xsl:template match="h:section">
-    <fo:block break-after="odd-page" margin-top="3.27cm">
+    <fo:block margin-top="3.27cm">
+      <xsl:if test="not(ancestor::h:section)">
+        <xsl:attribute name="break-after">
+          <xsl:text>odd-page</xsl:text>
+        </xsl:attribute>
+      </xsl:if>
       <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*|text()" />
     </fo:block>
@@ -257,7 +262,8 @@
   </xsl:template>
 
   <xsl:template match="h:h3">
-    <fo:block font-size="2.0em" font-style="italic"
+    <fo:block keep-with-next="always"
+      font-size="2.0em" font-style="italic"
       margin-bottom="{$leading}">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*20" />
@@ -274,11 +280,19 @@
 
   <xsl:template match="h:h4">
     <fo:block font-size="1.6em" letter-spacing=".12em"
-      margin-bottom="{$leading}">
+      margin-bottom="{$leading}" keep-with-next="always">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*20" />
         <xsl:text>pt</xsl:text>
       </xsl:attribute>
+      <xsl:apply-templates select="*|text()" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:h5">
+    <fo:block font-size="1.2em" letter-spacing=".12em"
+      font-variant="small-caps" line-height="{$leading}"
+      margin-bottom="{$leading}" keep-with-next="always">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
