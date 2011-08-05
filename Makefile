@@ -7,8 +7,8 @@ EBOOKS = $(shell find . -type f -name \*.html -not -name Moby-Dick.html -not -na
 FOP = "$(HOME)/lib/fop/fop"
 
 
-all: pdf epub
-.PHONY: all pdf epub clean
+all: pdf epub index
+.PHONY: all pdf epub clean index
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
@@ -32,3 +32,18 @@ epub: $(EBOOKS) tools/epub/*
 
 clean:
 	-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) $(patsubst %.html,%.epub,$(EBOOKS)) $(patsubst %.html,%.fo,$(EBOOKS))
+
+
+index: index.js index.xml
+
+
+index.js: $(EBOOKS)
+	echo "var ebooks=[" > index.js
+	for b in $(patsubst %.html,%,$(EBOOKS)); do echo '"'"$$b"'",' >> index.js ; done
+	echo "];" >> index.js
+
+
+index.xml: $(EBOOKS)
+	echo "<ebooks>" > index.xml
+	for b in $(patsubst %.html,%,$(EBOOKS)); do echo "  <book>$$b</book>" >> index.xml ; done
+	echo "</ebooks>" >> index.xml

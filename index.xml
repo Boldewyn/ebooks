@@ -1,28 +1,27 @@
 <ebooks>
-  <book>A_Christmas_Carol</book>
-  <book>A_Connecticut_Yankee</book>
-  <book>Alices_Adventures_in_Wonderland</book>
-  <book>At_the_Mountains_of_Madness</book>
-  <book>Biene_Maja</book>
-  <book>Dracula</book>
   <book>Frankenstein</book>
-  <book>Gullivers_Travels</book>
-  <book>Moby-Dick</book>
-  <book>Narrative_of_Arthur_Gordon_Pym</book>
+  <book>Siddhartha</book>
+  <book>A_Christmas_Carol</book>
   <book>New_Arabian_Nights</book>
-  <book>Nils_Holgersson</book>
+  <book>The_Call_of_Cthulhu</book>
+  <book>The_Invisible_Man</book>
+  <book>Treasure_Island</book>
+  <book>The_Time_Machine</book>
+  <book>Gullivers_Travels</book>
+  <book>The_Jungle_Book</book>
   <book>Peter_Pan</book>
   <book>Robinson_Crusoe</book>
-  <book>Siddhartha</book>
+  <book>At_the_Mountains_of_Madness</book>
   <book>The_Adventures_of_Sherlock_Holmes</book>
-  <book>The_Call_of_Cthulhu</book>
-  <book>The_Case_of_Charles_Dexter_Ward</book>
-  <book>The_Happy_Prince_and_Other_Tales</book>
-  <book>The_Invisible_Man</book>
-  <book>The_Jungle_Book</book>
-  <book>The_Picture_of_Dorian_Gray</book>
+  <book>Dracula</book>
   <book>The_Strange_Case_of_Dr._Jekyll_and_Mr._Hyde</book>
-  <book>The_Time_Machine</book>
   <book>The_War_of_the_Worlds</book>
-  <book>Treasure_Island</book>
+  <book>The_Picture_of_Dorian_Gray</book>
+  <book>The_Case_of_Charles_Dexter_Ward</book>
+  <book>Narrative_of_Arthur_Gordon_Pym</book>
+  <book>Biene_Maja</book>
+  <book>Nils_Holgersson</book>
+  <book>A_Connecticut_Yankee</book>
+  <book>Alices_Adventures_in_Wonderland</book>
+  <book>The_Happy_Prince_and_Other_Tales</book>
 </ebooks>
