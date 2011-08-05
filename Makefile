@@ -3,7 +3,7 @@
 #
 
 
-EBOOKS = $(shell find . -type f -name \*.html -not -name index.\* -not -name 404.html -printf "%f\n")
+EBOOKS = $(shell find . -type f -name \*.html -not -name Moby-Dick.html -not -name index.\* -not -name 404.html -printf "%f\n")
 FOP = "$(HOME)/lib/fop/fop"
 
 
