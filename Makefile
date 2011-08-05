@@ -22,7 +22,12 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 	sed -n '2,$$p' "$<" | xalan -indent 2 -xsl tools/fo.xsl -out "$@"
 
 
-epub:
+epub: $(EBOOKS) tools/epub/*
+	python tools/epub/compose.py
+
+
+%.epub: %.html tools/epub/*
+	python tools/epub/compose.py "$<"
 
 
 clean:

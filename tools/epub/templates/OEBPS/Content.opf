@@ -1,0 +1,33 @@
+<package version="2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:opf="http://www.idpf.org/2007/opf"
+  xmlns="http://www.idpf.org/2007/opf"
+  unique-identifier="http://ebooks.boldewyn.de/${name}.epub">
+  <metadata>
+    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+    <dc:title>${meta["title"]}</dc:title>
+    <dc:creator>${meta["creator"]}</dc:creator>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="stylesheet" href="ebook.css" media-type="text/css" />
+    <item id="Crimson-Roman" href="CrimsonText-Roman.ttf" media-type="font/truetype" />
+    <item id="Crimson-Italic" href="CrimsonText-Italic.ttf" media-type="font/truetype" />
+    <item id="Crimson-Bold" href="CrimsonText-Bold.ttf" media-type="font/truetype" />
+    <item id="Crimson-BoldItalic" href="CrimsonText-BoldItalic.ttf" media-type="font/truetype" />
+    <item id="Crimson-Semibold" href="CrimsonText-Semibold.ttf" media-type="font/truetype" />
+    <item id="Crimson-SemiboldItalic" href="CrimsonText-SemiboldItalic.ttf" media-type="font/truetype" />
+    <item id="index" href="index.html" media-type="application/xhtml+xml"/>
+    % for n in range(0, len(chapters)):
+      <item id="chapter_${n+1}" href="chapter_${n+1}.html" media-type="application/xhtml+xml"/>
+    % endfor
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="index"/>
+    % for n in range(0, len(chapters)):
+      <itemref idref="chapter_${n+1}"/>
+    % endfor
+  </spine>
+</package>
+

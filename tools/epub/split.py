@@ -34,11 +34,12 @@ def get_meta(soup):
     r = {}
     for node in soup:
         if node.name == "meta":
-            if node.get("name", "") == "dc.title":
-                r["title"] = node.get("content")
+            if node.get("name", "").startswith("dc."):
+                r[node["name"].split(".")[1]] = node.get("content")
                 continue
-            if node.get("name", "") == "dc.creator":
-                r["creator"] = node.get("content")
+        if node.name == "link":
+            if node.get("rel", "").startswith("dc."):
+                r[node["rel"].split(".")[1]] = node.get("href")
                 continue
     return r
 
