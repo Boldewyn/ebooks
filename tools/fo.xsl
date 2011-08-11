@@ -97,107 +97,7 @@
         </fo:static-content>
         <fo:flow flow-name="xsl-region-body">
           <xsl:apply-templates select="*|text()"/>
-          <fo:block-container font-size="{$small-font-size}"
-            text-align="justify" font-style="italic">
-            <fo:block margin-top="2cm">
-              <fo:marker marker-class-name="chapter">&#xA0;</fo:marker>
-              Thank you for reading this eBook.
-              <xsl:if test="/h:html/h:head/h:meta[@name='dc.publisher'] and
-                            /h:html/h:head/h:meta[@name='dc.issued']">
-                It was first published in
-                <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.issued']/@content" />
-                by
-                <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.publisher']/@content" />.
-                Since then it had a long journey.
-              </xsl:if>
-              The current version was scanned by volunteers and published
-              under
-              <fo:basic-link color="{$highlight-color}">
-                <xsl:attribute name="external-destination">
-                  <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
-                </xsl:attribute>
-                <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
-              </fo:basic-link>. From there it was converted to HTML5 and
-              this file by
-              <fo:basic-link color="{$highlight-color}" external-destination="http://www.manuel-strehl.de/">Manuel Strehl</fo:basic-link>.
-            </fo:block>
-            <fo:block space-before="{$leading}" text-align="center">
-              <fo:leader leader-pattern="rule" leader-length="61.8%"
-                color="{$light-color}"
-                rule-style="solid" rule-thickness="1pt" />
-            </fo:block>
-            <fo:block space-before="{$leading}">
-              Other books in the same fashion:
-            </fo:block>
-            <fo:table space-before="{$leading}" table-layout="fixed" width="100%">
-              <fo:table-body>
-                <fo:table-row>
-                  <fo:table-cell padding=".5cm">
-                    <fo:block font-weight="bold" font-size="{$font-size}"
-                      font-style="normal" text-align="center">
-                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                        A Christmas Carol
-                      </fo:basic-link>
-                    </fo:block>
-                    <fo:block font-style="normal" text-align="center">
-                      by Charles Dickens
-                    </fo:block>
-                    <fo:block>
-                      The story of Ebenezer Scrooge and how he became a philanthrop.
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell padding=".5cm">
-                    <fo:block font-weight="bold" font-size="{$font-size}"
-                      font-style="normal" text-align="center">
-                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                        A Christmas Carol
-                      </fo:basic-link>
-                    </fo:block>
-                    <fo:block font-style="normal" text-align="center">
-                      by Charles Dickens
-                    </fo:block>
-                    <fo:block>
-                      The story of Ebenezer Scrooge and how he became a philanthrop.
-                    </fo:block>
-                  </fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                  <fo:table-cell padding=".5cm">
-                    <fo:block font-weight="bold" font-size="{$font-size}"
-                      font-style="normal" text-align="center">
-                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                        A Christmas Carol
-                      </fo:basic-link>
-                    </fo:block>
-                    <fo:block font-style="normal" text-align="center">
-                      by Charles Dickens
-                    </fo:block>
-                    <fo:block>
-                      The story of Ebenezer Scrooge and how he became a philanthrop.
-                    </fo:block>
-                  </fo:table-cell>
-                  <fo:table-cell padding=".5cm">
-                    <fo:block font-weight="bold" font-size="{$font-size}"
-                      font-style="normal" text-align="center">
-                      <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                        A Christmas Carol
-                      </fo:basic-link>
-                    </fo:block>
-                    <fo:block font-style="normal" text-align="center">
-                      by Charles Dickens
-                    </fo:block>
-                    <fo:block>
-                      The story of Ebenezer Scrooge and how he became a philanthrop.
-                    </fo:block>
-                  </fo:table-cell>
-                </fo:table-row>
-              </fo:table-body>
-            </fo:table>
-            <fo:block space-before="{$leading}">
-              (If you read this electronically, click on the title to
-              directly load the book.)
-            </fo:block>
-          </fo:block-container>
+          <xsl:call-template name="colophon" />
         </fo:flow>
       </fo:page-sequence>
     </fo:root>
@@ -207,6 +107,7 @@
     <fo:block break-after="odd-page">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
+    <xsl:call-template name="front-matter" />
   </xsl:template>
 
   <xsl:template match="h:section[@id='Table_of_Contents']"
@@ -226,6 +127,12 @@
       <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*|text()" />
     </fo:block>
+    <xsl:if test="not(ancestor::h:section) and position() = last()">
+      <fo:block margin-top="3.27em" break-after="odd-page"
+        font-size="4em" text-align="center" color="#cccccc">
+        &#x2766;
+      </fo:block>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="h:h1">
@@ -533,6 +440,190 @@
       font-size="{$small-font-size}" font-style="italic">
       <xsl:apply-templates select="*|text()"/>
     </fo:block>
+  </xsl:template>
+
+  <xsl:template name="front-matter">
+    <fo:block-container font-size="{$small-font-size}"
+      text-align="justify"
+      break-after="odd-page">
+      <fo:block text-align="center">
+        <xsl:value-of select="/h:html/h:head/h:title" />
+      </fo:block>
+      <fo:block space-before="2cm">
+        About this book:
+      </fo:block>
+      <fo:block font-style="italic">
+        <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.description']/@content" />
+      </fo:block>
+      <fo:block space-before="4cm"
+        font-weight="bold">
+        Bibliographic data:
+      </fo:block>
+      <xsl:for-each select="/h:html/h:head/h:meta[substring(@name, 1, 3) = 'dc.']">
+        <fo:block text-indent="-{$leading}" start-indent="{$leading}">
+          <fo:inline>
+            <xsl:value-of select="translate(substring(@name, 4, 1),
+              'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
+            <xsl:value-of select="substring(@name, 5)" />
+            <xsl:text>: </xsl:text>
+          </fo:inline>
+          <fo:inline font-style="italic">
+            <xsl:value-of select="@content" />
+          </fo:inline>
+        </fo:block>
+      </xsl:for-each>
+    </fo:block-container>
+  </xsl:template>
+
+  <xsl:template name="colophon">
+    <fo:block-container font-size="{$small-font-size}"
+      text-align="justify" font-style="italic">
+      <fo:block margin-top="2cm">
+        <fo:marker marker-class-name="chapter">&#xA0;</fo:marker>
+        Thank you for reading this eBook.
+        <xsl:if test="/h:html/h:head/h:meta[@name='dc.publisher'] and
+                      /h:html/h:head/h:meta[@name='dc.issued']">
+          It was first published in
+          <xsl:value-of select="substring(/h:html/h:head/h:meta[@name='dc.issued']/@content, 1, 4)" />
+          by
+          <xsl:value-of select="/h:html/h:head/h:meta[@name='dc.publisher']/@content" />.
+          Since then it had a long journey.
+        </xsl:if>
+        The current version was scanned by volunteers and published
+        under
+        <fo:basic-link color="{$highlight-color}">
+          <xsl:attribute name="external-destination">
+            <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
+          </xsl:attribute>
+          <xsl:value-of select="/h:html/h:head/h:link[@rel='dc.source']/@href"/>
+        </fo:basic-link>. From there it was converted to HTML5 and
+        this file by
+        <fo:basic-link color="{$highlight-color}" external-destination="http://www.manuel-strehl.de/">Manuel Strehl</fo:basic-link>.
+      </fo:block>
+      <fo:block space-before="{$leading}" text-align="center">
+        <fo:leader leader-pattern="rule" leader-length="61.8%"
+          color="{$light-color}"
+          rule-style="solid" rule-thickness="1pt" />
+      </fo:block>
+      <fo:block space-before="{$leading}">
+        Other books in the same fashion:
+      </fo:block>
+      <fo:table space-before="{$leading}" table-layout="fixed" width="100%">
+        <fo:table-body>
+          <xsl:call-template name="fetch-others" />
+          <fo:table-row>
+            <fo:table-cell padding=".5cm">
+              <fo:block font-weight="bold" font-size="{$font-size}"
+                font-style="normal" text-align="center">
+                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                  A Christmas Carol
+                </fo:basic-link>
+              </fo:block>
+              <fo:block font-style="normal" text-align="center">
+                by Charles Dickens
+              </fo:block>
+              <fo:block>
+                The story of Ebenezer Scrooge and how he became a philanthrop.
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding=".5cm">
+              <fo:block font-weight="bold" font-size="{$font-size}"
+                font-style="normal" text-align="center">
+                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                  A Christmas Carol
+                </fo:basic-link>
+              </fo:block>
+              <fo:block font-style="normal" text-align="center">
+                by Charles Dickens
+              </fo:block>
+              <fo:block>
+                The story of Ebenezer Scrooge and how he became a philanthrop.
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+          <fo:table-row>
+            <fo:table-cell padding=".5cm">
+              <fo:block font-weight="bold" font-size="{$font-size}"
+                font-style="normal" text-align="center">
+                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                  A Christmas Carol
+                </fo:basic-link>
+              </fo:block>
+              <fo:block font-style="normal" text-align="center">
+                by Charles Dickens
+              </fo:block>
+              <fo:block>
+                The story of Ebenezer Scrooge and how he became a philanthrop.
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding=".5cm">
+              <fo:block font-weight="bold" font-size="{$font-size}"
+                font-style="normal" text-align="center">
+                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
+                  A Christmas Carol
+                </fo:basic-link>
+              </fo:block>
+              <fo:block font-style="normal" text-align="center">
+                by Charles Dickens
+              </fo:block>
+              <fo:block>
+                The story of Ebenezer Scrooge and how he became a philanthrop.
+              </fo:block>
+            </fo:table-cell>
+          </fo:table-row>
+        </fo:table-body>
+      </fo:table>
+      <fo:block space-before="{$leading}">
+        (If you read this electronically, click on the title to
+        directly load the book.)
+      </fo:block>
+    </fo:block-container>
+  </xsl:template>
+
+  <xsl:template name="fetch-others">
+    <xsl:for-each select="document('index.xml', /h:html)/ebooks/book">
+      <xsl:if test="position() mod 2">
+        <xsl:value-of select="substring-before(., '.html')" />
+        <fo:table-row>
+          <fo:table-cell padding=".5cm">
+            <fo:block font-weight="bold" font-size="{$font-size}"
+              font-style="normal" text-align="center">
+              <fo:basic-link>
+                <xsl:attribute name="external-destination">
+                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ., '.pdf')" />
+                </xsl:attribute>
+                <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.title']/@content" />
+              </fo:basic-link>
+            </fo:block>
+            <fo:block font-style="normal" text-align="center">
+              <xsl:text>by </xsl:text>
+              <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
+            </fo:block>
+            <fo:block>
+              <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.description']/@content" />
+            </fo:block>
+          </fo:table-cell>
+          <fo:table-cell padding=".5cm">
+            <fo:block font-weight="bold" font-size="{$font-size}"
+              font-style="normal" text-align="center">
+              <fo:basic-link>
+                <xsl:attribute name="external-destination">
+                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ./following-sibling[0], '.pdf')" />
+                </xsl:attribute>
+                <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.title']/@content" />
+              </fo:basic-link>
+            </fo:block>
+            <fo:block font-style="normal" text-align="center">
+              <xsl:text>by </xsl:text>
+              <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
+            </fo:block>
+            <fo:block>
+              <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.description']/@content" />
+            </fo:block>
+          </fo:table-cell>
+        </fo:table-row>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>
