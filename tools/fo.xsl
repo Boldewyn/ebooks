@@ -581,44 +581,49 @@
   </xsl:template>
 
   <xsl:template name="fetch-others">
+    <xsl:variable name="root" select="/h:html" />
     <xsl:for-each select="document('index.xml', /h:html)/ebooks/book">
       <xsl:if test="position() mod 2">
         <xsl:value-of select="substring-before(., '.html')" />
         <fo:table-row>
           <fo:table-cell padding=".5cm">
             <fo:block font-weight="bold" font-size="{$font-size}"
-              font-style="normal" text-align="center">
+              font-style="normal" text-align="center"
+              keep-with-next="always">
               <fo:basic-link>
                 <xsl:attribute name="external-destination">
                   <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ., '.pdf')" />
                 </xsl:attribute>
-                <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.title']/@content" />
+                <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
               </fo:basic-link>
             </fo:block>
-            <fo:block font-style="normal" text-align="center">
+            <fo:block font-style="normal" text-align="center"
+              keep-with-next="always">
               <xsl:text>by </xsl:text>
-              <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
+              <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
             </fo:block>
             <fo:block>
-              <xsl:value-of select="document(concat(., '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.description']/@content" />
+              <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
             </fo:block>
           </fo:table-cell>
           <fo:table-cell padding=".5cm">
             <fo:block font-weight="bold" font-size="{$font-size}"
-              font-style="normal" text-align="center">
+              font-style="normal" text-align="center"
+              keep-with-next="always">
               <fo:basic-link>
                 <xsl:attribute name="external-destination">
-                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ./following-sibling[0], '.pdf')" />
+                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ./following-sibling::book[1], '.pdf')" />
                 </xsl:attribute>
-                <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.title']/@content" />
+                <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
               </fo:basic-link>
             </fo:block>
-            <fo:block font-style="normal" text-align="center">
+            <fo:block font-style="normal" text-align="center"
+              keep-with-next="always">
               <xsl:text>by </xsl:text>
-              <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
+              <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
             </fo:block>
             <fo:block>
-              <xsl:value-of select="document(concat(./following-sibling[0], '.html'), /h:html)/h:html/h:head/h:meta[@name='dc.description']/@content" />
+              <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
             </fo:block>
           </fo:table-cell>
         </fo:table-row>

@@ -15,11 +15,11 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
 %.pdf: %.html tools/fo.xsl tools/fo.conf
-	sed -n '2,$$p' "$<" | $(FOP) -xml - -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
+	$(FOP) -xml "$<" -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
 
 
 %.fo: %.html tools/fo.xsl
-	sed -n '2,$$p' "$<" | xalan -indent 2 -xsl tools/fo.xsl -out "$@"
+	xalan -indent 2 -in "$<" -xsl tools/fo.xsl -out "$@"
 
 
 epub: $(EBOOKS) tools/epub/*
