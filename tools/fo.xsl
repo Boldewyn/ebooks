@@ -613,7 +613,7 @@
 
   <xsl:template name="one-bookmark">
     <xsl:param name="level" select="2" />
-    <xsl:if test="./h:*[local-name()=concat('h', string($level))]">
+    <xsl:if test="@id and ./h:*[local-name()=concat('h', string($level))]">
       <fo:bookmark>
         <xsl:attribute name="internal-destination">
           <xsl:value-of select="@id" />
