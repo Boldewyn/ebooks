@@ -84,6 +84,7 @@
           </fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
       </fo:layout-master-set>
+      <xsl:call-template name="generate-declarations" />
       <xsl:call-template name="generate-bookmarks" />
       <fo:page-sequence master-reference="standard"
         language="{$language}"
@@ -629,6 +630,34 @@
         </xsl:for-each>
       </fo:bookmark>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="generate-declarations">
+    <fo:declarations>
+      <x:xmpmeta xmlns:x="adobe:ns:meta/">
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <xsl:for-each select="/h:html/h:head/h:meta[substring(@name, 1, 3) = 'dc.']">
+              <xsl:element name="{substring(@name, 4)}" namespace="http://purl.org/dc/elements/1.1/">
+                <xsl:value-of select="@content" />
+              </xsl:element>
+            </xsl:for-each>
+            <xsl:for-each select="/h:html/h:head/h:link[substring(@rel, 1, 3) = 'dc.']">
+              <xsl:element name="{substring(@rel, 4)}" namespace="http://purl.org/dc/elements/1.1/">
+                <xsl:attribute namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" name="resource">
+                  <xsl:value-of select="@href" />
+                </xsl:attribute>
+              </xsl:element>
+            </xsl:for-each>
+          </rdf:Description>
+          <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+            <xmp:CreatorTool>Ebook generator; http://www.boldewyn.de/ebooks/</xmp:CreatorTool>
+          </rdf:Description>
+        </rdf:RDF>
+      </x:xmpmeta>
+    </fo:declarations>
   </xsl:template>
 
 </xsl:stylesheet>
