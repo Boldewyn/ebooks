@@ -3,7 +3,7 @@
 #
 
 
-EBOOKS = $(shell find . -type f -name \*.html -not -name Moby-Dick.html -not -name index.\* -not -name 404.html -printf "%f\n")
+EBOOKS = $(shell git ls-files | grep '.html$$' | grep -v '^[4i]')
 FOP = "$(HOME)/lib/fop/fop"
 
 
