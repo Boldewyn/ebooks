@@ -15,7 +15,7 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
 %.pdf: %.html tools/fo.xsl tools/fo.conf
-	$(FOP) -xml "$<" -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
+	$(FOP) -a -xml "$<" -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
 
 
 %.fo: %.html tools/fo.xsl

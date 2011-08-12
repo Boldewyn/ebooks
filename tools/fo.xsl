@@ -1,5 +1,6 @@
 <xsl:stylesheet version="1.0"
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
+  xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
   xmlns:h="http://www.w3.org/1999/xhtml"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -117,7 +118,8 @@
           <xsl:apply-templates select="*|text()"/>
           <fo:block margin-top="3.27em" break-after="odd-page"
             font-size="4em" text-align="center" color="#cccccc">
-            <fo:instream-foreign-object width="2cm" height="2cm">
+            <fo:instream-foreign-object width="2cm" height="2cm"
+              fox:alt-text="&#x2766;">
               <xsl:copy-of select="document('static/Aldus_leaf_unicode2766.svg', /h:html)/*" />
             </fo:instream-foreign-object>
           </fo:block>
@@ -452,7 +454,8 @@
 
   <xsl:template match="h:img">
     <fo:block>
-      <fo:external-graphic src="{@src}" max-width="10cm" />
+      <fo:external-graphic src="{@src}" max-width="10cm"
+        fox:alt-text="{@alt}" />
     </fo:block>
   </xsl:template>
 
@@ -573,33 +576,34 @@
   <xsl:template name="one-other">
     <xsl:param name="title" select="." />
     <xsl:param name="root" select="/h:html" />
+    <xsl:variable name="link"
+      select="concat('http://www.boldewyn.de/ebooks/', $title, '.pdf')" />
     <fo:block>
-      <fo:basic-link>
-        <xsl:attribute name="external-destination">
-          <xsl:value-of
-            select="concat('http://boldewyn.github.com/ebooks/',
-                           $title, '.pdf')" />
-        </xsl:attribute>
-        <fo:block font-weight="bold" font-size="{$font-size}"
-          font-style="normal" text-align="center"
-          keep-with-next="always">
+      <fo:block font-weight="bold" font-size="{$font-size}"
+        font-style="normal" text-align="center"
+        keep-with-next="always">
+        <fo:basic-link external-destination="{$link}">
           <xsl:value-of
             select="document(concat($title, '.html'),
                     $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
-        </fo:block>
-        <fo:block font-style="normal" text-align="center"
-          keep-with-next="always">
+        </fo:basic-link>
+      </fo:block>
+      <fo:block font-style="normal" text-align="center"
+        keep-with-next="always">
+        <fo:basic-link external-destination="{$link}">
           <xsl:text>by </xsl:text>
           <xsl:value-of
             select="document(concat($title, '.html'),
                     $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
-        </fo:block>
-        <fo:block>
+        </fo:basic-link>
+      </fo:block>
+      <fo:block>
+        <fo:basic-link external-destination="{$link}">
           <xsl:value-of
             select="document(concat($title, '.html'),
                     $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
-        </fo:block>
-      </fo:basic-link>
+        </fo:basic-link>
+      </fo:block>
     </fo:block>
   </xsl:template>
 

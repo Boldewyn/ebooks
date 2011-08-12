@@ -13,7 +13,7 @@
   <xsl:template match="book">
     <rdf:Description>
       <xsl:attribute namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" name="about">
-        <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ., '.html')" />
+        <xsl:value-of select="concat('http://www.boldewyn.de/ebooks/', ., '.html')" />
       </xsl:attribute>
       <dc:title>
         <xsl:value-of select="document(concat('../', ., '.html'))/h:html/h:head/h:meta[@name='dc.title']/@content" />
