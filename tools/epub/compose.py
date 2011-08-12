@@ -49,10 +49,10 @@ def compose_epub(name):
     chapters = ch_titles
     epub.writestr('OEBPS/Content.opf',
         Template(filename=work_path +
-            'templates/OEBPS/Content.opf').render(**locals()))
+            'templates/OEBPS/Content.opf').render_unicode(**locals()).encode("UTF-8"))
     epub.writestr('OEBPS/toc.ncx',
         Template(filename=work_path +
-            'templates/OEBPS/toc.ncx').render(**locals()))
+            'templates/OEBPS/toc.ncx').render_unicode(**locals()).encode("UTF-8"))
 
     ixml = u'''<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
@@ -78,7 +78,7 @@ def compose_epub(name):
 
 
 def compose_all():
-    for f in os.listdir(workdir+"../.."):
+    for f in os.listdir(work_path+"../.."):
         if f.endswith(".html"):
             if f not in ["index.html", "index.de.html", "404.html"]:
                 compose_epub(f.replace(".html", ""))
