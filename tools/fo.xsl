@@ -115,9 +115,10 @@
         <fo:flow flow-name="xsl-region-body">
           <xsl:apply-templates select="*|text()"/>
           <fo:block margin-top="3.27em" break-after="odd-page"
-            font-family="sans-serif"
             font-size="4em" text-align="center" color="#cccccc">
-            &#x2766;
+            <fo:instream-foreign-object width="2cm" height="2cm">
+              <xsl:copy-of select="document('static/Aldus_leaf_unicode2766.svg', /h:html)/*" />
+            </fo:instream-foreign-object>
           </fo:block>
           <xsl:call-template name="colophon" />
         </fo:flow>
@@ -545,12 +546,12 @@
       <xsl:if test="position() mod 2">
         <xsl:value-of select="substring-before(., '.html')" />
         <fo:table-row>
-          <fo:table-cell padding=".5cm">
+          <fo:table-cell padding-right=".5cm" padding-bottom=".5cm">
             <xsl:call-template name="one-other">
               <xsl:with-param name="root" select="$root" />
             </xsl:call-template>
           </fo:table-cell>
-          <fo:table-cell padding=".5cm">
+          <fo:table-cell padding-left=".5cm" padding-bottom=".5cm">
             <xsl:choose>
               <xsl:when test="./following-sibling::book[1]">
                 <xsl:call-template name="one-other">
