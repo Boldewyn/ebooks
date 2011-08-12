@@ -138,7 +138,7 @@
 
   <xsl:template match="h:section[@id='Table_of_Contents']"
     priority="1.1">
-    <fo:block break-after="odd-page">
+    <fo:block break-after="odd-page" role="TOC">
       <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*|text()" />
     </fo:block>
@@ -157,7 +157,7 @@
   </xsl:template>
 
   <xsl:template match="h:h1">
-    <fo:block font-size="3.2em">
+    <fo:block font-size="3.2em" role="H1">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*30" />
         <xsl:text>pt</xsl:text>
@@ -177,7 +177,7 @@
       </fo:marker>
     </fo:block>
     <fo:block font-size="2.4em"
-      margin-bottom="{$leading}">
+      margin-bottom="{$leading}" role="H2">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*20" />
         <xsl:text>pt</xsl:text>
@@ -194,7 +194,7 @@
   <xsl:template match="h:h3">
     <fo:block keep-with-next="always"
       font-size="2.0em" font-style="italic"
-      margin-bottom="{$leading}">
+      margin-bottom="{$leading}" role="H3">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*20" />
         <xsl:text>pt</xsl:text>
@@ -210,7 +210,8 @@
 
   <xsl:template match="h:h4">
     <fo:block font-size="1.6em" letter-spacing=".12em"
-      margin-bottom="{$leading}" keep-with-next="always">
+      margin-bottom="{$leading}" keep-with-next="always"
+      role="H4">
       <xsl:attribute name="line-height">
         <xsl:value-of select="$line-height*20" />
         <xsl:text>pt</xsl:text>
@@ -222,7 +223,8 @@
   <xsl:template match="h:h5">
     <fo:block font-size="1.2em" letter-spacing=".12em"
       font-variant="small-caps" line-height="{$leading}"
-      margin-bottom="{$leading}" keep-with-next="always">
+      margin-bottom="{$leading}" keep-with-next="always"
+      role="H5">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -246,7 +248,8 @@
   </xsl:template>
 
   <xsl:template match="h:blockquote">
-    <fo:block margin="{$leading}" font-size="{$small-font-size}">
+    <fo:block margin="{$leading}" font-size="{$small-font-size}"
+      role="BlockQuote">
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -445,7 +448,7 @@
 
   <xsl:template match="h:figure">
     <fo:block margin-top="{$leading}"
-      keep-together="always"
+      keep-together="always" role="Figure"
       margin-bottom="{$leading}" text-align="center">
       <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*"/>
@@ -461,7 +464,8 @@
 
   <xsl:template match="h:figcaption">
     <fo:block margin-top="{$leading}"
-      font-size="{$small-font-size}" font-style="italic">
+      font-size="{$small-font-size}" font-style="italic"
+      role="Caption">
       <xsl:apply-templates select="*|text()"/>
     </fo:block>
   </xsl:template>
