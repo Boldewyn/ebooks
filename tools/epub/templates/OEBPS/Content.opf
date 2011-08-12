@@ -8,6 +8,8 @@
     <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
     <dc:title>${meta["title"]}</dc:title>
     <dc:creator>${meta["creator"]}</dc:creator>
+    <dc:description>${meta["description"]}</dc:description>
+    <dc:rights>${meta["rights"]}</dc:rights>
   </metadata>
   <manifest>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />

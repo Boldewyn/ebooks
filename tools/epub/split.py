@@ -16,6 +16,7 @@ def fetch(name):
 def split(html):
     """"""
     soup = BeautifulSoup(html)
+    lang = soup.html["xml:lang"]
     article = soup.find("article", {"class": "book"})
     meta = soup.html.head.findAll(["meta", "link"])
     header = article.find("header")
@@ -26,7 +27,7 @@ def split(html):
             sections.append(s)
         else:
             toc = s
-    return [header, meta, toc, sections]
+    return [header, meta, toc, sections, lang]
 
 
 def get_meta(soup):

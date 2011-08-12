@@ -12,6 +12,7 @@ work_path = os.path.abspath(os.path.dirname(__file__))+"/"
 def compose_epub(name):
     """Create an EPUB file from an ebook"""
     parts = split(fetch(name))
+    lang = parts[4]
     meta = get_meta(parts[1])
     target = name + ".epub"
     epub = zipfile.ZipFile(target, 'w')
@@ -29,13 +30,13 @@ def compose_epub(name):
     chapters = parts[3]
     ch_titles = []
     for i, chapter in enumerate(chapters):
-        html = u'''<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+        html = u'''<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s">
   <head>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="ebook.css" />
     <title>Chapter %s</title>
   </head>
-  <body><div class="book"><div class="section" id="chapter_%s">''' % (i+1, i+1)
+  <body><div class="book"><div class="section" id="chapter_%s">''' % (lang, i+1, i+1)
         content = unicode(chapter)
         ch_titles.append(re.sub(re.compile(r'^.*<h2>(.*?)</h2>.*$', re.S),
                                 r'\1', content))
