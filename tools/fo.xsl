@@ -54,7 +54,23 @@
           <fo:region-after region-name="ra-right"
             margin-top=".3cm" extent=".7cm"/>
         </fo:simple-page-master>
+        <fo:simple-page-master master-name="plain-left"
+          page-height="22.8cm" page-width="15.5cm"
+          margin-right="1.941cm" margin-left="3.395cm"
+          margin-bottom="5.062cm" margin-top="2.534cm">
+          <fo:region-body />
+        </fo:simple-page-master>
+        <fo:simple-page-master master-name="plain-right"
+          page-height="22.8cm" page-width="15.5cm"
+          margin-right="3.395cm" margin-left="1.941cm"
+          margin-bottom="5.062cm" margin-top="2.534cm">
+          <fo:region-body />
+        </fo:simple-page-master>
         <fo:page-sequence-master master-name="standard">
+          <fo:single-page-master-reference master-reference="first" />
+          <fo:single-page-master-reference master-reference="plain-left" />
+          <fo:single-page-master-reference master-reference="plain-right" />
+          <fo:single-page-master-reference master-reference="plain-left" />
           <fo:repeatable-page-master-alternatives>
             <fo:conditional-page-master-reference
               master-reference="first"
@@ -68,6 +84,7 @@
           </fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
       </fo:layout-master-set>
+      <xsl:call-template name="generate-bookmarks" />
       <fo:page-sequence master-reference="standard"
         language="{$language}"
         font-family="'Crimson Text',Crimson,Georgia,serif" color="{$font-color}"
@@ -97,6 +114,11 @@
         </fo:static-content>
         <fo:flow flow-name="xsl-region-body">
           <xsl:apply-templates select="*|text()"/>
+          <fo:block margin-top="3.27em" break-after="odd-page"
+            font-family="sans-serif"
+            font-size="4em" text-align="center" color="#cccccc">
+            &#x2766;
+          </fo:block>
           <xsl:call-template name="colophon" />
         </fo:flow>
       </fo:page-sequence>
@@ -113,6 +135,7 @@
   <xsl:template match="h:section[@id='Table_of_Contents']"
     priority="1.1">
     <fo:block break-after="odd-page">
+      <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -127,12 +150,6 @@
       <xsl:copy-of select="@id" />
       <xsl:apply-templates select="*|text()" />
     </fo:block>
-    <xsl:if test="not(ancestor::h:section) and position() = last()">
-      <fo:block margin-top="3.27em" break-after="odd-page"
-        font-size="4em" text-align="center" color="#cccccc">
-        &#x2766;
-      </fo:block>
-    </xsl:if>
   </xsl:template>
 
   <xsl:template match="h:h1">
@@ -161,9 +178,11 @@
         <xsl:value-of select="$line-height*20" />
         <xsl:text>pt</xsl:text>
       </xsl:attribute>
-      <fo:marker marker-class-name="chapter">
-        <xsl:value-of select="."/>
-      </fo:marker>
+      <xsl:if test="not(ancestor::h:header)">
+        <fo:marker marker-class-name="chapter">
+          <xsl:value-of select="."/>
+        </fo:marker>
+      </xsl:if>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
@@ -511,124 +530,104 @@
       <fo:table space-before="{$leading}" table-layout="fixed" width="100%">
         <fo:table-body>
           <xsl:call-template name="fetch-others" />
-          <fo:table-row>
-            <fo:table-cell padding=".5cm">
-              <fo:block font-weight="bold" font-size="{$font-size}"
-                font-style="normal" text-align="center">
-                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                  A Christmas Carol
-                </fo:basic-link>
-              </fo:block>
-              <fo:block font-style="normal" text-align="center">
-                by Charles Dickens
-              </fo:block>
-              <fo:block>
-                The story of Ebenezer Scrooge and how he became a philanthrop.
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding=".5cm">
-              <fo:block font-weight="bold" font-size="{$font-size}"
-                font-style="normal" text-align="center">
-                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                  A Christmas Carol
-                </fo:basic-link>
-              </fo:block>
-              <fo:block font-style="normal" text-align="center">
-                by Charles Dickens
-              </fo:block>
-              <fo:block>
-                The story of Ebenezer Scrooge and how he became a philanthrop.
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
-          <fo:table-row>
-            <fo:table-cell padding=".5cm">
-              <fo:block font-weight="bold" font-size="{$font-size}"
-                font-style="normal" text-align="center">
-                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                  A Christmas Carol
-                </fo:basic-link>
-              </fo:block>
-              <fo:block font-style="normal" text-align="center">
-                by Charles Dickens
-              </fo:block>
-              <fo:block>
-                The story of Ebenezer Scrooge and how he became a philanthrop.
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding=".5cm">
-              <fo:block font-weight="bold" font-size="{$font-size}"
-                font-style="normal" text-align="center">
-                <fo:basic-link external-destination="http://boldewyn.github.com/ebooks/A_Christmas_Carol.pdf">
-                  A Christmas Carol
-                </fo:basic-link>
-              </fo:block>
-              <fo:block font-style="normal" text-align="center">
-                by Charles Dickens
-              </fo:block>
-              <fo:block>
-                The story of Ebenezer Scrooge and how he became a philanthrop.
-              </fo:block>
-            </fo:table-cell>
-          </fo:table-row>
         </fo:table-body>
       </fo:table>
       <fo:block space-before="{$leading}">
-        (If you read this electronically, click on the title to
+        (If you read this electronically, click on the description to
         directly load the book.)
       </fo:block>
     </fo:block-container>
   </xsl:template>
 
   <xsl:template name="fetch-others">
-    <xsl:variable name="root" select="/h:html" />
+    <xsl:param name="root" select="/h:html" />
     <xsl:for-each select="document('index.xml', /h:html)/ebooks/book">
       <xsl:if test="position() mod 2">
         <xsl:value-of select="substring-before(., '.html')" />
         <fo:table-row>
           <fo:table-cell padding=".5cm">
-            <fo:block font-weight="bold" font-size="{$font-size}"
-              font-style="normal" text-align="center"
-              keep-with-next="always">
-              <fo:basic-link>
-                <xsl:attribute name="external-destination">
-                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ., '.pdf')" />
-                </xsl:attribute>
-                <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
-              </fo:basic-link>
-            </fo:block>
-            <fo:block font-style="normal" text-align="center"
-              keep-with-next="always">
-              <xsl:text>by </xsl:text>
-              <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
-            </fo:block>
-            <fo:block>
-              <xsl:value-of select="document(concat(., '.html'), $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
-            </fo:block>
+            <xsl:call-template name="one-other">
+              <xsl:with-param name="root" select="$root" />
+            </xsl:call-template>
           </fo:table-cell>
           <fo:table-cell padding=".5cm">
-            <fo:block font-weight="bold" font-size="{$font-size}"
-              font-style="normal" text-align="center"
-              keep-with-next="always">
-              <fo:basic-link>
-                <xsl:attribute name="external-destination">
-                  <xsl:value-of select="concat('http://boldewyn.github.com/ebooks/', ./following-sibling::book[1], '.pdf')" />
-                </xsl:attribute>
-                <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
-              </fo:basic-link>
-            </fo:block>
-            <fo:block font-style="normal" text-align="center"
-              keep-with-next="always">
-              <xsl:text>by </xsl:text>
-              <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
-            </fo:block>
-            <fo:block>
-              <xsl:value-of select="document(concat(./following-sibling::book[1], '.html'), $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
-            </fo:block>
+            <xsl:choose>
+              <xsl:when test="./following-sibling::book[1]">
+                <xsl:call-template name="one-other">
+                  <xsl:with-param name="title" select="./following-sibling::book[1]" />
+                  <xsl:with-param name="root" select="$root" />
+                </xsl:call-template>
+              </xsl:when>
+              <xsl:otherwise>
+                <fo:block />
+              </xsl:otherwise>
+            </xsl:choose>
           </fo:table-cell>
         </fo:table-row>
       </xsl:if>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="one-other">
+    <xsl:param name="title" select="." />
+    <xsl:param name="root" select="/h:html" />
+    <fo:block>
+      <fo:basic-link>
+        <xsl:attribute name="external-destination">
+          <xsl:value-of
+            select="concat('http://boldewyn.github.com/ebooks/',
+                           $title, '.pdf')" />
+        </xsl:attribute>
+        <fo:block font-weight="bold" font-size="{$font-size}"
+          font-style="normal" text-align="center"
+          keep-with-next="always">
+          <xsl:value-of
+            select="document(concat($title, '.html'),
+                    $root)/h:html/h:head/h:meta[@name='dc.title']/@content" />
+        </fo:block>
+        <fo:block font-style="normal" text-align="center"
+          keep-with-next="always">
+          <xsl:text>by </xsl:text>
+          <xsl:value-of
+            select="document(concat($title, '.html'),
+                    $root)/h:html/h:head/h:meta[@name='dc.creator']/@content" />
+        </fo:block>
+        <fo:block>
+          <xsl:value-of
+            select="document(concat($title, '.html'),
+                    $root)/h:html/h:head/h:meta[@name='dc.description']/@content" />
+        </fo:block>
+      </fo:basic-link>
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template name="generate-bookmarks">
+    <fo:bookmark-tree>
+      <xsl:for-each select="./h:section">
+        <xsl:call-template name="one-bookmark">
+          <xsl:with-param name="level" select="2" />
+        </xsl:call-template>
+      </xsl:for-each>
+    </fo:bookmark-tree>
+  </xsl:template>
+
+  <xsl:template name="one-bookmark">
+    <xsl:param name="level" select="2" />
+    <xsl:if test="./h:*[local-name()=concat('h', string($level))]">
+      <fo:bookmark>
+        <xsl:attribute name="internal-destination">
+          <xsl:value-of select="@id" />
+        </xsl:attribute>
+        <fo:bookmark-title>
+          <xsl:value-of select="./h:*[local-name()=concat('h', string($level))]" />
+        </fo:bookmark-title>
+        <xsl:for-each select="./h:section">
+          <xsl:call-template name="one-bookmark">
+            <xsl:with-param name="level" select="$level+1" />
+          </xsl:call-template>
+        </xsl:for-each>
+      </fo:bookmark>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
