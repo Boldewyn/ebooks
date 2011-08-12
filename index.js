@@ -1,4 +1,5 @@
-var ebooks=["A_Christmas_Carol",
+var ebooks=[
+"A_Christmas_Carol",
 "A_Connecticut_Yankee",
 "Alices_Adventures_in_Wonderland",
 "At_the_Mountains_of_Madness",
@@ -10,7 +11,6 @@ var ebooks=["A_Christmas_Carol",
 "Narrative_of_Arthur_Gordon_Pym",
 "New_Arabian_Nights",
 "Nils_Holgersson",
-"Peter_Pan",
 "Robinson_Crusoe",
 "Siddhartha",
 "The_Adventures_of_Sherlock_Holmes",
@@ -23,4 +23,5 @@ var ebooks=["A_Christmas_Carol",
 "The_Strange_Case_of_Dr._Jekyll_and_Mr._Hyde",
 "The_Time_Machine",
 "The_War_of_the_Worlds",
-"Treasure_Island"];
+"Treasure_Island",
+];
