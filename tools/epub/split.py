@@ -27,7 +27,12 @@ def split(html):
             sections.append(s)
         else:
             toc = s
-    return [header, meta, toc, sections, lang]
+    statics = []
+    for s in article.findAll(src=re.compile(r"^[a-zA-Z0-9_-].*")):
+        statics.append(s["src"])
+    for s in article.findAll(href=re.compile(r"^[a-zA-Z0-9_-].*")):
+        statics.append(s["href"])
+    return [header, meta, toc, sections, lang, list(set(statics))]
 
 
 def get_meta(soup):

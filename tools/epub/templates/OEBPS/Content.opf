@@ -21,6 +21,9 @@
     <item id="Crimson-BoldItalic" href="CrimsonText-BoldItalic.ttf" media-type="font/truetype" />
     <item id="Crimson-Semibold" href="CrimsonText-Semibold.ttf" media-type="font/truetype" />
     <item id="Crimson-SemiboldItalic" href="CrimsonText-SemiboldItalic.ttf" media-type="font/truetype" />
+    % for i,s in enumerate(embeds):
+      <item id="static_${i+1}" href="${s}" media-type="application/octetstream"/>
+    %endfor
     <item id="index" href="index.html" media-type="application/xhtml+xml"/>
     % for n in range(0, len(chapters)):
       <item id="chapter_${n+1}" href="chapter_${n+1}.html" media-type="application/xhtml+xml"/>

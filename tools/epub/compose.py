@@ -26,6 +26,7 @@ def compose_epub(name):
         epub.write(work_path+'../../static/CrimsonText-%s.ttf' % style,
                    'OEBPS/CrimsonText-%s.ttf' % style)
     epub.write(work_path+'../../static/ebook.css', 'OEBPS/ebook.css')
+    embeds = _copy_statics(epub, parts[5])
 
     chapters = parts[3]
     ch_titles = []
@@ -82,6 +83,18 @@ def compose_all():
         if f.endswith(".html"):
             if f not in ["index.html", "index.de.html", "404.html"]:
                 compose_epub(f.replace(".html", ""))
+
+
+def _copy_statics(epub, statics):
+    """Copy static files to epub"""
+    embeds = []
+    for s in statics:
+        if os.path.isfile(work_path+'../../'+s):
+            epub.write(work_path+'../../'+s, "OEBPS/"+s)
+            embeds.append(s)
+        else:
+            sys.stderr.write("Couldn't locate %s\n" % s)
+    return embeds
 
 
 if __name__ == "__main__":
