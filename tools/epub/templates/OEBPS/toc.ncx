@@ -27,5 +27,11 @@
         <content src="chapter_${n+1}.html"/>
       </navPoint>
     % endfor
+    <navPoint playOrder="${len(chapters)+1}" id="colophon">
+      <navLabel>
+        <text>Colophon</text>
+      </navLabel>
+      <content src="colophon.html"/>
+    </navPoint>
   </navMap>
 </ncx>

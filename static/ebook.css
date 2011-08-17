@@ -421,6 +421,10 @@ code, kbd {
   color: #900;
 }
 
+.book a.stealth {
+  color: #222;
+}
+
 .book a:hover,
 .book a:focus {
   outline: none;

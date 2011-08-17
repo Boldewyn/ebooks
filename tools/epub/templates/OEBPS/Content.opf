@@ -28,12 +28,14 @@
     % for n in range(0, len(chapters)):
       <item id="chapter_${n+1}" href="chapter_${n+1}.html" media-type="application/xhtml+xml"/>
     % endfor
+    <item id="colophon" href="colophon.html" media-type="application/xhtml+xml"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="index"/>
     % for n in range(0, len(chapters)):
       <itemref idref="chapter_${n+1}"/>
     % endfor
+    <itemref idref="colophon"/>
   </spine>
 </package>
 

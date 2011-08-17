@@ -3,7 +3,7 @@ import re
 import zipfile
 from codecs import open
 from mako.template import Template
-from split import fetch, split, get_meta
+from split import split, get_meta
 
 
 work_path = os.path.abspath(os.path.dirname(__file__))+"/"
@@ -11,7 +11,7 @@ work_path = os.path.abspath(os.path.dirname(__file__))+"/"
 
 def compose_epub(name):
     """Create an EPUB file from an ebook"""
-    parts = split(fetch(name))
+    parts = split(name)
     lang = parts[4]
     meta = get_meta(parts[1])
     target = name + ".epub"
@@ -54,6 +54,16 @@ def compose_epub(name):
     epub.writestr('OEBPS/toc.ncx',
         Template(filename=work_path +
             'templates/OEBPS/toc.ncx').render_unicode(**locals()).encode("UTF-8"))
+    others = []
+    for ebook in _get_all():
+        others.append([
+            ebook,
+            get_meta(split(ebook.replace(".html", ""))[1])
+        ])
+    epub.writestr('OEBPS/colophon.html',
+        Template(filename=work_path +
+            'templates/OEBPS/colophon.html').render_unicode(**locals()).encode("UTF-8"))
+    del others
 
     ixml = u'''<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
@@ -79,10 +89,17 @@ def compose_epub(name):
 
 
 def compose_all():
+    for f in _get_all():
+        compose_epub(f.replace(".html", ""))
+
+
+def _get_all():
+    ebooks = []
     for f in os.listdir(work_path+"../.."):
         if f.endswith(".html"):
             if f not in ["index.html", "index.de.html", "404.html"]:
-                compose_epub(f.replace(".html", ""))
+                ebooks.append(f)
+    return ebooks
 
 
 def _copy_statics(epub, statics):

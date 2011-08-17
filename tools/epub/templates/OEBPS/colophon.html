@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="ebook.css" />
+    <title>Colophon</title>
+  </head>
+  <body>
+    <article class="book">
+      <section>
+        <p>Thank you for reading this eBook. It was first published in
+        ${meta["issued"]} by ${meta["publisher"]}. Since then it had a long journey.
+        The current version was scanned by volunteers and published
+        under <a href="${meta["source"]}">${meta["source"]}</a>.
+        From there it was converted to HTML5 and this file by
+        <a href="http://www.manuel-strehl.de/">Manuel Strehl</a>.</p>
+        <p>This EPUB file was produced using
+        <a href="http://python.org">Python</a>.
+        The font is <a href="http://aldusleaf.org/">Crimson Text</a>
+        by Sebastian Kosch <i>et al</i>.
+        The project is hosted on <a href="http://github.com/">Github</a>.</p>
+      </section>
+      <section>
+        <p>Other books in the same fashion:</p>
+        <ul>
+          % for ebook in others:
+            <li style="margin-bottom: 1.25em; padding-bottom: 1.25em; border-bottom: 1px solid #ccc;">
+              <a href="http://www.boldewyn.de/ebooks/${ebook[0]}" class="stealth">
+                <strong>${ebook[1]["title"]}</strong><br/>
+                by <strong>${ebook[1]["creator"]}</strong><br/><br/>
+                ${ebook[1]["description"]}
+              </a>
+            </li>
+          % endfor
+        </ul>
+      </section>
+    </article>
+  </body>
+</html>
