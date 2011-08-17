@@ -528,6 +528,15 @@
         this file by
         <fo:basic-link color="{$highlight-color}" external-destination="http://www.manuel-strehl.de/">Manuel Strehl</fo:basic-link>.
       </fo:block>
+      <fo:block space-before="{$leading}">
+        This PDF was produced using
+        <fo:basic-link color="{$highlight-color}" external-destination="http://xmlgraphics.apache.org/fop">Apache FOP</fo:basic-link>.
+        The font is
+        <fo:basic-link color="{$highlight-color}" external-destination="http://aldusleaf.org/">Crimson Text</fo:basic-link>
+        by Sebastian Kosch <fo:inline font-style="normal">et al</fo:inline>.
+        The project is hosted on
+        <fo:basic-link color="{$highlight-color}" external-destination="http://github.com/">Github</fo:basic-link>.
+      </fo:block>
       <fo:block space-before="{$leading}" text-align="center">
         <fo:leader leader-pattern="rule" leader-length="61.8%"
           color="{$light-color}"
