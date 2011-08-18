@@ -3,7 +3,7 @@
 #
 
 
-EBOOKS = $(shell git ls-files | grep '.html$$' | grep -v '^[4i]' | grep -v '^Narrative')
+EBOOKS = $(shell git ls-files *.html | grep -v '^[4i]' | grep -v '^Narrative')
 FOP = "$(HOME)/lib/fop/fop"
 
 
