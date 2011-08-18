@@ -15,6 +15,7 @@
   <xsl:param name="bright-color" select="'#ccc'" />
   <xsl:param name="highlight-color" select="'#922'" />
   <xsl:param name="thin-line" select="'.25mm'" />
+  <xsl:param name="target-engine" select="'fop'" />
 
   <xsl:variable name="language" select="substring-before(/h:html/@xml:lang, '-')" />
 
@@ -250,7 +251,7 @@
       </xsl:if>
       <xsl:if test="contains(@class, 'centered') or
         ancestor::h:blockquote[contains(@class, 'centered')]">
-        <xsl:attribute name="text-align">centered</xsl:attribute>
+        <xsl:attribute name="text-align">center</xsl:attribute>
       </xsl:if>
       <xsl:if test="preceding-sibling::h:*[1] = preceding-sibling::h:h2[1] or
         preceding-sibling::h:*[1] = preceding-sibling::h:h3[1] or
@@ -284,49 +285,47 @@
 
   <xsl:template match="h:dl">
     <fo:block>
-      <xsl:if test="contains(@class, 'dialog')">
-        <xsl:attribute name="start-indent">
-          <xsl:value-of select="$leading" />
-        </xsl:attribute>
-        <xsl:attribute name="text-indent">
-          <xsl:text>-</xsl:text>
-          <xsl:value-of select="$leading" />
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:apply-templates select="*|text()" />
+      <xsl:choose>
+        <xsl:when test="contains(@class, 'dialog')">
+          <xsl:apply-templates select="h:dt" mode="dialog" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="*|text()" />
+        </xsl:otherwise>
+      </xsl:choose>
     </fo:block>
   </xsl:template>
 
   <xsl:template match="h:dt">
-    <xsl:choose>
-      <xsl:when test="../self::h:dl[contains(@class, 'dialog')]">
-        <fo:inline font-variant="small-caps" letter-spacing=".05em"
-          padding-right=".75em">
-          <xsl:apply-templates select="*|text()" />
-        </fo:inline>
-      </xsl:when>
-      <xsl:otherwise>
-        <fo:block>
-          <xsl:apply-templates select="*|text()" />
-        </fo:block>
-      </xsl:otherwise>
-    </xsl:choose>
+    <fo:block>
+      <xsl:apply-templates select="*|text()" />
+    </fo:block>
   </xsl:template>
 
   <xsl:template match="h:dd">
-    <xsl:choose>
-      <xsl:when test="../self::h:dl[contains(@class, 'dialog')]">
-        <fo:inline>
-          <xsl:apply-templates select="*|text()" />
-        </fo:inline>
-        <fo:block height="{$leading}">&#xA0;</fo:block>
-      </xsl:when>
-      <xsl:otherwise>
-        <fo:block start-indent="{$leading}">
-          <xsl:apply-templates select="*|text()" />
-        </fo:block>
-      </xsl:otherwise>
-    </xsl:choose>
+    <fo:block start-indent="{$leading}">
+      <xsl:apply-templates select="*|text()" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:dt" mode="dialog">
+    <fo:block start-indent="{$leading}" text-indent="-{$leading}"
+      space-after="{$leading}">
+      <fo:inline font-variant="small-caps" letter-spacing=".05em"
+        padding-right=".75em">
+        <xsl:apply-templates select="*|text()" />
+      </fo:inline>
+      <xsl:apply-templates
+        select="following-sibling::h:dd[preceding-sibling::h:dt[1] =
+                                        current()]"
+        mode="dialog" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:dd" mode="dialog">
+    <fo:inline>
+      <xsl:apply-templates select="*|text()" />
+    </fo:inline>
   </xsl:template>
 
   <xsl:template match="h:i|h:em|h:var">
@@ -869,6 +868,18 @@
         </rdf:RDF>
       </x:xmpmeta>
     </fo:declarations>
+  </xsl:template>
+
+  <xsl:template name="small-caps">
+    <xsl:choose>
+      <xsl:when test="$target-engine = 'fop'">
+        <xsl:attribute name="text-transform">uppercase</xsl:attribute>
+        <xsl:attribute name="font-size">.9em</xsl:attribute>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:attribute name="font-variant">small-caps</xsl:attribute>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
