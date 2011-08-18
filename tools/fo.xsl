@@ -12,7 +12,9 @@
   <xsl:param name="leading-2-3rd" select="'8.667pt'" />
   <xsl:param name="font-color" select="'#222'" />
   <xsl:param name="light-color" select="'#777'" />
+  <xsl:param name="bright-color" select="'#ccc'" />
   <xsl:param name="highlight-color" select="'#922'" />
+  <xsl:param name="thin-line" select="'.25mm'" />
 
   <xsl:variable name="language" select="substring-before(/h:html/@xml:lang, '-')" />
 
@@ -117,7 +119,7 @@
         <fo:flow flow-name="xsl-region-body">
           <xsl:apply-templates select="*|text()"/>
           <fo:block margin-top="3.27em" break-after="odd-page"
-            font-size="4em" text-align="center" color="#cccccc">
+            font-size="4em" text-align="center" color="{$bright-color}">
             <fo:instream-foreign-object width="2cm" height="2cm"
               fox:alt-text="&#x2766;">
               <xsl:copy-of select="document('static/Aldus_leaf_unicode2766.svg', /h:html)/*" />
@@ -231,16 +233,37 @@
 
   <xsl:template match="h:p">
     <fo:block text-align="justify" hyphenate="true">
-      <xsl:if test="local-name(./preceding-sibling::*[1]) = 'p'">
+      <xsl:if test="local-name(preceding-sibling::h:*[1]) = 'p' and
+        not(contains(preceding-sibling::h:*[1]/@class, 'article_header')) and
+        not(ancestor::h:*[contains(@class, 'poem')]) and
+        not(contains(@class, 'article_header')) and
+        not(contains(@class, 'noindent')) and
+        not(contains(@class, 'signature')) and
+        not(contains(@class, 'postscriptum'))">
         <xsl:attribute name="text-indent">
           <xsl:value-of select="$leading" />
         </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="contains(@class, 'date') or contains(@class, 'signature')">
+        <xsl:attribute name="text-align">right</xsl:attribute>
+        <xsl:attribute name="font-style">italic</xsl:attribute>
+      </xsl:if>
+      <xsl:if test="contains(@class, 'centered') or
+        ancestor::h:blockquote[contains(@class, 'centered')]">
+        <xsl:attribute name="text-align">centered</xsl:attribute>
+      </xsl:if>
+      <xsl:if test="preceding-sibling::h:*[1] = preceding-sibling::h:h2[1] or
+        preceding-sibling::h:*[1] = preceding-sibling::h:h3[1] or
+        (not(preceding-sibling::h:*) and ../h:section)">
+        <fo:initial-property-set font-variant="small-caps"
+          letter-spacing=".033em" />
       </xsl:if>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
   </xsl:template>
 
-  <xsl:template match="h:p[contains(@class, 'separation')]">
+  <xsl:template match="h:p[contains(@class, 'separation')]"
+    priority="1">
     <fo:block space-before="{$leading}" text-align="justify"
       hyphenate="true">
       <xsl:apply-templates select="*|text()" />
@@ -248,10 +271,62 @@
   </xsl:template>
 
   <xsl:template match="h:blockquote">
-    <fo:block margin="{$leading}" font-size="{$small-font-size}"
+    <fo:block space-before="{$leading}" space-after="{$leading}"
+      start-indent="{$leading}" end-indent="{$leading}"
+      font-size="{$small-font-size}" line-height="{$leading}"
       role="BlockQuote">
+      <xsl:if test="contains(@class, 'slanted') or contains(@class, 'quote')">
+        <xsl:attribute name="font-style">italic</xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates select="*|text()" />
     </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:dl">
+    <fo:block>
+      <xsl:if test="contains(@class, 'dialog')">
+        <xsl:attribute name="start-indent">
+          <xsl:value-of select="$leading" />
+        </xsl:attribute>
+        <xsl:attribute name="text-indent">
+          <xsl:text>-</xsl:text>
+          <xsl:value-of select="$leading" />
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates select="*|text()" />
+    </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:dt">
+    <xsl:choose>
+      <xsl:when test="../self::h:dl[contains(@class, 'dialog')]">
+        <fo:inline font-variant="small-caps" letter-spacing=".05em"
+          padding-right=".75em">
+          <xsl:apply-templates select="*|text()" />
+        </fo:inline>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block>
+          <xsl:apply-templates select="*|text()" />
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="h:dd">
+    <xsl:choose>
+      <xsl:when test="../self::h:dl[contains(@class, 'dialog')]">
+        <fo:inline>
+          <xsl:apply-templates select="*|text()" />
+        </fo:inline>
+        <fo:block height="{$leading}">&#xA0;</fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:block start-indent="{$leading}">
+          <xsl:apply-templates select="*|text()" />
+        </fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="h:i|h:em|h:var">
@@ -260,7 +335,7 @@
     </fo:inline>
   </xsl:template>
 
-  <xsl:template match="h:b|h:strong|h:span[contains(@class, 'proper-name')]">
+  <xsl:template match="h:b|h:strong|h:span[contains(@class, 'proper_name')]">
     <fo:inline font-variant="small-caps" letter-spacing=".05em">
       <xsl:apply-templates select="*|text()" />
     </fo:inline>
@@ -282,7 +357,7 @@
     <fo:block text-align="center" space-before="{$leading}" space-after="{$leading}">
       <fo:leader leader-pattern="rule" leader-length="61.8%"
         color="{$light-color}"
-        rule-style="solid" rule-thickness="1pt" />
+        rule-style="solid" rule-thickness="{$thin-line}" />
     </fo:block>
   </xsl:template>
 
@@ -468,6 +543,125 @@
       role="Caption">
       <xsl:apply-templates select="*|text()"/>
     </fo:block>
+  </xsl:template>
+
+  <xsl:template match="h:table">
+    <xsl:choose>
+      <xsl:when test="h:caption">
+        <fo:table-and-caption>
+          <xsl:apply-templates select="h:caption"/>
+          <fo:table table-layout="fixed"
+            start-indent="{$leading}" end-indent="{$leading}"
+            space-before="{$leading}" space-after="{$leading}">
+            <xsl:choose>
+              <xsl:when test="h:tbody">
+                <xsl:apply-templates select="*[not(h:caption)]"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <fo:table-body>
+                  <xsl:apply-templates select="*[not(h:caption)]"/>
+                </fo:table-body>
+              </xsl:otherwise>
+            </xsl:choose>
+          </fo:table>
+        </fo:table-and-caption>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:table table-layout="fixed"
+          start-indent="{$leading}" end-indent="{$leading}"
+          space-before="{$leading}" space-after="{$leading}">
+          <xsl:choose>
+            <xsl:when test="h:tbody">
+              <xsl:apply-templates select="*[not(h:caption)]"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <fo:table-body>
+                <xsl:apply-templates select="*[not(h:caption)]"/>
+              </fo:table-body>
+            </xsl:otherwise>
+          </xsl:choose>
+        </fo:table>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="h:caption">
+    <fo:table-caption>
+      <fo:block font-style="italic">
+        <xsl:apply-templates select="*|text()"/>
+      </fo:block>
+    </fo:table-caption>
+  </xsl:template>
+
+  <xsl:template match="h:tbody">
+    <fo:table-body border-bottom="{$thin-line} solid {$bright-color}">
+      <xsl:apply-templates select="*"/>
+    </fo:table-body>
+  </xsl:template>
+
+  <xsl:template match="h:tfoot">
+    <fo:table-footer>
+      <xsl:apply-templates select="*"/>
+    </fo:table-footer>
+  </xsl:template>
+
+  <xsl:template match="h:thead">
+    <fo:table-header>
+      <xsl:apply-templates select="*"/>
+    </fo:table-header>
+  </xsl:template>
+
+  <xsl:template match="h:tr">
+    <fo:table-row>
+      <xsl:apply-templates select="*"/>
+    </fo:table-row>
+  </xsl:template>
+
+  <xsl:template match="h:th">
+    <fo:table-cell
+      padding-start="3pt" padding-end="3pt"
+      padding-before="{$leading}" padding-after="{$leading}">
+      <xsl:if test="@colspan">
+        <xsl:attribute name="number-columns-spanned">
+          <xsl:value-of select="@colspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@rowspan">
+        <xsl:attribute name="number-rows-spanned">
+          <xsl:value-of select="@rowspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="ancestor::h:thead">
+        <xsl:attribute name="border-bottom">
+          <xsl:value-of select="$thin-line" />
+          <xsl:text> solid </xsl:text>
+          <xsl:value-of select="$bright-color" />
+        </xsl:attribute>
+      </xsl:if>
+      <fo:block font-style="italic">
+        <xsl:apply-templates select="*|text()"/>
+      </fo:block>
+    </fo:table-cell>
+  </xsl:template>
+
+  <xsl:template match="h:td">
+    <fo:table-cell
+      padding-start="3pt" padding-end="3pt"
+      padding-before="{$leading}" padding-after="{$leading}">
+      <xsl:if test="@colspan">
+        <xsl:attribute name="number-columns-spanned">
+          <xsl:value-of select="@colspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@rowspan">
+        <xsl:attribute name="number-rows-spanned">
+          <xsl:value-of select="@rowspan"/>
+        </xsl:attribute>
+      </xsl:if>
+      <fo:block>
+        <xsl:apply-templates select="*|text()"/>
+      </fo:block>
+    </fo:table-cell>
   </xsl:template>
 
   <xsl:template name="front-matter">
