@@ -681,17 +681,19 @@
         Bibliographic data:
       </fo:block>
       <xsl:for-each select="/h:html/h:head/h:meta[substring(@name, 1, 3) = 'dc.']">
-        <fo:block text-indent="-{$leading}" start-indent="{$leading}">
-          <fo:inline>
-            <xsl:value-of select="translate(substring(@name, 4, 1),
-              'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-            <xsl:value-of select="substring(@name, 5)" />
-            <xsl:text>: </xsl:text>
-          </fo:inline>
-          <fo:inline font-style="italic">
-            <xsl:value-of select="@content" />
-          </fo:inline>
-        </fo:block>
+        <xsl:if test="@name != 'dc.description'">
+          <fo:block text-indent="-{$leading}" start-indent="{$leading}">
+            <fo:inline>
+              <xsl:value-of select="translate(substring(@name, 4, 1),
+                'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
+              <xsl:value-of select="substring(@name, 5)" />
+              <xsl:text>: </xsl:text>
+            </fo:inline>
+            <fo:inline font-style="italic">
+              <xsl:value-of select="@content" />
+            </fo:inline>
+          </fo:block>
+        </xsl:if>
       </xsl:for-each>
     </fo:block-container>
   </xsl:template>
