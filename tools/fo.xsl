@@ -17,7 +17,19 @@
   <xsl:param name="thin-line" select="'.25mm'" />
   <xsl:param name="target-engine" select="'fop'" />
 
-  <xsl:variable name="language" select="substring-before(/h:html/@xml:lang, '-')" />
+  <xsl:variable name="language">
+    <xsl:choose>
+      <xsl:when test="contains(/h:html/@xml:lang, '-')">
+        <xsl:value-of select="substring-before(/h:html/@xml:lang, '-')" />
+      </xsl:when>
+      <xsl:when test="string-length(/h:html/@xml:lang) > 0">
+        <xsl:value-of select="/h:html/@xml:lang" />
+      </xsl:when>
+      <xsl:otherwise>
+        en
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
   <xsl:template match="/">
     <xsl:apply-templates select="h:html/h:body//h:article[@class='book']" />
