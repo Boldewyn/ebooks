@@ -14,12 +14,13 @@ all: pdf epub index
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
-%.pdf: %.html tools/fo.xsl tools/fo.conf
-	$(FOP) -a -xml "$<" -xsl tools/fo.xsl -c tools/fo.conf -pdf "$@"
+%.pdf: %.fo tools/fo.xsl tools/fo.conf
+	$(FOP) -a -fo "$<" -c tools/fo.conf -pdf "$@"
 
 
 %.fo: %.html tools/fo.xsl
-	xalan -indent 2 -in "$<" -xsl tools/fo.xsl -out "$@"
+	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/tools:/usr/share/java/xalan2.jar" \
+	  org.apache.xalan.xslt.Process -indent 2 -xsl tools/fo.xsl -in "$<" -out "$@"
 
 
 epub: $(EBOOKS) tools/epub/*
