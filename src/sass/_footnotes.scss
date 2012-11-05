@@ -1,0 +1,37 @@
+/**
+ * Footnotes ---------------------------------------------------------
+ */
+.book .footnote-body {
+  display: block;
+  float: right;
+  width: 10em;
+  margin: 0 -11.42857em 1.42857em 0;
+  font-style: italic;
+  font-size: .875em;
+  line-height: 1.42857;
+  text-align: left;
+  text-indent: 0;
+}
+
+@media (max-width: 52em) {
+  .book .footnote-body {
+    margin: 1.42857em 0 1.42857em 1.42857em;
+    padding-left: 1.35614em;
+    border-left: .071428em solid #ccc;
+  }
+}
+
+.book .footnote:before,
+.book .footnote-body:before {
+  content: counter(footnote) ") ";
+  font-size: .7em;
+  font-style: normal;
+  line-height: .7em;
+  position: relative;
+  top: -.4em;
+}
+
+.book .footnote-unnumbered:before,
+.book .footnote-unnumbered .footnote-body:before {
+  content: "";
+}

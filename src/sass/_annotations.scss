@@ -1,0 +1,29 @@
+/**
+ * Other special parts -----------------------------------------------
+ */
+
+.book .dedication {
+  width: 50%;
+  margin: 2.8571em 0 2.8571em 50%;
+  font-style: italic;
+  font-size: .933em;
+  line-height: 1.429;
+  text-align: right;
+  text-indent: 0;
+}
+
+body .book div .dedication:first-line {
+  font-variant: normal;
+}
+
+.book .annotation {
+  font-style: italic;
+  text-indent: 0;
+}
+.book .annotation:first-line {
+  font-variant: normal;
+}
+
+.dialog .annotation {
+  font-variant: normal;
+}

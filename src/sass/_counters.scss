@@ -1,0 +1,43 @@
+/**
+ * Counters ----------------------------------------------------------
+ */
+.book {
+  counter-reset: page chapter section global_section footnote;
+}
+
+.book section {
+  counter-increment: chapter section;
+}
+
+.book section section {
+  counter-increment: section;
+}
+
+.book section#Table_of_Contents,
+.book section.preface {
+  counter-increment: none;
+}
+
+.book #Table_of_Contents ol {
+  counter-reset: toc;
+}
+
+.book #Table_of_Contents ol.continued {
+  counter-reset: none;
+}
+
+.book #Table_of_Contents li {
+  counter-increment: toc;
+}
+
+.book #Table_of_Contents li.no_chapter {
+  counter-increment: none;
+}
+
+.book .footnote {
+  counter-increment: footnote;
+}
+
+.book .footnote-unnumbered {
+  counter-increment: none;
+}

@@ -1,0 +1,27 @@
+/**
+ * Paged media setup -------------------------------------------------
+ */
+@page {
+  size: portrait;
+  margin: 2cm;
+  counter-increment: page;
+  @bottom-center {
+    margin-top: 1.6667em;
+    line-height: 1.6667em;
+    font-style: italic;
+    font-size: 75%;
+    text-align: center;
+    content: counter(page);
+  }
+}
+
+@page :left {
+  margin-left: 3cm;
+  margin-right: 1.5cm;
+}
+
+@page :right {
+  margin-left: 1.5cm;
+  margin-right: 3cm;
+}
+

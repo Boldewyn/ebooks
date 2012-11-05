@@ -1,0 +1,58 @@
+/**
+ * Blockquote styles -------------------------------------------------
+ */
+
+.book blockquote {
+  padding: 0 1.42857em;
+  font-size: .875em;
+  line-height: 1.42857;
+  margin: 1.42857em 0;
+  display: table;
+}
+
+.book blockquote.centered {
+  display: block;
+}
+
+.book .centered,
+.book blockquote.centered p {
+  text-align: center;
+}
+
+.book blockquote.article p.article_header {
+  text-align:center;
+  margin: 1.25em 0;
+  font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
+  letter-spacing: .033em;
+}
+.book blockquote.slanted,
+.book blockquote.quote {
+  font-style: italic;
+}
+.book blockquote.fixed pre {
+  white-space: pre;
+  display: table;
+  width: auto;
+  margin: 0 auto;
+}
+.book blockquote.fixed pre * {
+  white-space: pre;
+}
+.book blockquote .source {
+  font-style: italic;
+  font-size: .875em;
+  text-align: right;
+}
+.book blockquote.poem {
+  padding: 0;
+  display: table;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book .poem .line {
+  display:block;
+  white-space:nowrap;
+}

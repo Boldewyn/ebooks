@@ -1,0 +1,214 @@
+/**
+ * Basic book settings -----------------------------------------------
+ */
+
+.book {
+  max-width: 40em;
+  padding: 6.25em .625em;
+  margin: 0 auto;
+  text-rendering: optimizeLegibility;
+  x-background: url(baseline.png);
+}
+
+@media (max-height: 31.25em) {
+  .book {
+    padding-top: 3.125em;
+  }
+}
+
+@media (max-width: 64em) {
+  .book {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 52em) {
+  .book {
+    margin-right: 0;
+  }
+}
+
+.full-width .book {
+  max-width: none;
+  line-height: 1.5em;
+  padding: 6.25em 2.5em;
+}
+
+.sans-serif .book {
+  font-family: "DejaVu Sans", "Bitstream Vera Sans", Helvetica, "Segoe UI", Arial, sans-serif;
+}
+
+.book:after {
+  content: "\2766";
+  display: block;
+  text-align: center;
+  font-size: 4em;
+  color: #ccc;
+  margin: 1.25em 0 0;
+}
+
+.book header,
+.book section {
+  margin: 0 0 2.5em;
+  padding: 0 0 2.4375em;
+  border-bottom: .0625em solid #ccc;
+}
+
+@media print {
+  .book header,
+  .book section {
+    page-break-after: always;
+    page-break-after: right;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .book section:last-child,
+  .book section section {
+    page-break-after: auto;
+  }
+  .book section section {
+    padding-bottom: 2.5em;
+  }
+  .book section section > *:first-child {
+    page-break-before: avoid;
+  }
+}
+
+.book section section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.book header h2,
+.book header p {
+  text-align: center;
+}
+
+.book header h2 {
+  margin-bottom: 1.25em;
+}
+
+.book header h2.author:before {
+  content: "by ";
+  display: block;
+  font-size: .666em;
+  font-style: italic;
+}
+
+.book header h2.author:lang(de):before {
+  content: "von ";
+}
+
+.book header p {
+  width: 61.8%;
+  margin: 0 auto;
+}
+
+.book p {
+  text-align: justify;
+  hyphenate: auto;
+  hyphenate-lines: 3;
+}
+
+.book p + p {
+  text-indent: 1.25em;
+}
+
+.book .letter_header + p + p,
+.book .article_header,
+.book .article_header + p,
+.book p.signature,
+.book p.postscriptum,
+.book .poem p,
+.book p.noindent {
+  text-indent: 0;
+}
+
+.book section h2+p:first-line,
+.book section h3+p:first-line,
+.book section > p:first-child:first-line {
+  font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
+  letter-spacing: .033em;
+}
+
+.book figure {
+  text-align: center;
+  margin: 1.25em auto;
+  max-width: 100%;
+}
+
+.book figure img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.book figcaption {
+  font-size: .875em;
+  line-height: 1.42857;
+}
+
+.book p.separation {
+  margin-top: 1.25em;
+  text-indent: 0;
+}
+
+.book p.date,
+.book p.signature {
+  text-align: right;
+  font-style: italic;
+}
+
+.book p.date + p {
+  text-indent: 0;
+}
+
+.book hr {
+  color: #aaa;
+  height: .0625em;
+  background: #aaa;
+  border: none;
+  margin: 1.25em 0 1.1875em;
+}
+
+.book var,
+.book em {
+  font-style: italic;
+}
+
+.book .proper_name,
+.book strong {
+  font-weight: normal;
+  font-variant: small-caps;
+  -moz-font-feature-settings: 'smcp=1';
+  letter-spacing: .05em;
+  padding: 0 0 0 .1em;
+}
+
+.book a {
+  color: #A00;
+  text-decoration: none;
+}
+
+.book a:visited {
+  color: #900;
+}
+
+.book a.stealth {
+  color: #222;
+}
+
+.book a:hover,
+.book a:focus {
+  outline: none;
+  color: #F00;
+  border-bottom: .0625em solid;
+}
+
+.book a:active {
+  color: white;
+  background: #F00;
+  border: none;
+}
