@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@import url(http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bold);
+@import url(fonts/crimson.css);
 @import url(http://fonts.googleapis.com/css?family=DejaVu+Sans:regular,regularitalic,bold);
 
 
@@ -67,8 +67,7 @@ html {
 }
 
 body {
-  font: 100%/1.25em Crimson,"Crimson Text",serif;
-  font-size-adjust: .42;
+  font: 100%/1.5em Crimson,serif;
   color: #222;
   background: #FDFDFD;
   margin: 0;
@@ -232,6 +231,7 @@ code, kbd {
   max-width: 40em;
   padding: 6.25em .625em;
   margin: 0 auto;
+  text-rendering: optimizeLegibility;
   x-background: url(baseline.png);
 }
 
