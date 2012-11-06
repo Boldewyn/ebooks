@@ -8,7 +8,7 @@ FOP = "$(HOME)/lib/fop/fop"
 
 
 all: pdf epub index
-.PHONY: all pdf epub clean index
+.PHONY: all pdf epub clean index css
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
@@ -48,3 +48,8 @@ index.xml: $(EBOOKS)
 	echo "<ebooks>" > index.xml
 	for b in $(patsubst %.html,%,$(EBOOKS)); do echo "  <book>$$b</book>" >> index.xml ; done
 	echo "</ebooks>" >> index.xml
+
+css: static/ebook.css
+
+static/ebook.css: src/sass/*
+	compass compile
