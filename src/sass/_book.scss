@@ -107,8 +107,7 @@
 
 .book p {
   text-align: justify;
-  hyphenate: auto;
-  hyphenate-lines: 3;
+  @include hyphenation;
 }
 
 .book p + p {
