@@ -1,7 +1,7 @@
 /**
  * Footnotes ---------------------------------------------------------
  */
-.book .footnote-body {
+.footnote-body {
   display: block;
   float: right;
   width: 10em;
@@ -14,15 +14,15 @@
 }
 
 @media (max-width: 52em) {
-  .book .footnote-body {
+  .footnote-body {
     margin: 1.42857em 0 1.42857em 1.42857em;
     padding-left: 1.35614em;
     border-left: .071428em solid #ccc;
   }
 }
 
-.book .footnote:before,
-.book .footnote-body:before {
+.footnote:before,
+.footnote-body:before {
   content: counter(footnote) ") ";
   font-size: .7em;
   font-style: normal;
@@ -31,7 +31,7 @@
   top: -.4em;
 }
 
-.book .footnote-unnumbered:before,
-.book .footnote-unnumbered .footnote-body:before {
+.footnote-unnumbered:before,
+.footnote-unnumbered .footnote-body:before {
   content: "";
 }

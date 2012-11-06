@@ -1,54 +1,55 @@
 /**
  * Table of Content --------------------------------------------------
  */
-.book #Table_of_Contents ol {
-  list-style: none;
-  padding: 0 1.333em;
-  margin: 0 auto;
-  display: table;
-}
+#Table_of_Contents {
+  ol {
+    list-style: none;
+    padding: 0 1.333em;
+    margin: 0 auto;
+    display: table;
+  }
 
-.book #Table_of_Contents ol ol {
-  padding-left: 2.5em;
-  margin: 1em;
-}
+  ol ol {
+    padding-left: 2.5em;
+    margin: 1em;
+  }
 
-.book #Table_of_Contents ol li {
-  margin: 0 0 .333em;
-  padding-left: 3.5em;
-  text-indent: -3.5em;
-}
+  ol li {
+    margin: 0 0 .333em;
+    padding-left: 3.5em;
+    text-indent: -3.5em;
+  }
 
-.book #Table_of_Contents ol li:before {
-  content: counter(toc, upper-roman) ".";
-  width: 3em;
-  padding-right: .5em;
-  display: inline-block;
-  font-weight: bold;
-  text-indent: 0;
-  text-align: right;
-}
+  ol li:before {
+    content: counter(toc, upper-roman) ".";
+    width: 3em;
+    padding-right: .5em;
+    display: inline-block;
+    font-weight: bold;
+    text-indent: 0;
+    text-align: right;
+  }
 
-.book #Table_of_Contents ol ol li:before {
-  content: counter(toc) ".";
-}
+  ol ol li:before {
+    content: counter(toc) ".";
+  }
 
-.book #Table_of_Contents ol li.no_chapter:before {
-  content: "\00A0";
-}
+  ol li.no_chapter:before {
+    content: "\00A0";
+  }
 
-.book #Table_of_Contents.part_and_chapter ol li:before {
-  content: "";
-}
+  &.part_and_chapter ol li:before {
+    content: "";
+  }
 
-.book #Table_of_Contents.part_and_chapter ol ol li:before {
-  content: "Chapter " counter(toc, upper-roman);
-  width: 8em;
-  font-variant: small-caps;
-  -moz-font-feature-settings: 'smcp=1';
-  font-weight: normal;
-}
+  &.part_and_chapter ol ol li:before {
+    content: "Chapter " counter(toc, upper-roman);
+    width: 8em;
+    font-variant: small-caps;
+    font-weight: normal;
+  }
 
-.book #Table_of_Contents.part_and_chapter ol ol li:lang(de):before {
-  content: "Kapitel " counter(toc, upper-roman);
+  &.part_and_chapter ol ol li:lang(de):before {
+    content: "Kapitel " counter(toc, upper-roman);
+  }
 }

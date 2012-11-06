@@ -1,28 +1,6 @@
 /**
  * Reset -------------------------------------------------------------
  */
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote,
-ul, ol, dl, li, dt, dd,
-form, fieldset, pre, label, legend,
-a, abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-strong, sub, sup, tt, var, hr,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, dialog, figcaption, figure, footer, header,
-hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  font-family: inherit;
-  vertical-align: baseline;
-}
-
 article, aside, dialog, figcaption, figure, footer, header,
 hgroup, menu, nav, section {
   display: block;
@@ -78,12 +56,14 @@ table.left_headed {
 h1 {
   font-size:  4.0em;
   line-height: 1.25;
-  margin-bottom: .625em;
+  margin: 0 auto .625em;
   text-align: center;
+  font-weight: normal;
 }
 
 h2 {
   font-size:  3em;
+  font-weight: normal;
   line-height: 1.25;
   margin-bottom: .41666em;
 }
@@ -93,7 +73,6 @@ h3 {
   line-height: 1.25;
   margin: .5em 0 .5em;
   font-variant: small-caps;
-  -moz-font-feature-settings: 'smcp=1';
   text-transform: lowercase;
   font-weight: normal;
   letter-spacing: .033em;
@@ -108,6 +87,7 @@ h4 {
   line-height: 1.11;
   margin-bottom: .5em;
   font-style: italic;
+  font-weight: normal;
 }
 
 h5 {
@@ -120,6 +100,16 @@ h6 {
   text-indent: 1.25em;
   font-style: italic;
   margin: 0 0 .625em;
+}
+
+p {
+  margin: 0;
+  text-align: justify;
+  @include hyphens;
+}
+
+p + p {
+  text-indent: 1.25em;
 }
 
 abbr[title], dfn[title] {
@@ -151,7 +141,10 @@ em, i, var {
 }
 
 strong, b {
-  font-weight: bold;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: .05em;
+  padding: 0 0 0 .1em;
 }
 
 sub, sup {
@@ -177,4 +170,51 @@ del {
 
 code, kbd {
   font-family: "DejaVu Sans Mono", monospace;
+}
+
+hr {
+  color: #aaa;
+  height: .0625em;
+  background: #aaa;
+  border: none;
+  margin: 1.25em 0 1.1875em;
+}
+
+a {
+  color: #A00;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #900;
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  color: #F00;
+  border-bottom: .0625em solid;
+}
+
+a:active {
+  color: white;
+  background: #F00;
+  border: none;
+}
+
+figure {
+  text-align: center;
+  margin: 1.25em auto;
+  max-width: 100%;
+}
+
+figure img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+figcaption {
+  font-size: .875em;
+  line-height: 1.42857;
 }

@@ -18,26 +18,26 @@
   counter-increment: none;
 }
 
-.book #Table_of_Contents ol {
+#Table_of_Contents ol {
   counter-reset: toc;
 }
 
-.book #Table_of_Contents ol.continued {
+#Table_of_Contents ol.continued {
   counter-reset: none;
 }
 
-.book #Table_of_Contents li {
+#Table_of_Contents li {
   counter-increment: toc;
 }
 
-.book #Table_of_Contents li.no_chapter {
+#Table_of_Contents li.no_chapter {
   counter-increment: none;
 }
 
-.book .footnote {
+.footnote {
   counter-increment: footnote;
 }
 
-.book .footnote-unnumbered {
+.footnote-unnumbered {
   counter-increment: none;
 }

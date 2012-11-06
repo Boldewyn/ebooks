@@ -2,7 +2,7 @@
  * Other special parts -----------------------------------------------
  */
 
-.book .dedication {
+.dedication {
   width: 50%;
   margin: 2.8571em 0 2.8571em 50%;
   font-style: italic;
@@ -12,15 +12,15 @@
   text-indent: 0;
 }
 
-body .book div .dedication:first-line {
+.dedication:first-line {
   font-variant: normal;
 }
 
-.book .annotation {
+.annotation {
   font-style: italic;
   text-indent: 0;
 }
-.book .annotation:first-line {
+.annotation:first-line {
   font-variant: normal;
 }
 
