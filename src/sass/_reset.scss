@@ -105,7 +105,17 @@ h6 {
 p {
   margin: 0;
   text-align: justify;
-  @include hyphens;
+  -webkit-hyphens: auto;
+  -epub-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+@media (max-width: 40em) {
+  p {
+    text-align: left;
+  }
 }
 
 p + p {
@@ -170,6 +180,11 @@ del {
 
 code, kbd {
   font-family: "DejaVu Sans Mono", monospace;
+}
+
+pre {
+  font-family: inherit;
+  font-size: 100%;
 }
 
 hr {
