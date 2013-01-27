@@ -59,4 +59,4 @@ used_classes:
 	ack -i -o -h '<([a-z0-9]+)[^>]+class="(.*?)"' *.html|cut -b 2-|sort -u|sed 's/ .*class="/./'| sed 's/"$//'|sed 's/ /./g'|sort -u
 
 used_elements:
-	ack -h -o -i '<[a-z0-9]+' *.html|sort -u|cut -b 2-|grep -v -P '^(html|head|meta|link|style|script|noscript|body)$$'
+	ack -h -o -i '<[a-z0-9]+' *.html|sort -u|cut -b 2-|grep -v -P '^(html|head|meta|link|style|script|noscript|body|title)$$'
