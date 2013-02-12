@@ -135,7 +135,7 @@
             font-size="4em" text-align="center" color="{$bright-color}">
             <fo:instream-foreign-object width="2cm" height="2cm"
               fox:alt-text="&#x2766;">
-              <xsl:copy-of select="document('static/Aldus_leaf_unicode2766.svg', /h:html)/*" />
+              <xsl:copy-of select="document('src/Aldus_leaf_unicode2766.svg', /h:html)/*" />
             </fo:instream-foreign-object>
           </fo:block>
           <xsl:call-template name="colophon" />
