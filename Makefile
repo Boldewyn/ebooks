@@ -54,10 +54,14 @@ css: static/ebook.css
 static/ebook.css: src/sass/*
 	compass compile
 
-js: static/ebook.js
+js: src/vendor static/ebook.js
 
-static/ebook.js: src/js/ebook.js
-	cat $^ | uglifyjs > $@
+src/vendor:
+	bower install
+
+static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/jquery.js src/js/ebook.js
+	true >$@
+	for js in $^; do <$$js uglifyjs >> $@; done
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u

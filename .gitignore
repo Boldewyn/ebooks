@@ -5,3 +5,5 @@
 *.pyc
 /*.fo
 /.sass-cache
+/src/vendor
+/static/ebook.js

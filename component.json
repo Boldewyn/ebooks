@@ -1,0 +1,8 @@
+{
+  "name": "ebooks",
+  "version": "0.0.0",
+  "dependencies": {
+    "html5shiv": "~3.6.1",
+    "jquery": "~1.9.1"
+  }
+}
