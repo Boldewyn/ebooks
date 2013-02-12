@@ -14,21 +14,21 @@ all: pdf epub index
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
-%.pdf: %.fo tools/fo.xsl tools/fo.conf
-	$(FOP) -a -fo "$<" -c tools/fo.conf -pdf "$@"
+%.pdf: %.fo src/fo.xsl src/fo.conf
+	$(FOP) -a -fo "$<" -c src/fo.conf -pdf "$@"
 
 
-%.fo: %.html tools/fo.xsl
-	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/tools:/usr/share/java/xalan2.jar" \
-	  org.apache.xalan.xslt.Process -indent 2 -xsl tools/fo.xsl -in "$<" -out "$@"
+%.fo: %.html src/fo.xsl
+	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/src:/usr/share/java/xalan2.jar" \
+	  org.apache.xalan.xslt.Process -indent 2 -xsl src/fo.xsl -in "$<" -out "$@"
 
 
-epub: $(EBOOKS) tools/epub/*
-	python tools/epub/compose.py
+epub: $(EBOOKS) src/epub/*
+	python src/epub/compose.py
 
 
-%.epub: %.html tools/epub/*
-	python tools/epub/compose.py "$<"
+%.epub: %.html src/epub/*
+	python src/epub/compose.py "$<"
 
 
 clean:
