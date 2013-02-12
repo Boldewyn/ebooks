@@ -7,8 +7,8 @@ EBOOKS = $(shell git ls-files *.html | grep -v '^[4i]' | grep -v '^Narrative')
 FOP = "$(HOME)/lib/fop/fop"
 
 
-all: pdf epub index
-.PHONY: all pdf epub clean index css
+all: css js pdf epub index
+.PHONY: all pdf epub clean index css js
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
@@ -53,6 +53,11 @@ css: static/ebook.css
 
 static/ebook.css: src/sass/*
 	compass compile
+
+js: static/ebook.js
+
+static/ebook.js: src/js/ebook.js
+	cat $^ | uglifyjs > $@
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
