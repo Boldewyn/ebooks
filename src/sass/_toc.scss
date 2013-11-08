@@ -4,26 +4,26 @@
 #Table_of_Contents {
   ol {
     list-style: none;
-    padding: 0 1.333em;
+    padding: 0 $baseline*1em;
     margin: 0 auto;
     display: table;
   }
 
   ol ol {
-    padding-left: 2.5em;
-    margin: 1em;
+    padding-left: $baseline*2em;
+    margin: $baseline*0.5em;
   }
 
   ol li {
-    margin: 0 0 .333em;
-    padding-left: 3.5em;
-    text-indent: -3.5em;
+    margin: 0 0 $baseline*0.5em;
+    padding-left: $baseline*1.5em;
+    text-indent: $baseline*-1.5em;
   }
 
   ol li:before {
     content: counter(toc, upper-roman) ".";
-    width: 3em;
-    padding-right: .5em;
+    width: $baseline*1.618em;
+    padding-right: $baseline*0.382em;
     display: inline-block;
     font-weight: bold;
     text-indent: 0;

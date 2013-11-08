@@ -5,10 +5,10 @@
   float: left;
   font-variant: small-caps;
   letter-spacing: .05em;
-  margin-right: .75em;
+  margin-right: $baseline*.5em;
 }
 
 .dialog dd {
-  margin-bottom: .75em;
-  padding-left: 1.25em;
+  margin-bottom: $baseline*.5em;
+  padding-left: $baseline*1em;
 }

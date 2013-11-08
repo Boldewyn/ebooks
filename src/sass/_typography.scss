@@ -2,15 +2,15 @@
 
 // set enhanced OpenType settings
 .book {
-  text-rendering: optimizeLegibility;
   @include experimental(font-feature-settings, #{"liga" 1, "kern" 1, "frac" 1});
+  text-rendering: optimizeLegibility;
 
   h1, h2, h3, h4, h5, h6 {
-    @include experimental(font-feature-settings, #{"swsh" 1, "cswh" 1, "frac" 0});
+    @include experimental(font-feature-settings, #{"liga" 1, "kern" 1, "swsh" 1, "cswh" 1, "frac" 0});
   }
 
   table {
-    @include experimental(font-feature-settings, #{"tnum" 1, "frac" 0});
+    @include experimental(font-feature-settings, #{"liga" 1, "kern" 1, "tnum" 1, "frac" 0});
   }
 
 }
