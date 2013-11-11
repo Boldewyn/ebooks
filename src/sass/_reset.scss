@@ -125,11 +125,15 @@ p + p {
 }
 
 abbr[title], dfn[title] {
+  border-bottom-color: rgba(0,0,0,.25);
   cursor: help;
 }
 
 blockquote {
-  margin: $baseline*1em;
+  margin: $baseline*$scale*1em auto;
+  font-size: 1em / $scale;
+  line-height: $baseline * $scale;
+  display: table;
 }
 
 blockquote:before, blockquote:after {

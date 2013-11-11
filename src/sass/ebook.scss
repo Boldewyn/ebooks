@@ -4,22 +4,22 @@ $scale: 1.333;
 
 $baseline: 1.5;
 
+$c-book: #FBFBFA;
+
 @import "compass";
 
 @import "fonts";
 
-//@import "paged";
+@import "paged";
 @import "reset";
 @import "typography";
 @import "book";
-//@import "blockquotes";
+@import "blockquotes";
 @import "counters";
-//@import "footnotes";
+@import "footnotes";
 @import "toc";
 @import "dialogs";
-//@import "annotations";
+@import "annotations";
 
+//@import "debug";
 
-.book {
-  x-background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1" height="12" viewBox="0 0 1 12"><rect x="0" y="11" width="1" height="1" fill="%23cec" fill-opacity=".5"/></svg>') left top repeat;
-}

@@ -4,10 +4,10 @@
 
 .dedication {
   width: 50%;
-  margin: 2.8571em 0 2.8571em 50%;
+  margin: #{$baseline * $scale * 2em} 0 #{$baseline * $scale * 2em} 50%;
   font-style: italic;
-  font-size: .933em;
-  line-height: 1.429;
+  font-size: 1em / $scale;
+  line-height: $baseline * $scale;
   text-align: right;
   text-indent: 0;
 }

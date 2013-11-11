@@ -2,14 +2,6 @@
  * Blockquote styles -------------------------------------------------
  */
 
-blockquote {
-  padding: 0 1.42857em;
-  font-size: .875em;
-  line-height: 1.42857;
-  margin: 1.42857em 0;
-  display: table;
-}
-
 blockquote.centered {
   display: block;
 }
@@ -21,9 +13,8 @@ blockquote.centered p {
 
 blockquote.article p.article_header {
   text-align:center;
-  margin: 1.25em 0;
+  margin: $baseline*$scale*1em 0;
   font-variant: small-caps;
-  -moz-font-feature-settings: 'smcp=1';
   letter-spacing: .033em;
 }
 blockquote.slanted,
@@ -41,7 +32,6 @@ blockquote.fixed pre * {
 }
 blockquote .source {
   font-style: italic;
-  font-size: .875em;
   text-align: right;
 }
 blockquote.poem {

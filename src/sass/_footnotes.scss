@@ -5,30 +5,32 @@
   display: block;
   float: right;
   width: 10em;
-  margin: 0 -11.42857em 1.42857em 0;
+  margin: #{$baseline * $scale* -.5em} #{$baseline * $scale* -2em - 10em} #{$baseline * $scale* 1em} 0;
+  padding: #{$baseline * $scale* .5em};
   font-style: italic;
-  font-size: .875em;
-  line-height: 1.42857;
+  font-size: 1em / $scale;
+  line-height: $baseline * $scale;
   text-align: left;
   text-indent: 0;
+  background: $c-book;
 }
 
-@media (max-width: 52em) {
+@media (max-width: 54em) {
   .footnote-body {
-    margin: 1.42857em 0 1.42857em 1.42857em;
-    padding-left: 1.35614em;
-    border-left: .071428em solid #ccc;
+    margin: #{$baseline * $scale* 1em} 0 #{$baseline * $scale* 1em} #{$baseline * $scale* 1em};
+    padding: 0 0 0 #{$baseline * $scale* 1em};
+    border-left: 1px solid #ccc;
   }
 }
 
 .footnote:before,
 .footnote-body:before {
   content: counter(footnote) ") ";
-  font-size: .7em;
+  font-size: 1em / $scale;
   font-style: normal;
-  line-height: .7em;
+  line-height: 1;
   position: relative;
-  top: -.4em;
+  top: -.5em;
 }
 
 .footnote-unnumbered:before,

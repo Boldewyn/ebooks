@@ -2,14 +2,15 @@
  * Basic book settings -----------------------------------------------
  */
 body {
-  background: #888;
+  background: #bbbbba;
 }
 
 .book {
-  background: #FBFBFA;
+  background: $c-book;
   max-width: 40em;
-  padding: $baseline*4em $baseline*2em;
-  margin: 0 auto;
+  padding: $baseline*4em $baseline*4em;
+  margin: 60px auto;
+  box-shadow: 2px 0 20px 10px rgba(0,0,0,.1);
 }
 
 @media (max-width: 64em) {
@@ -18,7 +19,7 @@ body {
   }
 }
 
-@media (max-width: 46em) {
+@media (max-width: 42em) {
   body {
     font-size: 15px;
   }
@@ -40,6 +41,7 @@ body {
 
 @media (max-height: 30em) {
   .book {
+    margin-top: 0;
     padding-top: 1em;
   }
 }
@@ -117,13 +119,11 @@ header p {
   margin: 0 auto;
 }
 
-.letter_header + p + p,
+.letter_header,
 .article_header,
-.article_header + p,
 p.signature,
 p.postscriptum,
 .poem p,
-p.date + p,
 p.noindent {
   text-indent: 0;
 }
