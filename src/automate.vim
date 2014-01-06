@@ -1,8 +1,9 @@
 " normalize markup
 :g/^$/d
+:%s/<\(\/\?[A-Z]\+\)/<\L\1/g
 :%s/<p> *\n */<p>/g
 :%s# *\n *</p>#</p>#g
-:%s/\([^>]\n */ /g
+:%s/\(>\)\@<!\n */ /g
 
 " replace "1st", "2nd" and so on with raised ordinals
 " Danger: Attribute content. Hence we start at line 30, after the DC
