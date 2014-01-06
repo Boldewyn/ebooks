@@ -1,3 +1,9 @@
+" normalize markup
+:g/^$/d
+:%s/<p> *\n */<p>/g
+:%s# *\n *</p>#</p>#g
+:%s/\([^>]\n */ /g
+
 " replace "1st", "2nd" and so on with raised ordinals
 " Danger: Attribute content. Hence we start at line 30, after the DC
 " meta-data
@@ -16,22 +22,28 @@
 
 " apostrophes
 :%s/\([a-zA-Z]\)'\([a-zA-Z ]\)/\1’\2/g
+:%s/\<'\(twas\|tis|ome\)/’\1/g
 
 " Replace straight quotes
 " 66
+:%s/<p>"/<p>“/g
 :%s/\([ \-–—]\)"\([A-Za-z0-9']\)/\1“\2/g
 
 " 99
+:%s#"</p>#”</p>#g
 :%s/\([a-zA-Z0-9,.:;?!\-–—%']\)"\([ ]\)/\1”\2/g
 :%s/\([a-zA-Z0-9']\)"\([,.:;?!\-–—]\)/\1”\2/g
 :%s/\([,.:;?!]\)"\([\-–—]\)/\1”\2/g
 
 " 6
+:%s/<p>'/<p>‘/g
 :%s/\([ \-–—"“]\)'\([A-Za-z0-9]\)/\1‘\2/g
 
 " 9
+:%s#'</p>#’</p>#g
 :%s/\([a-zA-Z0-9,.:;?!\-–—%]\)'\([ "”]\)/\1’\2/g
 :%s/\([a-zA-Z0-9]\)'\([,.:;?!\-–—"”]\)/\1’\2/g
+:%s/\([,.:;?!]\)'\([\-–—]\)/\1’\2/g
 
 " typographic fine tuning
 " small spaces between adjacent quotes
