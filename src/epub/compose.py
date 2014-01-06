@@ -23,7 +23,7 @@ def compose_epub(name):
     epub.write(work_path+"templates/OEBPS", "OEBPS")
     for style in ["Roman", "Italic", "Bold", "BoldItalic", "Semibold",
                   "SemiboldItalic"]:
-        epub.write(work_path+'../../static/CrimsonText-%s.ttf' % style,
+        epub.write(work_path+'../../static/fonts/crimson-%s-webfont.ttf' % style.lower(),
                    'OEBPS/CrimsonText-%s.ttf' % style)
     epub.write(work_path+'../../static/ebook.css', 'OEBPS/ebook.css')
     embeds = _copy_statics(epub, parts[5])
