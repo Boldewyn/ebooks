@@ -5,11 +5,12 @@
   counter-reset: page chapter section global_section footnote;
 }
 
-.book section {
-  counter-increment: chapter section;
+.book > section {
+  counter-increment: chapter;
+  counter-reset: section;
 }
 
-.book section section {
+.book > section > section {
   counter-increment: section;
 }
 
