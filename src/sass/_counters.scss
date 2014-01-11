@@ -12,6 +12,7 @@
 
 .book > section > section {
   counter-increment: section;
+  counter-increment: global_section;
 }
 
 .book section#Table_of_Contents,
