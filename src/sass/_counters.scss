@@ -11,8 +11,7 @@
 }
 
 .book > section > section {
-  counter-increment: section;
-  counter-increment: global_section;
+  counter-increment: section global_section;
 }
 
 .book section#Table_of_Contents,
