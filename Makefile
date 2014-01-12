@@ -65,7 +65,7 @@ static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/jquery
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
-	ack -i -o -h '<([a-z0-9]+)[^>]+class="(.*?)"' *.html|cut -b 2-|sort -u|sed 's/ .*class="/./'| sed 's/"$//'|sed 's/ /./g'|sort -u
+	@ack -i -o -h '<([a-z0-9]+)[^>]+class="(.*?)"' *.html|cut -b 2-|sort -u|sed 's/ .*class="/./'| sed 's/"$$//'|sed 's/ /./g'|sort -u
 
 used_elements:
-	ack -h -o -i '<[a-z0-9]+' *.html|sort -u|cut -b 2-|grep -v -P '^(html|head|meta|link|style|script|noscript|body|title)$$'
+	@ack -h -o -i '<[a-z0-9]+' *.html|sort -u|cut -b 2-|grep -v -P '^(html|head|meta|link|style|script|noscript|body|title)$$'
