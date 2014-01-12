@@ -1,6 +1,7 @@
 var ebooks=[
 "A_Christmas_Carol",
 "A_Connecticut_Yankee",
+"A_Study_in_Scarlet",
 "Alices_Adventures_in_Wonderland",
 "At_the_Mountains_of_Madness",
 "Biene_Maja",
