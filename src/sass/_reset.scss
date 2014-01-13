@@ -54,8 +54,7 @@ thead th, tbody {
   border-bottom: 1px solid #ccc;
 }
 
-table.left_headed {
-  border-left: 1px solid #ccc;
+table:last-child tbody {
   border-bottom: none;
 }
 
