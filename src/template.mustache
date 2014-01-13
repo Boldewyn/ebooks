@@ -1,35 +1,35 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{lang}}" lang="{{lang}}">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="profile" href="http://www.w3.org/2003/g/data-view" />
-    <link rel="profile" href="http://dublincore.org/documents/2008/08/04/dc-html/" />
-    {{#metadata}}
-      {{#url}}
-    <link rel="{{name}}" href="{{value}}"{{#label}} title="{{label}}"{{/label}} />
-      {{/url}}
-      {{^url}}
-    <meta name="{{name}}" content="{{value}}"{{#scheme}} data-scheme="{{scheme}}"{{/scheme}} />
-      {{/url}}
-    {{/metadata}}
-    <meta name="dc.type"         content="Text" data-scheme="dc.DCMIType" />
-    <meta name="dc.format"       content="application/xhtml+xml; charset=utf-8" data-scheme="dc.IMT" />
-    <link rel="dc.identifier"    href="http://www.manuel-strehl.de/ebooks/{{enctitle}}" />
-    <link rel="dc.tableofContents" href="#Table_of_Contents" />
-    <link rel="schema.dc"        href="http://purl.org/dc/terms/" />
-    <link rel="stylesheet"       href="static/ebook.css" />
-    <link rel="start"            href="/" title="Start" />
-    <link rel="index"            href="/ebooks/" title="Index" />
-    <link rel="up"               href="/ebooks/" />
-    <link rel="contents"         href="#Table_of_Contents" title="Table of Contents" />
-    <link rel="transformation"   href="http://static.manuel-strehl.de/Style/data-view" type="application/xslt+xml" />
-    <title>{{book_title}}, by {{author}}</title>
-    {{#style}}
-    <style>
-    {{{style}}}
-    </style>
-    {{/style}}
-  </head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{lang}}">
+<head>
+<meta charset="utf-8"/>
+<link rel="profile" href="http://www.w3.org/2003/g/data-view"/>
+<link rel="profile" href="http://dublincore.org/documents/2008/08/04/dc-html/"/>
+<title>{{book_title}}, by {{author}}</title>
+{{#metadata}}
+{{#url}}
+<link rel="{{name}}" href="{{value}}"{{#label}} title="{{label}}"{{/label}}/>
+{{/url}}
+{{^url}}
+<meta name="{{name}}" content="{{value}}"{{#scheme}} data-scheme="{{scheme}}"{{/scheme}}/>
+{{/url}}
+{{/metadata}}
+<meta name="dc.type" content="Text" data-scheme="dc.DCMIType"/>
+<meta name="dc.format" content="application/xhtml+xml; charset=utf-8" data-scheme="dc.IMT"/>
+<link rel="dc.identifier" href="http://www.manuel-strehl.de/ebooks/{{enctitle}}"/>
+<link rel="dc.tableofContents" href="#Table_of_Contents"/>
+<link rel="schema.dc" href="http://purl.org/dc/terms/"/>
+<link rel="stylesheet" href="static/ebook.css"/>
+<link rel="start" href="/" title="Start"/>
+<link rel="index" href="/ebooks/" title="Index"/>
+<link rel="up" href="/ebooks/"/>
+<link rel="contents" href="#Table_of_Contents" title="Table of Contents"/>
+<link rel="transformation" href="http://static.manuel-strehl.de/Style/data-view" type="application/xslt+xml"/>
+{{#style}}
+<style>
+{{{style}}}
+</style>
+{{/style}}
+</head>
 <body>
 <article class="book{{class}}">
 {{{text}}}</article>
