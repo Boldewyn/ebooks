@@ -30,6 +30,7 @@ def main(args):
             "lang": "en",
             "metadata": [],
             "style": False,
+            "class": "",
         }
         for m in meta:
             name = m["key"]
@@ -50,6 +51,8 @@ def main(args):
                     entry["label"] = m["label"]
             elif name == "style":
                 ctx["style"] = m["value"]
+            elif name == "class":
+                ctx["class"] = " {}".format(m["value"])
             else:
                 entry["value"] = m["value"]
                 if m.get("scheme", False):

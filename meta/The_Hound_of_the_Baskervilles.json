@@ -13,5 +13,5 @@
   { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/3070", "label": "Original Source" },
   { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Hound_of_the_Baskervilles", "label": "Details on Wikipedia" },
   { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
-  { "key": "style", "value": ".book > section:not(#Table_of_Contents) h2:before { content: \"Chapter\\00a0\" counter(chapter, upper-roman) \".\\00a0\\00a0\"; }" }
+  { "key": "class", "value": "book--chapters-added" }
 ]

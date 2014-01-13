@@ -13,5 +13,5 @@
   { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/244", "label": "Original Source" },
   { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/A_Study_in_Scarlet", "label": "Details on Wikipedia" },
   { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
-  { "key": "style", "value": ".book > section > section h3:before { content: \"Chapter\\00a0\" counter(section, upper-roman) \".\\00a0\\00a0\"; }" }
+  { "key": "class", "value": "book--chapters-added" }
 ]

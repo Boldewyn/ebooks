@@ -13,5 +13,5 @@
   { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/2701", "label": "Original Source" },
   { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Moby-Dick", "label": "Details on Wikipedia" },
   { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
-  { "key": "style", "value": ".book #Table_of_Contents ol li:before { content: \"CHAPTER \" counter(toc) \". \"; width: 8.5em; } " }
+  { "key": "style", "value": "#Table_of_Contents ol li:before { content: \"CHAPTER \" counter(toc) \". \"; width: 8.5em; } " }
 ]
