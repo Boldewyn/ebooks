@@ -3,23 +3,29 @@
 #
 
 
-EBOOKS = $(shell git ls-files *.html | grep -v '^[4i]' | grep -v '^Narrative')
-FOP = "$(HOME)/lib/fop/fop"
+EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
+FOP := "fop"
+XALAN := "/usr/share/java/xalan2.jar"
 
 
-all: css js pdf epub index
-.PHONY: all pdf epub clean index css js
+all: css js html pdf epub index
+.PHONY: all html pdf epub clean index css js
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
+
+html: $(EBOOKS)
+
+$(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
+	src/compile_html.py "$(basename $@)"
 
 %.pdf: %.fo src/fo.xsl src/fo.conf
 	$(FOP) -a -fo "$<" -c src/fo.conf -pdf "$@"
 
 
 %.fo: %.html src/fo.xsl
-	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/src:/usr/share/java/xalan2.jar" \
+	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/src:$(XALAN)" \
 	  org.apache.xalan.xslt.Process -indent 2 -xsl src/fo.xsl -in "$<" -out "$@"
 
 
