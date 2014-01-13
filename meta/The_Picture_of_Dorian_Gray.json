@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "The Picture of Dorian Gray" },
+  { "key": "dc.description", "value": "Oscar Wilde wrote with Dorian Gray his most famous book. The story of one, who doesn't become older while his portrait does, is well-known and oft-copied." },
+  { "key": "dc.subject", "value": "Picture, Dorian, Gray, Wilde, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "813" },
+  { "key": "dc.creator", "value": "Oscar Wilde" },
+  { "key": "dc.publisher", "value": "Simpkin, Marshall, Hamilton, Kent & Co., ltd." },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1891" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/26740", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Picture_of_Dorian_Gray", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

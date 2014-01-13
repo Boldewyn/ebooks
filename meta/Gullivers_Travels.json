@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "Gulliver’s Travels into several remote nations of the world" },
+  { "key": "dc.description", "value": "In several travels Lemuel Gulliver visits remote and strange parts of the world, like the meanwhile proverbial Lilliput. Swift created with this book, seven years after Defoe’s Robinson Crusoe, a predecessor for many of today’s literature categories." },
+  { "key": "dc.subject", "value": "Gulliver, travel, Yahoo, Lilliput, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "Jonathan Swift" },
+  { "key": "dc.publisher", "value": "Benjamin Motte" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1726" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-IE" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/829", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Gullivers_travels", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

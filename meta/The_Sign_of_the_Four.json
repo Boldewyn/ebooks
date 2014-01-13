@@ -1,0 +1,17 @@
+[
+  { "key": "dc.title", "value": "The Sign of the Four" },
+  { "key": "dc.description", "value": "Sherlock Holmes, the legendary investigator, in his second case." },
+  { "key": "dc.subject", "value": "Sign, Four, Sherlock, Holmes, Conan Doyle, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "Sir Arthur Conan Doyle" },
+  { "key": "dc.publisher", "value": "Lippincott’s Monthly Magazine" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2014-01-06" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1890-02" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/2097", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Sign_of_the_Four", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
+  { "key": "style", "value": ".book > section:not(#Table_of_Contents) h2:before { content: \"Chapter\\00a0\" counter(chapter, upper-roman) \".\\00a0\\00a0\"; }" }
+]

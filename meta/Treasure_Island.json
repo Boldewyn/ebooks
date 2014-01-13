@@ -1,0 +1,18 @@
+[
+  { "key": "dc.title", "value": "Treasure Island" },
+  { "key": "dc.description", "value": "Treasure Island is Robert Louis Stevenson’s most famous book and today still a classic in literature for young people. Young Jim Hawkins comes in possession of a pirate’s map and leaves on board of the Hispaniola to search for the treasure it promises." },
+  { "key": "dc.subject", "value": "Treasure, Island, Stevenson, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "Robert Louis Stevenson" },
+  { "key": "dc.publisher", "value": "Young Folks" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1883" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "7004569" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/120", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Treasure_Island", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
+  { "key": "style", "value": ".book > section > section h3:before { display: block; content: counter(global_section); margin: 1.111em 0; }" }
+]

@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "The Life and Adventures of Robinson Crusoe" },
+  { "key": "dc.description", "value": "Robinson Crusoe is the famous archetype of a poor soul in solitude." },
+  { "key": "dc.subject", "value": "Robinson, Crusoe, Friday, island, Defoe, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "Daniel Defoe" },
+  { "key": "dc.publisher", "value": "W. Taylor" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1719-04-25" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/521", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Robinson_Crusoe", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

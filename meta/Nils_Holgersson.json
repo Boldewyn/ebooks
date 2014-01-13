@@ -1,0 +1,15 @@
+[
+  { "key": "dc.title", "value": "Wunderbare Reise des kleinen Nils Holgersson mit den Wildgänsen" },
+  { "key": "dc.description", "value": "Der kleine Nils Holgersson wird in einen Däumling verwandelt und reist mit der Hausgans Martin, den er zuvor misshandelte, und einem Schwarm Wildgänsen durch Europa." },
+  { "key": "dc.subject", "value": "Nils, Holgerson, Gans, Martin, Reise, Wildgans, Lagerlöf, book, ebook" },
+  { "key": "dc.creator", "value": "Selmar Lagerlöf" },
+  { "key": "dc.publisher", "value": "Albert Langen, München" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1920" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "de-DE" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "Lizenz" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/31114", "label": "Originalquelle" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://de.wikipedia.org/wiki/Die_wunderbare_Reise_des_kleinen_Nils_Holgersson_mit_den_Wildgänsen", "label": "Details bei der Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

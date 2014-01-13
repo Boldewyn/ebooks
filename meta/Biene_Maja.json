@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "Die Biene Maja" },
+  { "key": "dc.description", "value": "Die kleine Biene Maja möchte die Welt entdecken. Auf ihrer Reise wird sie von Hornissen gefangen genommen, wobei sie von deren Angriffsplänen auf den Bienenstock erfährt. Das Buch bildet die literarische Vorlage für die in den 70er und 80er Jahren berühmt gewordene gleichnamige Fernsehserie." },
+  { "key": "dc.subject", "value": "Biene, Maja, Bonsels, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "833" },
+  { "key": "dc.creator", "value": "Waldemar Bonsels" },
+  { "key": "dc.publisher", "value": "Schuster & Loeffler" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1912" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "de-DE" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "Lizenz" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/21021", "label": "Originalquelle" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://de.wikipedia.org/wiki/Die_Biene_Maja", "label": "Details bei der Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

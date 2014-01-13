@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "Narrative of Arthur Gordon Pym" },
+  { "key": "dc.description", "value": "Arthur Gordon Pym is Poe’s only complete novel. During an expedition the protagonist finds wondrous and horrible adventures." },
+  { "key": "dc.subject", "value": "Arthur, Gordon, Pym, Edgar, Allan, Poe, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "813" },
+  { "key": "dc.creator", "value": "Edgar Allan Poe" },
+  { "key": "dc.publisher", "value": "Harper & Brothers" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1838-07" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/2149", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Narrative_of_Arthur_Gordon_Pym", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

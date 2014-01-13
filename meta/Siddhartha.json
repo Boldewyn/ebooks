@@ -1,0 +1,17 @@
+[
+  { "key": "dc.title", "value": "Siddhartha" },
+  { "key": "dc.description", "value": "Hesses Siddhartha ist ein eindrucksvoller Einblick in die Welt indischer Mythen und Gedanken. Der Roman begleitet Siddhartha auf seiner Reise zur Erleuchtung." },
+  { "key": "dc.subject", "value": "Siddhartha, Hesse, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "833" },
+  { "key": "dc.creator", "value": "Hermann Hesse" },
+  { "key": "dc.publisher", "value": "S. Fischer Verlag" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1922" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "de-DE" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "7000208" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "Lizenz" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/2499", "label": "Originalquelle" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://de.wikipedia.org/wiki/Siddhartha_%28Hesse%29", "label": "Details bei der Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

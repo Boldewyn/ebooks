@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "Peter Pan" },
+  { "key": "dc.description", "value": "The story of Peter Pan." },
+  { "key": "dc.subject", "value": "Peter, Pan, Hook, Neverland, Tinkerbell, Barrie, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "James Matthew Barrie" },
+  { "key": "dc.publisher", "value": "Hodder & Stoughton" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1911" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/16", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Peter_Pan", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

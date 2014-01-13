@@ -1,0 +1,18 @@
+[
+  { "key": "dc.title", "value": "The Case of Charles Dexter Ward" },
+  { "key": "dc.description", "value": "The Case of Charles Dexter Ward, by H. P. Lovecraft." },
+  { "key": "dc.subject", "value": "Charles Dexter Ward, Lovecraft, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "813" },
+  { "key": "dc.creator", "value": "H. P. Lovecraft" },
+  { "key": "dc.publisher", "value": "Weird Tales" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1941" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-US" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "7013952" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://en.wikisource.org/wiki/The_Case_of_Charles_Dexter_Ward", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Case_of_Charles_Dexter_Ward", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
+  { "key": "style", "value": ".book > section:not(#Table_of_Contents) h2:before { content: \"Chapter\\00a0\" counter(chapter, upper-roman) \":\\00a0\"; }" }
+]

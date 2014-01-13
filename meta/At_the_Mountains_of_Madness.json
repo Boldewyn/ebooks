@@ -1,0 +1,17 @@
+[
+  { "key": "dc.title", "value": "At the Mountains of Madness" },
+  { "key": "dc.description", "value": "H. P. Lovecraft created with At the Mountains of Madness one of his pilars to rest his Cthulhu myth upon. During an expedition to the south pole, a team of scientists discovers the remainders of an old civilization in the middle of the eternal ice." },
+  { "key": "dc.subject", "value": "Mountains, Madness, Lovecraft, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "813" },
+  { "key": "dc.creator", "value": "H. P. Lovecraft" },
+  { "key": "dc.publisher", "value": "Astounding Stories" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1936-02" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-US" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "1000007" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://en.wikisource.org/wiki/At_the_Mountains_of_Madness", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/At_the_Mountains_of_Madness", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

@@ -1,0 +1,17 @@
+[
+  { "key": "dc.title", "value": "The War of the Worlds" },
+  { "key": "dc.description", "value": "H. G. Wells wrote with The War of the Worlds one of the ancestors of contemporary science fiction. Victorian Great Britain is visited by Martians. Their true intention soon becomes clear." },
+  { "key": "dc.subject", "value": "War, Worlds, Wells, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "H. G. Wells" },
+  { "key": "dc.publisher", "value": "William Heinemann" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1898" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "1031182" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://en.wikisource.org/wiki/The_War_of_the_Worlds", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_War_of_the_Worlds", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

@@ -1,0 +1,18 @@
+[
+  { "key": "dc.title", "value": "The Invisible Man" },
+  { "key": "dc.description", "value": "A scientist finds a way to become invisible. Wells depicts very dramatically the impact of such a scenario in The Invisible Man." },
+  { "key": "dc.subject", "value": "Invisible, Man, Wells, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "H. G. Wells" },
+  { "key": "dc.publisher", "value": "C. Arthur Pearson" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1897" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.spacial", "scheme": "dc.TGN", "value": "7011410" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://en.wikisource.org/wiki/The_Invisible_Man", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Invisible_Man", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" },
+  { "key": "style", "value": ".book > section:not(#Table_of_Contents):not(#The_Epilogue) h2:before { content: \"Chapter\\00a0\" counter(chapter) \":\\00a0\"; }" }
+]

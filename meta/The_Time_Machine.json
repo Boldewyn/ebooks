@@ -1,0 +1,17 @@
+[
+  { "key": "dc.title", "value": "The Time Machine" },
+  { "key": "dc.description", "value": "The Time Machine, by H. G. Wells, describes the voyage of an Englishman to the year 802701. Not all inhabitants of this distant-future earth are as friendly as the Eloi." },
+  { "key": "dc.subject", "value": "Time, Machine, Wells, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "H. G. Wells" },
+  { "key": "dc.publisher", "value": "William Heinemann" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1895" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.temporal", "scheme": "dc.W3CDTF", "value": "802701" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://en.wikisource.org/wiki/The_Time_Machine", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/The_Time_Machine", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]

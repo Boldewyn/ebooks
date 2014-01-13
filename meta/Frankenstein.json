@@ -1,0 +1,16 @@
+[
+  { "key": "dc.title", "value": "Frankenstein" },
+  { "key": "dc.description", "value": "Mary Shelley guides the reader in the story of Frankenstein through mid-19th century Europe. Victor Frankestein, a young scientist, experiments with the goal to create artificial life. When he actually creates a monster with its own will, he loses control of the situation." },
+  { "key": "dc.subject", "value": "Frankenstein, Shelley, book, ebook" },
+  { "key": "dc.subject", "scheme": "dc.DDC", "value": "823" },
+  { "key": "dc.creator", "value": "Mary Wollstonecraft (Godwin) Shelley" },
+  { "key": "dc.publisher", "value": "Lackington, Hughes, Harding, Mavor & Jones" },
+  { "key": "dc.date", "scheme": "dc.W3CDTF", "value": "2009-09-30" },
+  { "key": "dc.issued", "scheme": "dc.W3CDTF", "value": "1818-01-01" },
+  { "key": "dc.language", "scheme": "dc.RFC4646", "value": "en-GB" },
+  { "key": "dc.rights", "value": "Text and stylesheet are in the public domain. Third-party Javascript might come with different terms." },
+  { "key": "dc.license", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/", "label": "License" },
+  { "key": "dc.source", "scheme": "dc.URI", "value": "http://www.gutenberg.org/etext/84", "label": "Original Source" },
+  { "key": "dc.description", "scheme": "dc.URI", "value": "http://en.wikipedia.org/wiki/Frankenstein", "label": "Details on Wikipedia" },
+  { "key": "copyright", "scheme": "dc.URI", "value": "http://creativecommons.org/licenses/publicdomain/" }
+]
