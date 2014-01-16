@@ -9,7 +9,7 @@
     <article class="book">
       <section>
         <p>Thank you for reading this eBook. It was first published in
-        ${meta["issued"]} by ${meta["publisher"]}. Since then it had a long journey.
+        ${meta.get("issued", "Y")} by ${meta.get("publisher", "X")}. Since then it had a long journey.
         The current version was scanned by volunteers and published
         under <a href="${meta["source"]}">${meta["source"]}</a>.
         From there it was converted to HTML5 and this file by
