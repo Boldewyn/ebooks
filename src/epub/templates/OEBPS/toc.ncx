@@ -2,15 +2,15 @@
 <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
 <ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
   <head>
-    <meta name="dc:Title" content="${meta["title"]}"/>
-    <meta name="dc:Creator" content="${meta["creator"]}"/>
-    <meta name="dtb:uid" content="http://ebooks.boldewyn.de/${name}.epub"/>
+    <meta name="dc:Title" content="${meta["title"] | h}"/>
+    <meta name="dc:Creator" content="${meta["creator"] | h}"/>
+    <meta name="dtb:uid" content="http://ebooks.boldewyn.de/${name | h}.epub"/>
   </head>
   <docTitle>
-    <text>${meta["title"]}</text>
+    <text>${meta["title"] | h}</text>
   </docTitle>
   <docAuthor>
-    <text>${meta["creator"]}</text>
+    <text>${meta["creator"] | h}</text>
   </docAuthor>
   <navMap>
     <navPoint playOrder="0" id="index">
@@ -22,7 +22,7 @@
     % for n in range(0, len(chapters)):
       <navPoint playOrder="${n+1}" id="chapter_${n+1}">
         <navLabel>
-          <text>${chapters[n]}</text>
+          <text>${chapters[n] | h}</text>
         </navLabel>
         <content src="chapter_${n+1}.html"/>
       </navPoint>

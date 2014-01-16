@@ -38,7 +38,7 @@ def compose_epub(name):
     <title>Chapter %s</title>
   </head>
   <body><div class="book"><div class="section" id="chapter_%s">''' % (lang, i+1, i+1)
-        content = unicode(chapter)
+        content = re.sub(re.compile(r'(?<=<)(/?)section\b'), r'\1div', unicode(chapter))
         ch_titles.append(re.sub(re.compile(r'^.*<h2>(.*?)</h2>.*$', re.S),
                                 r'\1', content))
         html += content
@@ -76,9 +76,7 @@ def compose_epub(name):
       <div class="header">
         %s
       </div>
-      <div class="index" id="Table_of_Contents">
-        %s
-      </div>
+      %s
     </div>
   </body>
 </html>''' % (meta.get("title"), meta.get("creator"), name,

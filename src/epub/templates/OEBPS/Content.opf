@@ -4,13 +4,14 @@
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:opf="http://www.idpf.org/2007/opf"
   xmlns="http://www.idpf.org/2007/opf"
-  unique-identifier="http://ebooks.boldewyn.de/${name}.epub">
+  unique-identifier="boldewyn.ebooks.${name | h}">
   <metadata>
     <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
-    <dc:title>${meta["title"]}</dc:title>
-    <dc:creator>${meta["creator"]}</dc:creator>
-    <dc:description>${meta["description"]}</dc:description>
-    <dc:rights>${meta["rights"]}</dc:rights>
+    <dc:title>${meta["title"] | h}</dc:title>
+    <dc:creator>${meta["creator"] | h}</dc:creator>
+    <dc:description>${meta["description"] | h}</dc:description>
+    <dc:rights>${meta["rights"] | h}</dc:rights>
+    <dc:identifier>boldewyn.ebooks.${name | h}</dc:identifier>
   </metadata>
   <manifest>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
@@ -22,7 +23,7 @@
     <item id="Crimson-Semibold" href="CrimsonText-Semibold.ttf" media-type="font/truetype" />
     <item id="Crimson-SemiboldItalic" href="CrimsonText-SemiboldItalic.ttf" media-type="font/truetype" />
     % for i,s in enumerate(embeds):
-      <item id="static_${i+1}" href="${s}" media-type="application/octetstream"/>
+      <item id="static_${i+1}" href="${s | h}" media-type="application/octetstream"/>
     %endfor
     <item id="index" href="index.html" media-type="application/xhtml+xml"/>
     % for n in range(0, len(chapters)):

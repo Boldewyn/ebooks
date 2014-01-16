@@ -6,12 +6,12 @@
     <title>Colophon</title>
   </head>
   <body>
-    <article class="book">
-      <section>
+    <div class="book">
+      <div>
         <p>Thank you for reading this eBook. It was first published in
-        ${meta.get("issued", "Y")} by ${meta.get("publisher", "X")}. Since then it had a long journey.
+        ${meta.get("issued", "Y") | h} by ${meta.get("publisher", "X") | h}. Since then it had a long journey.
         The current version was scanned by volunteers and published
-        under <a href="${meta["source"]}">${meta["source"]}</a>.
+        under <a href="${meta["source"] | h}">${meta["source"] | h}</a>.
         From there it was converted to HTML5 and this file by
         <a href="http://www.manuel-strehl.de/">Manuel Strehl</a>.</p>
         <p>This EPUB file was produced using
@@ -19,21 +19,21 @@
         The font is <a href="http://aldusleaf.org/">Crimson Text</a>
         by Sebastian Kosch <i>et al</i>.
         The project is hosted on <a href="http://github.com/">Github</a>.</p>
-      </section>
-      <section>
+      </div>
+      <div>
         <p>Other books in the same fashion:</p>
         <ul>
           % for ebook in others:
             <li style="margin-bottom: 1.25em; padding-bottom: 1.25em; border-bottom: 1px solid #ccc;">
-              <a href="http://www.boldewyn.de/ebooks/${ebook[0]}" class="stealth">
-                <strong>${ebook[1]["title"]}</strong><br/>
-                by <strong>${ebook[1]["creator"]}</strong><br/><br/>
-                ${ebook[1]["description"]}
+              <a href="http://www.boldewyn.de/ebooks/${ebook[0] | h}" class="stealth">
+                <strong>${ebook[1]["title"] | h}</strong><br/>
+                by <strong>${ebook[1]["creator"] | h}</strong><br/><br/>
+                ${ebook[1]["description"] | h}
               </a>
             </li>
           % endfor
         </ul>
-      </section>
-    </article>
+      </div>
+    </div>
   </body>
 </html>
