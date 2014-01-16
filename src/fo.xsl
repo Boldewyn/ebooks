@@ -32,7 +32,7 @@
   </xsl:variable>
 
   <xsl:template match="/">
-    <xsl:apply-templates select="h:html/h:body//h:article[@class='book']" />
+    <xsl:apply-templates select="h:html/h:body//h:article[contains(concat(' ', normalize-space(@class), ' '), ' book ')]" />
   </xsl:template>
 
   <xsl:template match="h:article">
