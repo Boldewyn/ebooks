@@ -8,8 +8,8 @@ FOP := "fop"
 XALAN := "/usr/share/java/xalan2.jar"
 
 
-all: css js html pdf epub index
-.PHONY: all html pdf epub clean index css js
+all: css js html pdf epub index mobi
+.PHONY: all html pdf epub clean index css js mobi
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
@@ -18,42 +18,70 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 html: $(EBOOKS)
 
 $(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
-	src/compile_html.py "$(basename $@)"
+	$(info * Compile HTML $@)
+	@src/compile_html.py "$(basename $@)"
 
 %.pdf: %.fo src/fo.xsl src/fo.conf
-	$(FOP) -a -fo "$<" -c src/fo.conf -pdf "$@"
+	$(info * Create PDF $@)
+	@$(FOP) -a -fo "$<" -c src/fo.conf -pdf "$@"
 
 
 %.fo: %.html src/fo.xsl
-	java -Djava.protocol.handler.pkgs=dummy_about_handler -cp "$$PWD/src:$(XALAN)" \
-	  org.apache.xalan.xslt.Process -indent 2 -xsl src/fo.xsl -in "$<" -out "$@"
+	$(info * Create XSL-FO $@)
+	@java -Djava.protocol.handler.pkgs=dummy_about_handler \
+	      -cp "$$PWD/src:$(XALAN)" \
+	      org.apache.xalan.xslt.Process -indent 2 \
+	      -xsl src/fo.xsl -in "$<" -out "$@"
 
 
 epub: $(EBOOKS) src/epub/*
-	python src/epub/compose.py
+	$(info * Create all EPUBs)
+	@python src/epub/compose.py
 
 
 %.epub: %.html src/epub/*
-	python src/epub/compose.py "$<"
+	$(info * Create EPUB $@)
+	@python src/epub/compose.py "$<"
+
+
+.SECONDARY: $(patsubst %.html,%.epub,$(EBOOKS))
+
+
+mobi: $(patsubst %.html,%.mobi,$(EBOOKS))
+
+
+%.mobi: %.epub
+	$(info * Create Mobi $@)
+	@ebook-convert "$<" "$@"
 
 
 clean:
-	-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) $(patsubst %.html,%.epub,$(EBOOKS)) $(patsubst %.html,%.fo,$(EBOOKS))
+	$(info * Clean generated content)
+	@-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) \
+	  $(patsubst %.html,%.fo,$(EBOOKS)) \
+	  $(patsubst %.html,%.pdf,$(EBOOKS)) \
+	  $(patsubst %.html,%.epub,$(EBOOKS)) \
+	  $(patsubst %.html,%.mobi,$(EBOOKS)) \
+	  $(EBOOKS)
 
 
 index: index.js index.xml
 
 
 index.js: $(EBOOKS)
-	echo "var ebooks=[" > index.js
-	for b in $(patsubst %.html,%,$(EBOOKS)); do echo '"'"$$b"'",' >> index.js ; done
-	echo "];" >> index.js
+	@echo "var ebooks=[" > "$@"
+	@for b in $(patsubst %.html,%,$(EBOOKS)); do \
+	    echo '"'"$$b"'",' >> "$@" ; \
+	done
+	@echo "];" >> "$@"
 
 
 index.xml: $(EBOOKS)
-	echo "<ebooks>" > index.xml
-	for b in $(patsubst %.html,%,$(EBOOKS)); do echo "  <book>$$b</book>" >> index.xml ; done
-	echo "</ebooks>" >> index.xml
+	@echo "<ebooks>" > "$@"
+	@for b in $(patsubst %.html,%,$(EBOOKS)); do \
+	    echo "  <book>$$b</book>" >> "$@"; \
+	done
+	@echo "</ebooks>" >> "$@"
 
 css: static/ebook.css
 
@@ -74,4 +102,4 @@ used_classes:
 	@ack -i -o -h '<([a-z0-9]+)[^>]+class="(.*?)"' *.html|cut -b 2-|sort -u|sed 's/ .*class="/./'| sed 's/"$$//'|sed 's/ /./g'|sort -u
 
 used_elements:
-	@ack -h -o -i '<[a-z0-9]+' *.html|sort -u|cut -b 2-|grep -v -P '^(html|head|meta|link|style|script|noscript|body|title)$$'
+	@ack -h -o -i '<[a-z0-9]+' text/*.html|sort -u|cut -b 2-
