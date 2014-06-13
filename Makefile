@@ -4,8 +4,10 @@
 
 
 EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
-FOP := "fop"
-XALAN := "/usr/share/java/xalan2.jar"
+FOP := fop
+XALAN := /usr/share/java/xalan2.jar
+NPM := npm
+NPM_FLAGS :=
 
 
 all: css js html pdf epub index mobi
@@ -15,7 +17,7 @@ all: css js html pdf epub index mobi
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
-html: $(EBOOKS)
+html: $(EBOOKS) css js
 
 $(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
 	$(info * Compile HTML $@)
@@ -85,17 +87,22 @@ index.xml: $(EBOOKS)
 
 css: static/ebook.css
 
-static/ebook.css: src/sass/*
+static/ebook.css: node_modules src/sass/*
 	compass compile
 
-js: src/vendor static/ebook.js
+js: dependencies static/ebook.js
 
-src/vendor:
-	bower install
+dependencies: node_modules src/vendor
+
+node_modules: package.json
+	$(NPM) $(NPM_FLAGS) install
+
+src/vendor: node_modules
+	node_modules/.bin/bower install
 
 static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/jquery.js src/js/ebook.js
 	true >$@
-	for js in $^; do <$$js uglifyjs >> $@; done
+	for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
