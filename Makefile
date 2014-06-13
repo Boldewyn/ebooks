@@ -88,7 +88,7 @@ index.xml: $(EBOOKS)
 css: static/ebook.css
 
 static/ebook.css: node_modules src/sass/*
-	compass compile
+	sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
 
 js: dependencies static/ebook.js
 
