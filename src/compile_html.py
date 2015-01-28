@@ -11,7 +11,7 @@ book <ID>.
 import json
 import os
 import sys
-from urllib.parse import quote
+from urllib.parse import quote as urlquote
 import pystache
 
 
@@ -28,7 +28,7 @@ def main(args):
         with open("src/template.mustache") as _f:
             template = _f.read()
 
-        # the context handled to the mustache template
+        # the context handed to the mustache template
         ctx = {
             "meta": meta,
             "enctitle": "",
@@ -56,7 +56,7 @@ def main(args):
                 ctx["author"] = m["value"]
             if name == "dc.title":
                 ctx["book_title"] = m["value"]
-                ctx["enctitle"] = quote(m["value"])
+                ctx["enctitle"] = urlquote(m["value"])
 
             if m.get("scheme", False) == "dc.URI":
                 entry["url"] = True

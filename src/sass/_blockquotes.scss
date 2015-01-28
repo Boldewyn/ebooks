@@ -22,13 +22,15 @@ blockquote.quote {
   font-style: italic;
 }
 blockquote.fixed pre {
-  white-space: pre;
+  /* there are overly long lines, e.g. in Dorian Gray, that must
+   * wrap to not exceed the page margin */
+  white-space: pre-wrap;
   display: table;
   width: auto;
   margin: 0 auto;
 }
 blockquote.fixed pre * {
-  white-space: pre;
+  white-space: pre-wrap;
 }
 blockquote .source {
   font-style: italic;
