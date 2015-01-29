@@ -113,7 +113,7 @@ static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/dist/j
 fonts:
 	$(info * Fetch current fonts from GitHub)
 	@for x in static/fonts/*; do \
-	    curl -sS "https://github.com/skosch/Crimson/blob/master/Web Fonts/$$(basename $$x)" > $$x; \
+	    curl -sS "https://raw.githubusercontent.com/skosch/Crimson/master/Web%20Fonts/$$(basename $$x)" > $$x; \
 	done
 .PHONY: fonts
 
