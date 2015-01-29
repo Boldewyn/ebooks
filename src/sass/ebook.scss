@@ -5,6 +5,7 @@ $scale: 1.333;
 
 $c-hi: #A00;
 $c-background: darken(#FBFBFA, 1%);
+$c-shadow: #aaa;
 
 @import "fonts";
 @import "normalize";
@@ -20,6 +21,40 @@ $c-background: darken(#FBFBFA, 1%);
   margin: 60px auto;
   font-feature-settings: "liga" 1, "kern" 1, "frac" 1;
   text-rendering: optimizeLegibility;
+
+  @media print {
+    font-size: 11pt;
+  }
+
+  @media (max-width: 64em) {
+    margin-left: 0;
+  }
+
+  @media (max-width: 42em) {
+    font-size: 15px;
+    margin-right: 0;
+    padding: 1em;
+  }
+
+  @media (max-width: 30em) {
+    font-size: 14px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  @media (max-height: 30em) {
+    margin-top: 0;
+    padding-top: 1em;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $c-shadow;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+    margin: $baseline*1em auto;
+  }
 
   @import "counters";
 
@@ -41,5 +76,5 @@ $c-background: darken(#FBFBFA, 1%);
 
   @import "footnotes";
 
-  @import "print";
+  //@import "debug";
 }

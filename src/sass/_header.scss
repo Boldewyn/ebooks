@@ -2,35 +2,38 @@ header {
   margin: 0 0 $baseline*6.5em;
   padding: $baseline*4em 0;
   border-bottom: 1px solid #fff;
-}
 
-@media (min-width: 52em) {
-  header h1 {
-    max-width: 61.8%;
+  @media print {
+    page-break-after: always;
+    page-break-after: right;
+    border-bottom: none;
+    padding-bottom: 0;
   }
-}
 
-header h2,
-header h3,
-header h4,
-header h5,
-header p {
-  text-align: center;
-}
+  @media (min-width: 52em) {
+    h1 {
+      max-width: 61.8%;
+    }
+  }
 
-header h2.author:before {
-  content: "by ";
-  display: block;
-  font-size: 1em / $scale;
-  font-style: italic;
-  margin-bottom: #{$baseline / ($scale * $scale) * .5em};
-}
+  h2, h3, h4, h5, p {
+    text-align: center;
+  }
 
-header h2.author:lang(de):before {
-  content: "von ";
-}
+  h2.author:before {
+    content: "by ";
+    display: block;
+    font-size: 1em / $scale;
+    font-style: italic;
+    margin-bottom: #{$baseline / ($scale * $scale) * .5em};
+  }
 
-header p {
-  width: 61.8%;
-  margin: 0 auto;
+  h2.author:lang(de):before {
+    content: "von ";
+  }
+
+  p {
+    width: 61.8%;
+    margin: 0 auto;
+  }
 }

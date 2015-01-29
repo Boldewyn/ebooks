@@ -6,6 +6,10 @@ p {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
+
+  @media (max-width: 46em) {
+    text-align: left;
+  }
 }
 
 p + p {
