@@ -1,14 +1,14 @@
 p {
   margin: 0;
-  text-align: justify;
-  -webkit-hyphens: auto;
-  -epub-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
+  text-align: left;
 
-  @media (max-width: 46em) {
-    text-align: left;
+  @media (min-width: 38em) {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    -epub-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
   }
 }
 

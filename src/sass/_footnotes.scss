@@ -5,21 +5,33 @@
   display: block;
   float: right;
   width: 10em;
-  margin: #{$baseline * $scale* -.5em} #{$baseline * $scale*-1em - 10em} #{$baseline * $scale* 1em} 0;
-  padding: #{$baseline * $scale* .5em};
+  margin: #{$baseline * $scale* 1em} 0 #{$baseline * $scale* 1em} #{$baseline * $scale* 1em};
+  padding: 0 0 0 #{$baseline * $scale* 1em};
+  border-left: 1px solid $c-shadow;
   font-style: italic;
   font-size: 1em / $scale;
   line-height: $baseline * $scale;
   text-align: left;
-  text-indent: 0;
+  text-indent: -.6667em;
   background: $c-background;
-}
 
-@media (max-width: 54em) {
-  .footnote-body {
-    margin: #{$baseline * $scale* 1em} 0 #{$baseline * $scale* 1em} #{$baseline * $scale* 1em};
-    padding: 0 0 0 #{$baseline * $scale* 1em};
-    border-left: 1px solid #ccc;
+  /* pull footnote to .book padding, if there is space */
+  @media (min-width: #{2*$baseline*6em + $measure*1em}) {
+    margin: #{$baseline * $scale* -.5em} #{$baseline * $scale*-1em - 10em} #{$baseline * $scale* 1em} 0;
+    padding: #{$baseline * $scale* .5em};
+    border-left: none;
+  }
+
+  /* double the footnote size on wide displays (will exceed .book
+   * padding) */
+  @media (min-width: #{2*$baseline*6em + $measure*1em + 10em/$scale}) {
+    width: 20em;
+    margin-right: #{$baseline * $scale*-1em - 20em};
+    /* let the gray background fade out after ~50% of the footnote */
+    background: linear-gradient(to right,
+      $c-background,
+      $c-background #{11em + $baseline*$scale*.5em},
+      rgba(255,255,255,0));
   }
 }
 

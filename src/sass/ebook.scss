@@ -1,7 +1,13 @@
 @charset "UTF-8";
 
+/* the baseline height. 16px*1.5625 = 25px */
 $baseline: 1.5625;
+
+/* the scale by which other font sizes are calculated */
 $scale: 1.333;
+
+/* the maximum line length in em */
+$measure: 36;
 
 $c-hi: #A00;
 $c-background: darken(#FBFBFA, 1%);
@@ -13,38 +19,41 @@ $c-shadow: #aaa;
 .book {
   color: #222;
   font-family: "Crimson",Georgia,serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: $baseline;
   background: $c-background;
-  max-width: 36em;
-  padding: $baseline*4em $baseline*6em;
-  margin: 60px auto;
+  max-width: $measure*1em;
+  padding: 1em 3px $baseline*4em;
+  margin: 0 0 60px;
   font-feature-settings: "liga" 1, "kern" 1, "frac" 1;
   text-rendering: optimizeLegibility;
 
+  @media (min-width: 30em) {
+    font-size: 15px;
+    padding-left: $baseline*1em;
+    padding-right: $baseline*1em;
+  }
+
+  @media (min-width: 38em) {
+    font-size: 16px;
+    margin-right: auto;
+    padding-left: $baseline*2em;
+    padding-right: $baseline*2em;
+  }
+
+  @media (min-width: #{2*$baseline*6em + $measure*1em}) {
+    margin-left: auto;
+    padding-left: $baseline*6em;
+    padding-right: $baseline*6em;
+  }
+
+  @media (min-height: 30em) {
+    margin-top: 60px;
+    padding-top: $baseline*4em;
+  }
+
   @media print {
     font-size: 11pt;
-  }
-
-  @media (max-width: 64em) {
-    margin-left: 0;
-  }
-
-  @media (max-width: 42em) {
-    font-size: 15px;
-    margin-right: 0;
-    padding: 1em;
-  }
-
-  @media (max-width: 30em) {
-    font-size: 14px;
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-
-  @media (max-height: 30em) {
-    margin-top: 0;
-    padding-top: 1em;
   }
 
   hr {
