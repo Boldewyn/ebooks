@@ -1,0 +1,27 @@
+table {
+  margin: $baseline*1em 0;
+}
+
+table:first-child {
+  margin-top: 0;
+}
+
+table:last-child {
+  margin-bottom: 0;
+}
+
+thead th, tbody {
+  border-bottom: 1px solid #ccc;
+}
+
+table:last-child tbody {
+  border-bottom: none;
+}
+
+caption, th {
+  font-style: italic;
+}
+
+caption {
+  caption-side: bottom;
+}

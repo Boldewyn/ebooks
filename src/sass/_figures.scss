@@ -1,0 +1,16 @@
+figure {
+  text-align: center;
+  margin: 0 auto $baseline*1em;
+  max-width: 100%;
+}
+
+figure img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+figcaption {
+  font-size: 1em / $scale;
+  line-height: $baseline * $scale;
+}

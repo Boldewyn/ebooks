@@ -1,50 +1,56 @@
 /**
  * Blockquote styles -------------------------------------------------
  */
+blockquote {
+  display: table;
+  font-size: 1em / $scale;
+  line-height: $baseline * $scale;
+  margin: $baseline*$scale*1em auto;
+
+  .source {
+    font-style: italic;
+    text-align: right;
+  }
+}
 
 blockquote.centered {
   display: block;
+  &, p {
+    text-align: center;
+  }
 }
 
-.centered,
-blockquote.centered p {
-  text-align: center;
+blockquote.article {
+  p.article_header {
+    text-align:center;
+    margin: $baseline*$scale*1em 0;
+    font-variant: small-caps;
+    letter-spacing: .033em;
+  }
 }
 
-blockquote.article p.article_header {
-  text-align:center;
-  margin: $baseline*$scale*1em 0;
-  font-variant: small-caps;
-  letter-spacing: .033em;
-}
 blockquote.slanted,
 blockquote.quote {
   font-style: italic;
 }
-blockquote.fixed pre {
-  /* there are overly long lines, e.g. in Dorian Gray, that must
-   * wrap to not exceed the page margin */
-  white-space: pre-wrap;
-  display: table;
-  width: auto;
-  margin: 0 auto;
+
+blockquote.fixed {
+  pre {
+    display: table;
+    width: auto;
+    margin: 0 auto;
+  }
 }
-blockquote.fixed pre * {
-  white-space: pre-wrap;
-}
-blockquote .source {
-  font-style: italic;
-  text-align: right;
-}
+
 blockquote.poem {
   padding: 0;
   display: table;
   width: auto;
   margin-left: auto;
   margin-right: auto;
-}
 
-.poem .line {
-  display:block;
-  white-space:nowrap;
+  .line {
+    display: block;
+    white-space: nowrap;
+  }
 }

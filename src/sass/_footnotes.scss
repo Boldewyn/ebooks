@@ -5,14 +5,14 @@
   display: block;
   float: right;
   width: 10em;
-  margin: #{$baseline * $scale* -.5em} #{$baseline * $scale* -2em - 10em} #{$baseline * $scale* 1em} 0;
+  margin: #{$baseline * $scale* -.5em} #{$baseline * $scale*-1em - 10em} #{$baseline * $scale* 1em} 0;
   padding: #{$baseline * $scale* .5em};
   font-style: italic;
   font-size: 1em / $scale;
   line-height: $baseline * $scale;
   text-align: left;
   text-indent: 0;
-  background: $c-book;
+  background: $c-background;
 }
 
 @media (max-width: 54em) {

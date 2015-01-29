@@ -1,24 +1,39 @@
 @charset "UTF-8";
 
+$baseline: 1.5625;
 $scale: 1.333;
 
-$baseline: 1.5;
-
-$c-book: #FBFBFA;
+$c-hi: #A00;
+$c-background: darken(#FBFBFA, 1%);
 
 @import "fonts";
+@import "normalize";
 
-@import "paged";
-@import "reset";
-@import "typography";
-@import "book";
-@import "blockquotes";
-@import "counters";
-@import "footnotes";
-@import "toc";
-@import "dialogs";
-@import "annotations";
-@import "variations";
+.book {
+  color: #222;
+  font-family: "Crimson",Georgia,serif;
+  font-size: 16px;
+  line-height: $baseline;
+  background: $c-background;
+  max-width: 36em;
+  padding: $baseline*4em $baseline*6em;
+  margin: 60px auto;
 
-//@import "debug";
+  @import "counters";
 
+  @import "inlines";
+
+  @import "paragraphs";
+
+  @import "sections";
+
+  @import "blockquotes";
+
+  @import "tables";
+
+  @import "figures";
+
+  @import "footnotes";
+
+  @import "print";
+}

@@ -1,8 +1,0 @@
-.book--chapters-added {
-  > section:not(#Table_of_Contents) h2:before {
-    content: "Chapter\00a0" counter(chapter, upper-roman) ":\00a0";
-  }
-  > section:not(#Table_of_Contents) h2:lang(de):before {
-    content: "Kapitel\00a0" counter(chapter, upper-roman) ":\00a0";
-  }
-}

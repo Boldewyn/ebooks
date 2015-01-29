@@ -1,0 +1,79 @@
+abbr[title], dfn[title] {
+  border-bottom-color: rgba(0,0,0,.25);
+  cursor: help;
+}
+
+q:lang(en) {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+q:lang(bar), q:lang(de) {
+  quotes: "\201E" "\201C" "\201A" "\2018";
+}
+
+q:before {
+  content: open-quote;
+}
+
+q:after {
+  content: close-quote;
+}
+
+em, i, var {
+  font-style: italic;
+}
+
+.proper_name,
+strong, b {
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: .05em;
+  padding: 0 0 0 .1em;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  text-decoration: underline;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+code, kbd, samp {
+  font-family: "DejaVu Sans Mono", monospace;
+}
+
+/* our <pre> is mostly for poems and stuff, so inherit font family */
+pre {
+  font-family: inherit;
+  margin: 0 0 $baseline*1em;
+  /* there are overly long lines, e.g. in Dorian Gray, that must
+   * wrap to not exceed the page margin */
+  white-space: pre-wrap;
+}
+
+a {
+  color: $c-hi;
+  text-decoration: none;
+}
+
+a:visited {
+  color: darken($c-hi, 5%);
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  color: lighten($c-hi, 5%);
+  border-bottom: 1px solid;
+}
+
+a:active {
+  background: lighten($c-hi, 60%);
+  border: none;
+  color: inherit;
+}

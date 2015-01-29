@@ -1,21 +1,19 @@
-/**
- * Counters ----------------------------------------------------------
- */
-.book {
+
+& {
   counter-reset: page chapter section global_section footnote;
 }
 
-.book > section {
+> section {
   counter-increment: chapter;
   counter-reset: section;
 }
 
-.book > section > section {
+> section > section {
   counter-increment: section global_section;
 }
 
-.book section#Table_of_Contents,
-.book section.preface {
+section#Table_of_Contents,
+section.preface {
   counter-increment: none;
 }
 
