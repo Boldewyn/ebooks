@@ -67,7 +67,13 @@ clean:
 	  $(EBOOKS)
 
 
-index: index.js index.xml
+index: index.json index.js index.xml
+
+
+index.json: $(EBOOKS)
+	@echo -n '["' > "$@"
+	@echo -n $(patsubst %.html,%,$(EBOOKS)) | sed 's/ /","/g' >> "$@"
+	@echo -n '"]' >> "$@"
 
 
 index.js: $(EBOOKS)
@@ -100,9 +106,16 @@ node_modules: package.json
 src/vendor: node_modules
 	node_modules/.bin/bower install
 
-static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/jquery.js src/js/ebook.js
+static/ebook.js: src/vendor/html5shiv/dist/html5shiv.js src/vendor/jquery/dist/jquery.js src/js/ebook.js
 	true >$@
 	for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
+
+fonts:
+	$(info * Fetch current fonts from GitHub)
+	@for x in static/fonts/*; do \
+	    curl -sS "https://github.com/skosch/Crimson/blob/master/Web Fonts/$$(basename $$x)" > $$x; \
+	done
+.PHONY: fonts
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
