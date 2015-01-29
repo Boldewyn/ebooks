@@ -1,5 +1,6 @@
 table {
   margin: $baseline*1em 0;
+  font-feature-settings: "liga" 1, "kern" 1, "tnum" 1, "frac" 0;
 }
 
 table:first-child {

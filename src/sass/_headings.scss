@@ -1,0 +1,49 @@
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: "liga" 1, "kern" 1, "swsh" 1, "cswh" 1, "frac" 0;
+}
+
+h1 {
+  font-size: $scale * $scale * $scale * $scale * 1em;
+  line-height: $baseline / ($scale * $scale * $scale * $scale) * 3;
+  margin: 0 auto #{$baseline / ($scale * $scale * $scale * $scale) * .5em};
+  text-align: center;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: $scale * $scale * $scale * 1em;
+  font-weight: normal;
+  line-height: $baseline / ($scale * $scale * $scale) * 2;
+  margin: 0 auto #{$baseline / ($scale * $scale * $scale) * .5em};
+}
+
+h3 {
+  font-size: $scale * $scale * 1em;
+  line-height: $baseline / ($scale * $scale) * 1.5;
+  margin: 0 auto #{$baseline / ($scale * $scale) * .5em};
+  font-variant: small-caps;
+  text-transform: lowercase;
+  font-weight: normal;
+  letter-spacing: .033em;
+}
+
+h4 {
+  font-size: $scale * 1em;
+  line-height: $baseline / $scale * 1.5;
+  margin: 0 auto #{$baseline / $scale * .5em};
+  font-style: italic;
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 1em;
+  line-height: $baseline;
+  margin: 0 auto .5em;
+}
+
+h6 {
+  text-indent: $baseline*1em;
+  font-style: italic;
+  margin: 0 auto .5em;
+}
+

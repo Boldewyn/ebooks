@@ -18,6 +18,8 @@ $c-background: darken(#FBFBFA, 1%);
   max-width: 36em;
   padding: $baseline*4em $baseline*6em;
   margin: 60px auto;
+  font-feature-settings: "liga" 1, "kern" 1, "frac" 1;
+  text-rendering: optimizeLegibility;
 
   @import "counters";
 
@@ -25,7 +27,11 @@ $c-background: darken(#FBFBFA, 1%);
 
   @import "paragraphs";
 
+  @import "headings";
+
   @import "sections";
+
+  @import "header";
 
   @import "blockquotes";
 
