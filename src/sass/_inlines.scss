@@ -50,7 +50,7 @@ code, kbd, samp {
 /* our <pre> is mostly for poems and stuff, so inherit font family */
 pre {
   font-family: inherit;
-  margin: 0 0 $baseline*1em;
+  margin: 0;
   /* there are overly long lines, e.g. in Dorian Gray, that must
    * wrap to not exceed the page margin */
   white-space: pre-wrap;

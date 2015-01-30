@@ -21,6 +21,7 @@ p + p {
 .signature,
 .postscriptum,
 .poem p,
+.separation,
 .noindent {
   text-indent: 0;
 }
@@ -38,11 +39,6 @@ section h3+p:first-line,
 section > p:first-child:first-line {
   font-variant: small-caps;
   letter-spacing: .033em;
-}
-
-p.separation {
-  margin-top: $baseline*1em;
-  text-indent: 0;
 }
 
 p.centered {
