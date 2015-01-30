@@ -2,7 +2,7 @@
  * Paged media setup -------------------------------------------------
  */
 @page {
-  size: portrait;
+  size: A4 portrait;
   margin: 2cm;
   counter-increment: page;
   @bottom-center {
@@ -25,3 +25,9 @@
   margin-right: 3cm;
 }
 
+@page :first {
+  margin: 2cm;
+  @bottom-center {
+    content: none;
+  }
+}

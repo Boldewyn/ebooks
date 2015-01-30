@@ -33,6 +33,10 @@
       $c-background #{11em + $baseline*$scale*.5em},
       rgba(255,255,255,0));
   }
+
+  @media print {
+    float: footnote;
+  }
 }
 
 .footnote:before,
