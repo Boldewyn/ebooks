@@ -1,0 +1,14 @@
+/**
+ * Dialogs -----------------------------------------------------------
+ */
+.dialog dt {
+  float: left;
+  font-variant: small-caps;
+  letter-spacing: .05em;
+  margin-right: $baseline*.5em;
+}
+
+.dialog dd {
+  margin-bottom: $baseline*.5em;
+  padding-left: $baseline*1em;
+}

@@ -17,6 +17,7 @@ $c-copy: #222;
 
 
 @import "fonts";
+@import "paged";
 @import "normalize";
 
 
@@ -60,6 +61,15 @@ $c-copy: #222;
     font-size: 11pt;
   }
 
+  &--chapters-added {
+    > section:not(#Table_of_Contents) h2:before {
+      content: "Chapter\00a0" counter(chapter, upper-roman) ":\00a0";
+    }
+    > section:not(#Table_of_Contents) h2:lang(de):before {
+      content: "Kapitel\00a0" counter(chapter, upper-roman) ":\00a0";
+    }
+  }
+
   hr {
     border: none;
     border-top: 1px solid $c-shadow;
@@ -89,7 +99,13 @@ $c-copy: #222;
 
   @import "figures";
 
+  @import "dialogs";
+
+  @import "annotations";
+
   @import "footnotes";
+
+  @import "toc";
 
   //@import "debug";
 }

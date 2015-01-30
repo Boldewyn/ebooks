@@ -1,0 +1,55 @@
+/**
+ * Table of Content --------------------------------------------------
+ */
+#Table_of_Contents {
+  ol {
+    list-style: none;
+    padding: 0 $baseline*1em;
+    margin: 0 auto;
+    display: table;
+  }
+
+  ol ol {
+    padding-left: $baseline*2em;
+    margin: $baseline*0.5em;
+  }
+
+  ol li {
+    margin: 0 0 $baseline*0.5em;
+    padding-left: $baseline*1.5em;
+    text-indent: $baseline*-1.5em;
+  }
+
+  ol li:before {
+    content: counter(toc, upper-roman) ".";
+    min-width: $baseline*1.618em;
+    padding-right: $baseline*0.382em;
+    display: inline-block;
+    font-weight: normal;
+    text-indent: 0;
+    text-align: right;
+  }
+
+  ol ol li:before {
+    content: counter(toc) ".";
+  }
+
+  ol li.no_chapter:before {
+    content: "\00A0";
+  }
+
+  &.part_and_chapter ol li:before {
+    content: "";
+  }
+
+  &.part_and_chapter ol ol li:before {
+    content: "Chapter " counter(toc, upper-roman);
+    width: 8em;
+    font-variant: small-caps;
+    font-weight: normal;
+  }
+
+  &.part_and_chapter ol ol li:lang(de):before {
+    content: "Kapitel " counter(toc, upper-roman);
+  }
+}
