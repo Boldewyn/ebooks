@@ -1,8 +1,8 @@
 <ebooks>
   <book>A_Christmas_Carol</book>
   <book>A_Connecticut_Yankee</book>
-  <book>A_Study_in_Scarlet</book>
   <book>Alices_Adventures_in_Wonderland</book>
+  <book>A_Study_in_Scarlet</book>
   <book>At_the_Mountains_of_Madness</book>
   <book>Biene_Maja</book>
   <book>Dracula</book>
@@ -12,6 +12,7 @@
   <book>Narrative_of_Arthur_Gordon_Pym</book>
   <book>New_Arabian_Nights</book>
   <book>Nils_Holgersson</book>
+  <book>Peter_Pan</book>
   <book>Robinson_Crusoe</book>
   <book>Siddhartha</book>
   <book>The_Adventures_of_Sherlock_Holmes</book>
