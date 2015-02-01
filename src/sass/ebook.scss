@@ -60,6 +60,10 @@ $c-copy: #222;
   @media print {
     font-size: 11pt;
     background: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    max-width: none;
   }
 
   &--chapters-added {

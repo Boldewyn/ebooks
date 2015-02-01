@@ -31,6 +31,10 @@ strong, b {
   padding: 0 0 0 .1em;
 }
 
+small {
+  font-size: 1em / $scale;
+}
+
 dfn {
   font-style: italic;
 }

@@ -3,30 +3,37 @@
  */
 @page {
   size: A4 portrait;
-  margin: 2cm;
+  margin: #{29.7cm / 9 * 1} #{21cm / 9 * 1.5} #{29.7cm / 9 * 2};
+  padding: 0;
   counter-increment: page;
   @bottom-center {
-    margin-top: 1.6667em;
-    line-height: 1.6667em;
-    font-style: italic;
-    font-size: 75%;
+    margin-top: $baseline * $scale * 1em;
+    vertical-align: top;
+    line-height: $baseline * $scale * 1em;
+    font-size: 1em / $scale;
     text-align: center;
     content: counter(page);
   }
 }
 
 @page :left {
-  margin-left: 3cm;
-  margin-right: 1.5cm;
+  margin-left: #{21cm / 9 * 2};
+  margin-right: #{21cm / 9 * 1};
+  @bottom-center {
+    text-align: left;
+  }
 }
 
 @page :right {
-  margin-left: 1.5cm;
-  margin-right: 3cm;
+  margin-left: #{21cm / 9 * 1};
+  margin-right: #{21cm / 9 * 2};
+  @bottom-center {
+    text-align: right;
+  }
 }
 
 @page :first {
-  margin: 2cm;
+  margin: #{29.7cm / 9 * 1} #{21cm / 9 * 1.5} #{29.7cm / 9 * 2};
   @bottom-center {
     content: none;
   }

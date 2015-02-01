@@ -4,8 +4,6 @@
 
 
 EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
-FOP := fop
-XALAN := /usr/share/java/xalan2.jar
 NPM := npm
 NPM_FLAGS :=
 
@@ -19,21 +17,14 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 html: $(EBOOKS) css js
 
+
 $(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
 	$(info * Compile HTML $@)
 	@src/compile_html.py "$(basename $@)"
 
-%.pdf: %.fo src/fo.xsl src/fo.conf
-	$(info * Create PDF $@)
-	@$(FOP) -a -fo "$<" -c src/fo.conf -pdf "$@"
 
-
-%.fo: %.html src/fo.xsl
-	$(info * Create XSL-FO $@)
-	@java -Djava.protocol.handler.pkgs=dummy_about_handler \
-	      -cp "$$PWD/src:$(XALAN)" \
-	      org.apache.xalan.xslt.Process -indent 2 \
-	      -xsl src/fo.xsl -in "$<" -out "$@"
+%.pdf: %.html src/colophon.html static/ebook.css
+	@prince --input=html5 --output="$@" "$<" src/colophon.html
 
 
 epub: $(EBOOKS) src/epub/*
@@ -59,8 +50,7 @@ mobi: $(patsubst %.html,%.mobi,$(EBOOKS))
 
 clean:
 	$(info * Clean generated content)
-	@-rm -f $(patsubst %.html,%.pdf,$(EBOOKS)) \
-	  $(patsubst %.html,%.fo,$(EBOOKS)) \
+	@-rm -f \
 	  $(patsubst %.html,%.pdf,$(EBOOKS)) \
 	  $(patsubst %.html,%.epub,$(EBOOKS)) \
 	  $(patsubst %.html,%.mobi,$(EBOOKS)) \

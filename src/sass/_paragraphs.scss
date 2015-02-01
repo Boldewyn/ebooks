@@ -2,7 +2,7 @@ p {
   margin: 0;
   text-align: left;
 
-  @media (min-width: 38em) {
+  @media print, (min-width: 38em) {
     text-align: justify;
     -webkit-hyphens: auto;
     -epub-hyphens: auto;
