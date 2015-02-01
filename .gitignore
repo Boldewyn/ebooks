@@ -4,7 +4,6 @@
 *.pyc
 /*.fo
 /.sass-cache
-/src/vendor
 /static/ebook.js
 /static/ebook.css
 /A_Christmas_Carol.html

@@ -93,24 +93,26 @@ index.xml: $(EBOOKS)
 
 css: static/ebook.css
 
-static/ebook.css: node_modules src/sass/*
+static/ebook.css: node_modules/.bin/cssmin \
+                  node_modules/normalize.css/normalize.css \
+                  src/sass/*
+	cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
 	sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
 
 js: dependencies static/ebook.js static/html5shiv.js
 
-dependencies: node_modules src/vendor
+dependencies: node_modules
+
+node_modules/.bin/cssmin: node_modules
 
 node_modules: package.json
 	$(NPM) $(NPM_FLAGS) install
 
-src/vendor: node_modules
-	node_modules/.bin/bower install
-
-static/ebook.js: src/vendor/jquery/dist/jquery.js src/js/ebook.js
+static/ebook.js: node_modules/jquery/dist/jquery.js src/js/ebook.js
 	true >$@
 	for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
 
-static/html5shiv.js: src/vendor/html5shiv/dist/html5shiv.min.js
+static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
 	cp "$<" "$@"
 
 fonts:
