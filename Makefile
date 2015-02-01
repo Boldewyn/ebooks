@@ -24,6 +24,7 @@ $(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
 
 
 %.pdf: %.html src/colophon.html static/ebook.css
+	$(info * Create PDF $@)
 	@prince --input=html5 --output="$@" "$<" src/colophon.html
 
 
@@ -86,8 +87,9 @@ css: static/ebook.css
 static/ebook.css: node_modules/.bin/cssmin \
                   node_modules/normalize.css/normalize.css \
                   src/sass/*
-	cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
-	sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
+	$(info * Generate CSS)
+	@cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
+	@sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
 
 js: dependencies static/ebook.js static/html5shiv.js
 
@@ -96,14 +98,15 @@ dependencies: node_modules
 node_modules/.bin/cssmin: node_modules
 
 node_modules: package.json
-	$(NPM) $(NPM_FLAGS) install
+	@$(NPM) $(NPM_FLAGS) install
 
 static/ebook.js: node_modules/jquery/dist/jquery.js src/js/ebook.js
-	true >$@
-	for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
+	$(info * Generate JS)
+	@true >$@
+	@for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
 
 static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
-	cp "$<" "$@"
+	@cp "$<" "$@"
 
 fonts:
 	$(info * Fetch current fonts from GitHub)
