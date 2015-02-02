@@ -91,22 +91,25 @@ static/ebook.css: node_modules/.bin/cssmin \
 	@cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
 	@sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
 
-js: dependencies static/ebook.js static/html5shiv.js
+js: node_modules static/ebook.js static/html5shiv.js
 
-dependencies: node_modules
 
 node_modules/.bin/cssmin: node_modules
 
+
 node_modules: package.json
 	@$(NPM) $(NPM_FLAGS) install
+
 
 static/ebook.js: node_modules/jquery/dist/jquery.js src/js/ebook.js
 	$(info * Generate JS)
 	@true >$@
 	@for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
 
+
 static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
 	@cp "$<" "$@"
+
 
 fonts:
 	$(info * Fetch current fonts from GitHub)
@@ -114,6 +117,7 @@ fonts:
 	    curl -sS "https://raw.githubusercontent.com/skosch/Crimson/master/Web%20Fonts/$$(basename $$x)" > $$x; \
 	done
 .PHONY: fonts
+
 
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
