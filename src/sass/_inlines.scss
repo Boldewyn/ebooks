@@ -60,6 +60,12 @@ pre {
   white-space: pre-wrap;
 }
 
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
 a {
   color: $c-hi;
   text-decoration: none;
