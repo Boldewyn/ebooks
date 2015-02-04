@@ -1,0 +1,13 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "latedef": true,
+    "undef": true,
+    "unused": true,
+    "globals": {
+        "document": false,
+        "window": false,
+        "module": false,
+        "require": false
+    }
+}
