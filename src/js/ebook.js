@@ -3,40 +3,26 @@
  *
  * The following code is in the public domain, unless otherwise noted.
  */
-(function () {
 
-/**
- * Determine the scrolling element
- *
- * @see http://stackoverflow.com/questions/2837178
- */
-var scrollElement = (function (tags) {
-  var el, $el;
-  while (el = tags.pop()) {
-    $el = $(el);
-    if ($el.scrollTop() > 0){
-      return $el;
-    } else if($el.scrollTop(1).scrollTop() > 0) {
-      return $el.scrollTop(0);
-    }
-  }
-  return $();
-})(["html", "body"]);
+var $ = require("jquery");
+
+var _ = require("./_gettext");
+
+var scrollElement = require("./_scrollelement");
+
+var bm = require("./_bookmark");
+
+var Modal = require("./_modal");
 
 /**
  * The include path
  */
-var path = $('script[src$="ebook.js"]').attr('src');
-if (path) {
-  path = path.replace('ebook.js', '');
-} else {
-  path = '';
-}
+var path = $('script[src$="ebook.js"]').attr('src').replace('ebook.js', '');
 
 /**
- * Remove hardcoded height and width on images to allow consistent CSS styling
+ * Add styles
  */
-$('figure img').removeAttr('width').removeAttr('height');
+$('<link rel="stylesheet" href="'+path+'tools.css" />').appendTo('head');
 
 /**
  * Easing function ~ jquery.easing's easeOutCirc
@@ -48,16 +34,9 @@ $.extend($.easing, {
 });
 
 /**
- * Add styles and metadata
- */
-$('<meta name="viewport" content="width=device-width, initial-scale=1.0" />').appendTo('head');
-$('<link rel="stylesheet" href="'+path+'tools.css" />').appendTo('head');
-$('<link rel="shortcut icon" href="'+path+'favicon.ico" />').appendTo('head');
-
-/**
  * Start onDOMReady
  */
-jQuery(function ($) {
+$(function() {
 
   var nav_items = ['start', 'index', 'dc.source', 'dc.description'];
   var navigation = $('<menu id="__navigation"><ul></ul></menu>');
@@ -130,8 +109,8 @@ jQuery(function ($) {
     $('html').css('font-size', settings.font_size);
   }
 
-  var co = [], didScroll = true;
-      chapter = undefined;
+  var co = [], didScroll = true,
+      chapter;
   var display = $('<div id="__display"></div>');
   $('html').bind('configChange', function () {
     if (settings.hide_display) {
@@ -142,19 +121,21 @@ jQuery(function ($) {
   });
   var ctrl_container = $('<div id="__ctrl_container"></div>').appendTo('body');
 
-  var bookmark = $('<a class="bookmark" title="'+_('Jump to bookmark')+'" href="#">\u00B6</a>')
-                  .click(jump_to_bookmark).appendTo(display)
-                  .mouseenter(function(){
-                    $(this).data('pulse_stop', true).stop(true, true).show();
-                  });
+  $('<a class="bookmark" title="'+_('Jump to bookmark')+'" href="#">\u00B6</a>')
+    .click(bm.jump_to)
+    .appendTo(display)
+    .mouseenter(function(){
+      $(this)
+        .data('pulse_stop', true)
+        .stop(true, true)
+        .show();
+    });
 
-  var home_button = $('<a class="home" title="'+_('Go to start')+'" href="#">\u21B8</a>')
-                     .click(function () { scrollElement.animate({'scrollTop': 0}, 1000); })
-                     .appendTo(display);
-
-  var bm_indicator = $('<img id="__bookmark" src="data:image/png;base64,'+
-                       'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACbSURBVDiNnZLBEcMgDAQXxn0ZWkhchopwES4jRdiNRfmEGSJbQHz/vVsxBFXlTl7bloA03QEjrAFmhTxcYEACHE+RvVtgwZI3rABugQdSrV8WtEC7/lMwAtp1gGkUvFoHiANMM3ER2R8iSSEHOLqAMQj2J5aTFGavRCEv33c4nTBiVFucDGw8o2LRfUTPqFh0DVpGCvnvgroISB9kz1/6dVLwMwAAAABJRU5ErkJggg=='+
-                       '" alt="'+_('current bookmark')+'" title="'+_('current bookmark')+'" />');
+  $('<a class="home" title="'+_('Go to start')+'" href="#">\u21B8</a>')
+    .click(function () {
+      scrollElement.animate({'scrollTop': 0}, 1000);
+    })
+    .appendTo(display);
 
   var config_content = $('<section></section>');
   config_content.append($('<p><input type="checkbox" id="__cfg_full" '+(settings.full_width?'checked="checked"':'')+'/> <label for="__cfg_full">'+_('View in full width')+'</label></p>')
@@ -172,101 +153,35 @@ jQuery(function ($) {
   ).append($('<p><button type="button">'+_('Exit')+'</button></p>')
     .find('button').click(function () { $(this).closest('.__modal').data('__modal').hide(); }).end());
   var config = new Modal('config', _('Settings'), config_content);
-  var config_opener = $('<img class="__ctrl" style="right:46px" src="data:image/png;base64,'+
-                        'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEnSURBVDiNnZGxSgNBFEXPm6SIdULQSssIAVsrsbNcw/6Alm4ytjZapPADTCZYpbRzRexFsAn+gGhhY/ADTCUszLNINiSwWchONe/Cue9enqgqea/b7ZpmtWqBU2Bb4VXgIux0PgDKuTTQrNWGqJ6ks6j+hNZ+LsyrEzz0+/sqMpoLqrehtW1A48Hg5s/7K5O7XuRgAX5O4Xvneqieb4gc5lZQVUVk+heZPDm3laheisjZTKvkG8CXpGGglUArNQSSsshoZYXYuYaIDFa2g+sgisaZCWLnGsALsDmTJsA3sCPw7lV7obV3kHHGDPgXkaOw3X7LWrZUYV14yaAIPDcoCgOU9ur1XVUtBAMY9X5YFJ4aQKUoDFD23h+XjAlKxjwGUTReBwb4B+LUggpBuvHaAAAAAElFTkSuQmCC'+
-                        '" alt="'+_('settings')+
-                        '" title="'+_('settings')+'" />')
-      .click(function () {
-        config.show();
-      }).appendTo(ctrl_container);
+
+  $('<img>', {
+    "class": "__ctrl",
+    style: "right:46px",
+    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEnSURBVDiNnZGxSgNBFEXPm6SIdULQSssIAVsrsbNcw/6Alm4ytjZapPADTCZYpbRzRexFsAn+gGhhY/ADTCUszLNINiSwWchONe/Cue9enqgqea/b7ZpmtWqBU2Bb4VXgIux0PgDKuTTQrNWGqJ6ks6j+hNZ+LsyrEzz0+/sqMpoLqrehtW1A48Hg5s/7K5O7XuRgAX5O4Xvneqieb4gc5lZQVUVk+heZPDm3laheisjZTKvkG8CXpGGglUArNQSSsshoZYXYuYaIDFa2g+sgisaZCWLnGsALsDmTJsA3sCPw7lV7obV3kHHGDPgXkaOw3X7LWrZUYV14yaAIPDcoCgOU9ur1XVUtBAMY9X5YFJ4aQKUoDFD23h+XjAlKxjwGUTReBwb4B+LUggpBuvHaAAAAAElFTkSuQmCC',
+    alt: _('settings'),
+    title: _('settings')
+  })
+    .click(function() {
+      config.show();
+    })
+    .appendTo(ctrl_container);
 
   var toc = new Modal('toc', _('Contents'), $('#Table_of_Contents ol:eq(0)').clone(false).find('a').click(function () {
       toc.hide();
     }).end());
-  var toc_opener = $('<img class="__ctrl" style="right:76px" src="data:image/png;base64,'+
-                     'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABISURBVDiNY1wzefIOBgYGhuCcHI+1U6b8ZyARMJGqAR0w/v9PsqUogAWZs3bKFJK9M+oFansBGRDrnUHgBXJCHhkMvBcodgEArpUxNVDPcqwAAAAASUVORK5CYII='+
-                     '" alt="'+_('show contents')+
-                        '" title="'+_('show contents')+'" />')
-      .click(function () {
-        toc.show();
-      }).appendTo(ctrl_container);
 
-  /**
-   * Modal window
-   */
-  function Modal(id, title, $content) {
-    var that = this;
-    this.frame = $('<div id="__'+id+'" class="__modal"><div class="__modal_payload"><h3>'+title+'</h3></div></div>')
-              .children('div:eq(0)').append($content).end().hide()
-              .bind('click', function (e) { if (e.target === this) { that.hide(); } });
-    this.frame.prepend($('<a href="#" title="'+_('close window')+'" class="__modal_close">X</a>')
-                       .click(function () { that.hide(); return false; })).data('__modal', that);
-    this.show = function () {
-      that.frame
-        .appendTo($('body')).fadeIn().focus()
-        .find('a.__modal_close').attr('tabindex', '0'); };
-    this.hide = function () {
-      that.frame
-        .fadeOut()
-        .find('a.__modal_close').removeAttr('tabindex');
-    };
-    this.destroy = function () {
-      that.frame
-        .find('a.__modal_close').removeAttr('tabindex').end()
-        .fadeOut(function () {
-          that.frame.remove();
-          that.frame = undefined;
-          that = undefined;
-        });
-    };
-    return this;
-  };
+  $('<img>', {
+    "class": "__ctrl",
+    style: "right:76px",
+    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABISURBVDiNY1wzefIOBgYGhuCcHI+1U6b8ZyARMJGqAR0w/v9PsqUogAWZs3bKFJK9M+oFansBGRDrnUHgBXJCHhkMvBcodgEArpUxNVDPcqwAAAAASUVORK5CYII=',
+    alt: _('show contents'),
+    title: _('show contents')
+  })
+    .click(function() {
+      toc.show();
+    })
+    .appendTo(ctrl_container);
 
-  /**
-   * Unobstrusive messaging system
-   */
-  var Message = function (str) {
-    this.str = str;
-    var $container = $('#__messages');
-    if ($container.length == 0) {
-      $container = $('<ul id="__messages"></ul>');
-      $('body').append($container);
-    }
-    $('<li>'+str+'</li>').hide().appendTo($container)
-      .fadeIn('slow').delay(2000).fadeOut('slow', function () {
-        $(this).remove();
-      });
-    return this;
-  };
-
-  /**
-   * i18n stub
-   */
-  function _(s) { return s; }
-
-  /**
-   * Add a pulsing effect to element a
-   *
-   * Stops, when the 'pulse_stop' data item is set.
-   */
-  function _pulse(a) {
-    a.delay(2000).fadeOut('slow').fadeIn('slow', function() {
-      if (! a.data('pulse_stop')) {
-        _pulse(a);
-      }
-    });
-  };
-
-  /**
-   * Return the basename of a path
-   */
-  function basename(path) {
-    if (path === undefined) {
-      path = window.location.pathname;
-    }
-    var t = path.split("/");
-    return t[t.length - 1];
-  };
 
   /**
    * Convert ems to px in the context of a certain element
@@ -274,7 +189,7 @@ jQuery(function ($) {
   function em2px(em, ctx) {
     if (! ctx) { ctx = $('body'); }
     return Number(ctx.css('font-size').replace(/px/, ''))*Number(em);
-  };
+  }
 
   /**
    * Set the offsets of chapters
@@ -284,96 +199,7 @@ jQuery(function ($) {
     $('.book > section:not(#Table_of_Contents)').each(function () {
       co.push([$(this), $(this).offset().top, $(this).innerHeight()]);
     });
-  };
-
-  /**
-   * Scroll the view to the bookmark position
-   */
-  function jump_to_bookmark() {
-    scrollElement.animate({'scrollTop': get_bookmark().offset().top}, 1000);
-    return false;
-  };
-
-  /**
-   * Get the position if the bookmark
-   */
-  function get_bookmark() {
-    if (bookmark_exists()) {
-      var c = parseInt(document.cookie.replace(
-                new RegExp('(^|.*;\\s*)bookmark_'+
-                           basename().replace(/[.?()\[\]()]/, '\\$&')+
-                           '=([^;]*)($|\\s*;.*)'), '$2'));
-      if (! isNaN(c)) {
-        c = $('.book').find('*').eq(c);
-        if (c.length) {
-          return c;
-        }
-      }
-    }
-    return $('.book');
-  };
-
-  /**
-   * Check, if the user has already set the bookmark
-   */
-  function bookmark_exists() {
-    return (document.cookie.indexOf('bookmark_'+basename()+'=') > -1);
-  };
-
-  /**
-   * Set the bookmark
-   */
-  function set_bookmark(height) {
-    if (isNaN(height)) {
-      height = scrollElement.scrollTop();
-    }
-    var el, off, index = 0, best_index = 0, diff = height;
-    $('*', $('.book')).each(function () {
-      off = $(this).offset().top;
-      if (off > height) {
-        if (off - height < diff) {
-          el = $(this);
-          best_index = index;
-          diff = el.offset().top - height;
-        }
-      }
-      index++;
-    });
-    set_bookmark_cookie(best_index);
-    return false;
-  };
-
-  /**
-   * Set the bookmark directly to an element
-   */
-  function set_bookmark_by_element(el) {
-    var n = 0, found = false;
-    $('*', $('.book')).each(function () {
-      if (this === el) {
-        found = true;
-        return false;
-      }
-      n += 1;
-    });
-    if (found) {
-      set_bookmark_cookie(n);
-      return true;
-    } else {
-      new Message(_('Couldn\u2019t set bookmark'));
-      return false;
-    }
-  };
-
-  /**
-   * Do the low level bookmarking
-   */
-  function set_bookmark_cookie(best_index) {
-    document.cookie = 'bookmark_'+basename()+'='+best_index+';expires=Thu, 31 Dec 2099 23:59:59 GMT';
-    new Message(_('Bookmark set'));
-    $('body').append(bm_indicator);
-    bm_indicator.css('top', get_bookmark().offset().top+'px');
-    return false;
-  };
+  }
 
   // if resized, update the offsets of chapters
   $(window).resize(update_offsets);
@@ -386,7 +212,7 @@ jQuery(function ($) {
   // Clicking in the book sets the bookmark
   $('.book *').click(function (e) {
     if (settings.bookmark_onclick) {
-      if (set_bookmark_by_element(this)) {
+      if (bm.set_by_element(this)) {
         e.stopPropagation();
       }
     }
@@ -398,7 +224,7 @@ jQuery(function ($) {
     var hide_var = em2px(20); // do the "hide me-show me" trick in +/- this area around a section
     update_offsets();
     var name = $('<a class="cur" href="#" title="">\u2192</a>'),
-        prev = $('<a class="prev" href="#" title="">\u2191</a>');
+        prev = $('<a class="prev" href="#" title="">\u2191</a>'),
         next = $('<a class="next" href="#" title="">\u2193</a>');
     display.appendTo('body').append(prev).append(next).append(name);
     if (! settings.hide_display) {
@@ -411,7 +237,7 @@ jQuery(function ($) {
         var pos = scrollElement.scrollTop()+scroll_var;
         for (var i = 0; i < co.length; i++) {
           if (pos >= co[i][1]) {
-            if (co.length == 1+i ||
+            if (co.length === 1+i ||
                 (co.length > 1+i &&
                  pos < co[1+i][1])) {
               found = true;
@@ -424,7 +250,7 @@ jQuery(function ($) {
               }
 
               // if the chapter has changed since last time, update display
-              if (chapter != co[i][0]) {
+              if (chapter !== co[i][0]) {
                 chapter = co[i][0];
                 id = co[i][0].attr('id');
                 if (! id) {
@@ -472,26 +298,20 @@ jQuery(function ($) {
       }
     }, 100);
 
-    var bm_setter = $('<img class="__ctrl" style="right:16px" '+
-                      'src="data:image/png;base64,'+
-                      'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACWSURBVDiN7ZNBCsIwEEVfpNS7uPcW3UmukIVtTtNewL1eJ0cJ2EW/C01pIYrRhRsfDExmJp+BzxhJAFyG4Z4sOHSdydVTD6DKFUvYlH74C/xY4PSIFVVmMEfY1vUR4DqOe2BXskGcJNs4Fxvn4iRZIL4tYKTWeh/S23ofjNTOA5KQxLnvlfKS+MiF5YF9bePKhWen+4obbQZdAg19UokAAAAASUVORK5CYII='+
-                      '" alt="'+_('set bookmark')+'" title="'+_('set bookmark')+'" />')
-    .click(function () {
-      set_bookmark();
-    }).appendTo(ctrl_container);
+    $('<img>', {
+      "class": "__ctrl",
+      style: "right:16px",
+      src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACWSURBVDiN7ZNBCsIwEEVfpNS7uPcW3UmukIVtTtNewL1eJ0cJ2EW/C01pIYrRhRsfDExmJp+BzxhJAFyG4Z4sOHSdydVTD6DKFUvYlH74C/xY4PSIFVVmMEfY1vUR4DqOe2BXskGcJNs4Fxvn4iRZIL4tYKTWeh/S23ofjNTOA5KQxLnvlfKS+MiF5YF9bePKhWen+4obbQZdAg19UokAAAAASUVORK5CYII=',
+      alt: _('set bookmark'),
+      title: _('set bookmark'),
+    })
+      .click(function () {
+        bm.set();
+      })
+      .appendTo(ctrl_container);
 
-    if (bookmark_exists()) {
-      _pulse(bookmark);
-      $('body').append(bm_indicator);
-      bm_indicator.css('top', get_bookmark().offset().top+"px");
-    }
   });
 
-  $(window).unload(function () {
-    if (! bookmark_exists()) {
-      set_bookmark();
-    }
-  });
 
 });
 
@@ -583,6 +403,7 @@ $(document).keydown(function (e) {
   return r;
 });
 $(document).bind("keypress keyup", function (e) {
+  /* jshint -W086 */
   switch(e.which) {
     case 68: // d
     case 85: // u
@@ -609,7 +430,6 @@ $(document).bind("keypress keyup", function (e) {
       e.stopPropagation();
       return false;
   }
+  /* jshint +W086 */
   return true;
 });
-
-})();

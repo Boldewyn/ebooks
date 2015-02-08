@@ -101,10 +101,10 @@ node_modules: package.json
 	@$(NPM) $(NPM_FLAGS) install
 
 
-static/ebook.js: node_modules/jquery/dist/jquery.js src/js/ebook.js
+static/ebook.js: node_modules/jquery/dist/jquery.js src/js/*.js
 	$(info * Generate JS)
 	@true >$@
-	@for js in $^; do <$$js node_modules/.bin/uglifyjs -c -m >> $@; done
+	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c -m >> $@
 
 
 static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
