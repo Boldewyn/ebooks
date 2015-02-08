@@ -101,14 +101,17 @@ node_modules: package.json
 	@$(NPM) $(NPM_FLAGS) install
 
 
-static/ebook.js: node_modules/jquery/dist/jquery.js src/js/*.js
+static/ebook.js: test-js node_modules/jquery/dist/jquery.js src/js/*.js
 	$(info * Generate JS)
-	@true >$@
-	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c -m >> $@
+	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c -m > $@
 
 
 static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
 	@cp "$<" "$@"
+
+
+test-js:
+	@jshint --config src/jshintrc src/js
 
 
 fonts:
