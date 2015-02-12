@@ -6,6 +6,7 @@
 EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
 NPM := npm
 NPM_FLAGS :=
+SHELL := /bin/bash
 
 
 all: css js html pdf epub index mobi
@@ -82,36 +83,59 @@ index.xml: $(EBOOKS)
 	done
 	@echo "</ebooks>" >> "$@"
 
-css: static/ebook.css
+
+css: static/ebook.css static/tools.css
+
 
 static/ebook.css: node_modules/.bin/cssmin \
                   node_modules/normalize.css/normalize.css \
-                  src/sass/*
-	$(info * Generate CSS)
+                  src/sass/ebook.scss src/sass/_*.scss
+	$(info * generate CSS)
 	@cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
 	@sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
 
-js: node_modules static/ebook.js static/html5shiv.js
+
+static/tools.css: node_modules/.bin/cssmin \
+                  src/sass/tools.scss
+	$(info * generate tools CSS)
+	@sass src/sass/tools.scss | node_modules/.bin/cssmin > $@
 
 
-node_modules/.bin/cssmin: node_modules
+js: package.json static/ebook.js static/html5shiv.js
 
 
-node_modules: package.json
+node_modules/html5shiv/dist/html5shiv.min.js \
+node_modules/jquery/dist/jquery.js \
+node_modules/.bin/cssmin \
+node_modules/normalize.css/normalize.css:
+	$(info * install node packages)
 	@$(NPM) $(NPM_FLAGS) install
 
 
-static/ebook.js: test-js node_modules/jquery/dist/jquery.js src/js/*.js
-	$(info * Generate JS)
-	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c -m > $@
+src/js/%.d:
+	$(info * generate $@)
+	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
+	    <(browserify --list $(patsubst %.d,%.js,$@) | tr $$'\n' ' ') \
+	    <(echo) \
+	    <(browserify --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
+	  > $@
+
+
+static/ebook.js: src/js/ebook.d
+	$(info * generate JS)
+	$(MAKE) test-js
+	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c warnings=false -m > $@
+-include src/js/ebook.d
 
 
 static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
 	@cp "$<" "$@"
 
 
-test-js:
+test-js: src/jshintrc src/js/*.js
+	$(info * run JS tests)
 	@jshint --config src/jshintrc src/js
+.PHONY: test-js
 
 
 fonts:
@@ -125,6 +149,7 @@ fonts:
 used_classes:
 	#ack 'class=(["'"'"']).*?\1' *.html -h -o|sort -u|cut -b 8-|sed 's/"//'|sed 's/ /\n/g'|sort -u
 	@ack -i -o -h '<([a-z0-9]+)[^>]+class="(.*?)"' *.html|cut -b 2-|sort -u|sed 's/ .*class="/./'| sed 's/"$$//'|sed 's/ /./g'|sort -u
+
 
 used_elements:
 	@ack -h -o -i '<[a-z0-9]+' text/*.html|sort -u|cut -b 2-
