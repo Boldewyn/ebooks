@@ -5,7 +5,7 @@
 /*.fo
 /.sass-cache
 /static/ebook.js
-/static/ebook.css
+/static/*.css
 /A_Christmas_Carol.html
 /A_Connecticut_Yankee.html
 /A_Study_in_Scarlet.html
@@ -37,3 +37,4 @@
 /The_War_of_the_Worlds.html
 /Treasure_Island.html
 /node_modules/
+/src/js/*.d
