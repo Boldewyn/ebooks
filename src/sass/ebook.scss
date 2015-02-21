@@ -23,7 +23,7 @@ $c-copy: #222;
 
 .book {
   color: $c-copy;
-  font-family: "Crimson",Georgia,serif;
+  font-family: Georgia,serif;
   font-size: 14px;
   line-height: $baseline;
   background: $c-background;
@@ -32,6 +32,10 @@ $c-copy: #222;
   margin: 0 0 60px;
   font-feature-settings: "liga" 1, "kern" 1, "frac" 1;
   text-rendering: optimizeLegibility;
+
+  &.crimsonized {
+    font-family: "Crimson",Georgia,serif;
+  }
 
   @media (min-width: 30em) {
     font-size: 15px;

@@ -9,6 +9,7 @@
     "normalize.css": "~3.0.2",
     "cssmin": "~0.4.1",
     "jshint": "~2.5.1",
-    "uglify-js": "~2.4.14"
+    "uglify-js": "~2.4.14",
+    "combokeys": "~2.3.0"
   }
 }
