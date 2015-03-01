@@ -29,7 +29,7 @@ module.exports = function($book, lh, wh) {
     }
 
     scroll_element
-      .stop(true)
+      .stop(true, true)
       .animate({ 'scrollTop': pos }, 200);
 
   };
