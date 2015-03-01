@@ -6,6 +6,7 @@ var settings = {
   pageup: 'ctrl+b',
   halfpagedown: 'ctrl+d',
   halfpageup: 'ctrl+u',
+  scrolldir: -1,
 };
 
 if ('localStorage' in window) {

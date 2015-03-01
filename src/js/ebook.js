@@ -9,6 +9,6 @@ _init($book);
 
 require('./_scrollmarker')($book);
 
-var keycontrol = require('./_keycontrol');
+require('./_keycontrol')($book);
 
-keycontrol($book);
+require('./_mousecontrol')($book);

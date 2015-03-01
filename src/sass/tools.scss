@@ -1,3 +1,9 @@
+@import "_ui/jquery.ui.core";
+@import "_ui/jquery.ui.button";
+@import "_ui/jquery.ui.dialog";
+@import "_ui/jquery.ui.resizable";
+
+
 .scrollmarker {
   color: rgba(0,0,0,.33);
   left: 0;
@@ -12,6 +18,11 @@
   &:before {
     content: '\0025B6';
   }
+}
+
+
+.no-pointer {
+  cursor: none;
 }
 
 
