@@ -100,6 +100,7 @@ static/tools.css: node_modules/.bin/cssmin \
                   src/sass/_ui/jquery.ui.button.scss \
                   src/sass/_ui/jquery.ui.dialog.scss \
                   src/sass/_ui/jquery.ui.resizable.scss \
+                  src/sass/_ui_theme.scss \
                   src/sass/tools.scss
 	$(info * generate tools CSS)
 	@sass src/sass/tools.scss | node_modules/.bin/cssmin > $@
@@ -108,6 +109,15 @@ static/tools.css: node_modules/.bin/cssmin \
 src/sass/_ui/%.scss: node_modules/jquery-ui/themes/base/%.css
 	mkdir -p src/sass/_ui
 	cp "$<" "$@"
+
+
+ui-icons:
+	$(info * download icons from jqueryui.com)
+	@for COLOR in fafafa cd0a0a 2e83ff 454545 888888; do \
+		curl -sS "http://download.jqueryui.com/themeroller/images/ui-icons_$${COLOR}_256x240.png" > static/images/ui-icons_$$COLOR.png; \
+		optipng -quiet -o7 static/images/ui-icons_$$COLOR.png; \
+	done
+
 
 
 js: package.json static/ebook.js static/html5shiv.js

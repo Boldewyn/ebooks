@@ -39,3 +39,4 @@
 /node_modules/
 /src/js/*.d
 /src/sass/_ui
+/static/images/ui-icons_*.png
