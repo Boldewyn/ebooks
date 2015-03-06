@@ -132,7 +132,7 @@ node_modules/normalize.css/normalize.css:
 	@$(NPM) $(NPM_FLAGS) install
 
 
-src/js/%.d:
+src/js/%.d: node_modules/jquery/dist/jquery.js
 	$(info * generate $@)
 	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
 	    <(browserify --list $(patsubst %.d,%.js,$@) | tr $$'\n' ' ') \
