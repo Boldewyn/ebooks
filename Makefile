@@ -113,6 +113,7 @@ src/sass/_ui/%.scss: node_modules/jquery-ui/themes/base/%.css
 
 ui-icons:
 	$(info * download icons from jqueryui.com)
+	@mkdir -p static/images
 	@for COLOR in fafafa cd0a0a 2e83ff 454545 888888; do \
 		curl -sS "http://download.jqueryui.com/themeroller/images/ui-icons_$${COLOR}_256x240.png" > static/images/ui-icons_$$COLOR.png; \
 		optipng -quiet -o7 static/images/ui-icons_$$COLOR.png; \
