@@ -58,14 +58,17 @@ function show(name) {
     });
   } else if (name === 'toc') {
     if (!(name in $dialogs)) {
+      var $toc = $('#Table_of_Contents').find('ol:eq(0)');
+      if (! $toc.length) {
+        $toc = $('<p>').text(_('No table of contents found :('));
+      }
       $dialogs[name] = $('<div>')
         .html(
-          $('#Table_of_Contents')
-            .find('ol:eq(0)')
-              .clone()
-              .on('click', 'a', function() {
-                $dialogs[name].dialog('close');
-              }))
+          $toc
+            .clone()
+            .on('click', 'a', function() {
+              $dialogs[name].dialog('close');
+            }))
         .attr('title', _('Table of Contents'));
     }
     $dialogs[name].dialog({
