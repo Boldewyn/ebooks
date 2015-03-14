@@ -79,6 +79,11 @@ module.exports = function($book) {
     ui.show('help');
     return false;
   });
+
+  mt.bind('c', function() {
+    ui.show('toc');
+    return false;
+  });
 };
 
 
