@@ -29,6 +29,7 @@ function show(name) {
             },
             meta: get_metadata(),
             scrolldir: settings.scrolldir === -1? _('traditional') : _('natural'),
+            source_link: '<a href="https://github.com/Boldewyn/ebooks/">GitHub</a>',
             _: function() {
               return function(text, render) {
                 return render(_(text));
