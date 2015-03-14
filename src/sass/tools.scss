@@ -29,6 +29,49 @@
 }
 
 
+.ui-dialog kbd {
+  background: #262200;
+  padding: .1em;
+  border-radius: 3px;
+  box-shadow: 2px 2px 1px rgba(0,0,0,.5);
+}
+
+
+.ui-dialog th,
+.ui-dialog td {
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.dialog--help {
+  @media (min-width: 750px) {
+    display: flex;
+
+    section {
+      flex-basis: 100%;
+    }
+
+    section:not(:last-child) {
+      margin-right: 1em;
+      padding-right: 1em;
+      border-right: 1px solid black;
+    }
+  }
+
+  .meta  dt {
+    min-width: 6em;
+    float: left;
+    margin-right: .5em;
+    font-style: italic;
+  }
+
+  .meta dd {
+    margin-left: 6.5em;
+    margin-bottom: .5em;
+  }
+}
+
+
 /*
 #__display {
   display: none;

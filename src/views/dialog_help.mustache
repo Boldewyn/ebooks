@@ -1,0 +1,65 @@
+<p>{{#_}}{{/_}}</p>
+<div class="dialog--help">
+<section>
+<h3>{{#_}}This eBook:{{/_}}</h3>
+<dl class="meta">
+{{#meta}}
+  <dt>{{0}}:</dt>
+  <dd>
+    {{#2}}
+      <a href="{{1}}">
+    {{/2}}
+    {{1}}
+    {{#2}}
+      </a>
+    {{/2}}
+  </dd>
+{{/meta}}
+</dl>
+</section>
+<section>
+<h3>{{#_}}Keyboard Settings{{/_}}</h3>
+<table>
+  <tbody>
+    <tr>
+      <td><kbd>{{kbd.pagedown}}</kbd>,
+          <kbd>{{#_}}PgDn{{/_}}</kbd> {{#_}}or{{/_}}
+          <kbd>{{#_}}space{{/_}}</kbd></td>
+      <td>{{#_}}scroll one page down{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>{{kbd.pageup}}</kbd> {{#_}}or{{/_}}
+          <kbd>{{#_}}PgUp{{/_}}</kbd></td>
+      <td>{{#_}}scroll one page up{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>{{kbd.halfpagedown}}</kbd></td>
+      <td>{{#_}}scroll ½ page down{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>{{kbd.halfpageup}}</kbd></td>
+      <td>{{#_}}scroll ½ page up{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>{{kbd.linesdown}}</kbd>,
+          <kbd>↓</kbd> {{#_}}or{{/_}}
+          <kbd>{{#_}}enter{{/_}}</kbd></td>
+      <td>{{#_}}scroll few line down{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>{{kbd.linesup}}</kbd> {{#_}}or{{/_}}
+          <kbd>↑</kbd></td>
+      <td>{{#_}}scroll few line up{{/_}}</td>
+    </tr>
+    <tr>
+      <td><kbd>?</kbd></td>
+      <td>{{#_}}show this help{{/_}}</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+<section>
+<h3>{{#_}}Miscellaneous Settings{{/_}}</h3>
+<p>{{#_}}Scroll direction:{{/_}} <strong>{{scrolldir}}</strong></p>
+</section>
+</div>

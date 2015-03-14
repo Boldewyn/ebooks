@@ -1,26 +1,59 @@
 var $ = require('jquery');
 var _ = require('./_gettext');
+var settings = require('./_settings');
 
 /* jshint -W098 */
 var dialog = require('jquery-ui/dialog');
+require('jquery-ui/effect-scale');
 
 var $dialogs = {};
+
+var dialog_help = require('../views/dialog_help.mustache');
+
+var get_metadata = require('./_get_metadata');
 
 
 function show(name) {
   if (name === 'help') {
     if (!(name in $dialogs)) {
       $dialogs[name] = $('<div>')
-        .text('ABC')
         .html(
-          '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut a sapien. Aliquam aliquet purus molestie dolor. Integer quis eros ut erat posuere dictum. Curabitur dignissim. Integer orci. Fusce vulputate lacus at ipsum. Quisque in libero nec mi laoreet volutpat. Aliquam eros pede, scelerisque quis, tristique cursus, placerat convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur adipiscing, mauris non dictum aliquam, arcu risus dapibus diam, nec sollicitudin quam erat quis ligula. Aenean massa nulla, volutpat eu, accumsan et, fringilla eget, odio. Nulla placerat porta justo. Nulla vitae turpis. Praesent lacus.</p>'+
-          '<p>Nam iaculis blandit purus. Mauris odio nibh, hendrerit id, cursus vel, sagittis a, dolor. Nullam turpis lacus, ultrices vel, sagittis vitae, dapibus vel, elit. Suspendisse auctor, sapien et suscipit tempor, turpis enim consequat sem, eu dictum nunc lorem at massa. Pellentesque scelerisque purus. Etiam sed enim. Maecenas sed tortor id turpis consequat consequat. Curabitur fringilla. Sed risus wisi, dictum a, sagittis nec, luctus ac, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed nibh neque, aliquam ut, sagittis id, gravida et, est. Aenean consectetuer pretium enim. Aenean tellus quam, condimentum a, adipiscing et, lacinia vel, ante. Praesent faucibus dignissim enim. Aliquam tincidunt. Mauris leo ante, condimentum eget, vestibulum sit amet, fringilla eget, diam. Nam ultricies ullamcorper nibh. Etiam neque. Ut posuere laoreet pede.</p>'
+          dialog_help.render({
+            kbd: {
+              pagedown: settings.pagedown,
+              pageup: settings.pageup,
+              halfpagedown: settings.halfpagedown,
+              halfpageup: settings.halfpageup,
+              linesdown: settings.linesdown,
+              linesup: settings.linesup,
+            },
+            meta: get_metadata(),
+            scrolldir: settings.scrolldir === -1? _('traditional') : _('natural'),
+            _: function() {
+              return function(text, render) {
+                return render(_(text));
+              };
+            },
+          })
         )
-        .attr('title', _('Help'));
+        .attr('title', _('Help & Settings'));
     }
     $dialogs[name].dialog({
       modal: true,
       width: $(document).width() - 20,
+      show: {
+        effect: 'scale',
+      },
+      hide: {
+        effect: 'scale',
+      },
+      buttons: [
+        {
+          text: _('Close Help'),
+          icons: { primary: 'ui-icon-circle-close' },
+          click: function() { $dialogs[name].dialog('close'); },
+        },
+      ],
     });
   }
 }
