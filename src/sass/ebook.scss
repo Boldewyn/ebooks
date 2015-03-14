@@ -56,7 +56,7 @@ $c-copy: #222;
     padding-right: $baseline*6em;
   }
 
-  @media (min-height: 30em) {
+  @media (min-height: 30em) and (min-width: 30em) {
     margin-top: 60px;
     padding-top: $baseline*4em;
   }
