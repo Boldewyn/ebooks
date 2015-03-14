@@ -6,11 +6,12 @@
 EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
 NPM := npm
 NPM_FLAGS :=
+BROWSERIFY := node_modules/.bin/browserify
 SHELL := /bin/bash
 
 
-all: css js html pdf epub index mobi
-.PHONY: all html pdf epub clean index css js mobi
+all: ui-icons css js html pdf epub index mobi
+.PHONY: all html pdf epub clean index css js mobi ui-icons
 
 
 pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
@@ -124,10 +125,11 @@ ui-icons:
 js: package.json static/ebook.js static/html5shiv.js
 
 
+node_modules/.bin/browserify \
+node_modules/.bin/cssmin \
 node_modules/html5shiv/dist/html5shiv.min.js \
 node_modules/jquery/dist/jquery.js \
-node_modules/.bin/cssmin \
-node_modules/normalize.css/normalize.css:
+node_modules/normalize.css/normalize.css: package.json
 	$(info * install node packages)
 	@$(NPM) $(NPM_FLAGS) install
 
@@ -135,16 +137,17 @@ node_modules/normalize.css/normalize.css:
 src/js/%.d: node_modules/jquery/dist/jquery.js
 	$(info * generate $@)
 	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
-	    <(browserify --list $(patsubst %.d,%.js,$@) | tr $$'\n' ' ') \
+	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed '/^'$$(echo "$(patsubst %.d,%.js,$@)" | sed 's#/#\\/#g')'$$/d' | tr $$'\n' ' ') \
 	    <(echo) \
-	    <(browserify --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
+	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
 	  > $@
 
 
 static/ebook.js: src/js/ebook.d
 	$(info * generate JS)
 	$(MAKE) test-js
-	@browserify src/js/ebook.js | node_modules/.bin/uglifyjs -c warnings=false -m > $@
+	@$(BROWSERIFY) -t browserify-hogan src/js/ebook.js | \
+	    node_modules/.bin/uglifyjs -c warnings=false -m > $@
 -include src/js/ebook.d
 
 

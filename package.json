@@ -13,5 +13,10 @@
     "jshint": "~2.5.1",
     "normalize.css": "~3.0.2",
     "uglify-js": "~2.4.14"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "browserify-hogan": "0.3.0",
+    "hogan.js": "~2"
   }
 }
