@@ -1,5 +1,10 @@
 /**
- * generator for the "scroll_to" function
+ * generator for an enhanced "scroll_to" function
+ *
+ * The function scrolls to a certain position, then checks if there
+ * is a <p> tag at the end of the viewport and aligns the scroll
+ * position with a whole line of that paragraph, so that you never
+ * end on a half line.
  */
 var get_find_p_at = require("./_find_p_at");
 

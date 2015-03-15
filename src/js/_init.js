@@ -1,6 +1,12 @@
 var $ = require('jquery');
 
+var get_scroll_to = require("./_aligned_scroll_to");
+
 module.exports = function($book) {
+  var $window = $(window),
+      wh = $window.height(),
+      lh = parseInt($book.css('line-height')),
+      scroll_to = get_scroll_to($book, lh, wh);
 
   $book
     /* start font downloading now */
@@ -22,4 +28,13 @@ module.exports = function($book) {
     href: "static/tools.css"
   })
     .appendTo(document.head);
+
+  $(document).on('click', 'a[href^="#"]', function(evt) {
+    var $target = $(this.hash);
+    if ($target.length) {
+      evt.preventDefault();
+      scroll_to($target.offset().top - 4*lh);
+      window.location.hash = this.hash;
+    }
+  });
 };
