@@ -69,25 +69,31 @@ function show(name) {
             .on('click', 'a', function() {
               $dialogs[name].dialog('close');
             }))
-        .attr('title', _('Table of Contents'));
+        .attr('title', _('Table of Contents'))
+        .dialog({
+          autoOpen: false,
+          modal: true,
+          width: $(document).width() - 20,
+          show: {
+            effect: 'scale',
+          },
+          hide: {
+            effect: 'scale',
+          },
+          buttons: [
+            {
+              text: _('Close'),
+              icons: { primary: 'ui-icon-circle-close' },
+              click: function() { $dialogs[name].dialog('close'); },
+            },
+          ],
+        });
     }
-    $dialogs[name].dialog({
-      modal: true,
-      width: $(document).width() - 20,
-      show: {
-        effect: 'scale',
-      },
-      hide: {
-        effect: 'scale',
-      },
-      buttons: [
-        {
-          text: _('Close'),
-          icons: { primary: 'ui-icon-circle-close' },
-          click: function() { $dialogs[name].dialog('close'); },
-        },
-      ],
-    });
+    if ($dialogs[name].dialog('isOpen') === true) {
+      $dialogs[name].dialog('close');
+    } else {
+      $dialogs[name].dialog('open');
+    }
   }
 }
 
