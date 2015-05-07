@@ -358,3 +358,9 @@
 .ui-dialog-buttonpane {
   background: none;
 }
+
+.ui-widget-content .ui-button,
+.ui-button {
+  background: linear-gradient(to bottom, rgba(0,0,0,.2), rgba(0,0,0,.5)) repeat-x;
+  color: #ddd;
+}

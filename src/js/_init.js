@@ -2,6 +2,8 @@ var $ = require('jquery');
 
 var get_scroll_to = require("./_aligned_scroll_to");
 
+var taskbar = require("./_ui_taskbar.js");
+
 module.exports = function($book) {
   var $window = $(window),
       wh = $window.height(),
@@ -37,4 +39,6 @@ module.exports = function($book) {
       window.location.hash = this.hash;
     }
   });
+
+  taskbar.create($book);
 };

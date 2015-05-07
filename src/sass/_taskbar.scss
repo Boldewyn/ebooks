@@ -1,0 +1,71 @@
+.taskbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: .25em;
+  height: 4.0em;
+  background: rgba(255,255,255,.5);
+  box-shadow: 0 3px 4px rgba(0,0,0,.2);
+  content: "portrait";
+  transition: all 1s;
+
+  .no-taskbar & {
+    transform: translate(0, -5em);
+  }
+
+  @media (orientation: landscape) {
+    right: auto;
+    bottom: 0;
+    height: auto;
+    width: 4.0em;
+    content: "landscape";
+
+    .no-taskbar & {
+      transform: translate(-5em, 0);
+    }
+  }
+
+  &__sub {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+
+    @media (orientation: landscape) {
+      flex-direction: column;
+    }
+  }
+
+  &__item {
+    width: 4.0em;
+    height: 4.0em;
+    line-height: 4.0em;
+    overflow: hidden;
+    text-indent: 40em;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20%;
+    margin-right: .5em;
+    box-shadow: -1px -1px 2px rgba(0,0,0,.1);
+
+    @media (orientation: landscape) {
+      margin-right: 0;
+      margin-bottom: .5em;
+    }
+
+    &:focus, &:hover {
+      background-color: #acf;
+    }
+  }
+
+  &__item--content {
+    background-image: url(../src/images/icon_toc.svg);
+  }
+
+  &__item--help {
+    background-image: url(../src/images/icon_help.svg);
+  }
+}

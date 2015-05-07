@@ -102,6 +102,7 @@ static/tools.css: node_modules/.bin/cssmin \
                   src/sass/_ui/jquery.ui.dialog.scss \
                   src/sass/_ui/jquery.ui.resizable.scss \
                   src/sass/_ui_theme.scss \
+                  src/sass/_taskbar.scss \
                   src/sass/tools.scss
 	$(info * generate tools CSS)
 	@sass src/sass/tools.scss | node_modules/.bin/cssmin > $@
