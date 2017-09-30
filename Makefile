@@ -2,159 +2,111 @@
 # Make various stuff from ebooks
 #
 
+SHELL := /bin/bash
 
 EBOOKS := $(patsubst text/%,docs/%,$(wildcard text/*.html))
-NPM := npm
-NPM_FLAGS :=
+
 BROWSERIFY := node_modules/.bin/browserify
-SHELL := /bin/bash
 
 POSTCSS := node_modules/.bin/postcss
 POSTCSS_ARGS := --use postcss-import --use autoprefixer --use cssnano --no-map
 
 
-all: ui-icons css js html pdf epub index mobi
-.PHONY: all html pdf epub clean index css js mobi ui-icons
-
-
-pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
+all: css js html pdf epub mobi index
+.PHONY: all
 
 
 html: $(EBOOKS) css js
-
+.PHONY: html
 
 $(EBOOKS): docs/%.html : text/%.html meta/%.json src/template.mustache
 	$(info * Compile HTML $@)
 	@src/compile_html.py "$(shell basename $@ .html)"
+.SECONDARY: $(EBOOKS)
 
+
+pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
+.PHONY: pdf
 
 docs/%.pdf: docs/%.html src/colophon.html docs/static/ebook.css
 	$(info * Create PDF $@)
 	@prince --input=html5 --output="$@" "$<" src/colophon.html
+.SECONDARY: $(patsubst %.html,%.pdf,$(EBOOKS))
 
 
 epub: $(EBOOKS) src/epub/*
 	$(info * Create all EPUBs)
 	@python src/epub/compose.py
-
+.PHONY: epub
 
 docs/%.epub: docs/%.html src/epub/*
 	$(info * Create EPUB $@)
 	@python src/epub/compose.py "$<"
-
-
 .SECONDARY: $(patsubst %.html,%.epub,$(EBOOKS))
 
 
 mobi: $(patsubst %.html,%.mobi,$(EBOOKS))
+.PHONY: mobi
 
 
 docs/%.mobi: docs/%.epub
 	$(info * Create Mobi $@)
 	@ebook-convert "$<" "$@"
+.SECONDARY: $(patsubst %.html,%.mobi,$(EBOOKS))
 
 
 clean:
-	$(info * Clean generated content)
-	@-rm -f \
-	  $(patsubst %.html,%.pdf,$(EBOOKS)) \
-	  $(patsubst %.html,%.epub,$(EBOOKS)) \
-	  $(patsubst %.html,%.mobi,$(EBOOKS)) \
-	  $(EBOOKS)
+.PHONY: clean
 
 
-index: index.json index.js index.xml
+index: docs/index.json docs/index.html
+.PHONY: index
 
-
-index.json: $(EBOOKS)
+docs/index.json: $(EBOOKS)
 	@echo -n '["' > "$@"
-	@echo -n $(patsubst %.html,%,$(EBOOKS)) | sed 's/ /","/g' >> "$@"
+	@echo -n $(patsubst docs/%.html,%,$(EBOOKS)) | sed 's/ /","/g' >> "$@"
 	@echo -n '"]' >> "$@"
 
-
-index.js: $(EBOOKS)
+docs/index.html: $(EBOOKS)
 	@echo "var ebooks=[" > "$@"
-	@for b in $(patsubst %.html,%,$(EBOOKS)); do \
+	@for b in $(patsubst docs/%.html,%,$(EBOOKS)); do \
 	    echo '"'"$$b"'",' >> "$@" ; \
 	done
 	@echo "];" >> "$@"
 
 
-index.xml: $(EBOOKS)
-	@echo "<ebooks>" > "$@"
-	@for b in $(patsubst %.html,%,$(EBOOKS)); do \
-	    echo "  <book>$$b</book>" >> "$@"; \
-	done
-	@echo "</ebooks>" >> "$@"
-
-
-css: docs/static/ebook.css # docs/static/tools.css
-
+css: fonts docs/static/ebook.css
+.PHONY: css
 
 docs/static/ebook.css: src/css/ebook.css src/css/_*.css
 	@cd src/css && <"$(notdir $<)" ../../$(POSTCSS) $(POSTCSS_ARGS) >"../../$@"
+.SECONDARY: docs/static/ebook.css
 
 
-static/tools.css: node_modules/.bin/cssmin \
-                  src/sass/_ui/jquery.ui.core.scss \
-                  src/sass/_ui/jquery.ui.button.scss \
-                  src/sass/_ui/jquery.ui.dialog.scss \
-                  src/sass/_ui/jquery.ui.resizable.scss \
-                  src/sass/_ui_theme.scss \
-                  src/sass/tools.scss
-	$(info * generate tools CSS)
-	@sass src/sass/tools.scss | node_modules/.bin/cssmin > $@
+js: # docs/static/ebook.js
+.PHONY: js
 
+#src/js/%.d: node_modules/jquery/dist/jquery.js
+#	$(info * generate $@)
+#	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
+#	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed '/^'$$(echo "$(patsubst %.d,%.js,$@)" | sed 's#/#\\/#g')'$$/d' | tr $$'\n' ' ') \
+#	    <(echo) \
+#	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
+#	  > $@
 
-src/sass/_ui/%.scss: node_modules/jquery-ui/themes/base/%.css
-	mkdir -p src/sass/_ui
-	cp "$<" "$@"
-
-
-ui-icons:
-	$(info * download icons from jqueryui.com)
-	@mkdir -p static/images
-	@for COLOR in fafafa cd0a0a 2e83ff 454545 888888; do \
-		curl -sS "http://download.jqueryui.com/themeroller/images/ui-icons_$${COLOR}_256x240.png" > static/images/ui-icons_$$COLOR.png; \
-		optipng -quiet -o7 static/images/ui-icons_$$COLOR.png; \
-	done
-
-
-
-js: package.json static/ebook.js static/html5shiv.js
-
-
-node_modules/.bin/browserify \
-node_modules/.bin/cssmin \
-node_modules/html5shiv/dist/html5shiv.min.js \
-node_modules/jquery/dist/jquery.js \
-node_modules/normalize.css/normalize.css: package.json
-	$(info * install node packages)
-	@$(NPM) $(NPM_FLAGS) install
-
-
-src/js/%.d: node_modules/jquery/dist/jquery.js
-	$(info * generate $@)
-	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
-	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed '/^'$$(echo "$(patsubst %.d,%.js,$@)" | sed 's#/#\\/#g')'$$/d' | tr $$'\n' ' ') \
-	    <(echo) \
-	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
-	  > $@
-
-
-static/ebook.js: src/js/ebook.d
-	$(info * generate JS)
-	$(MAKE) test-js
-	@$(BROWSERIFY) -t browserify-hogan src/js/ebook.js | \
-	    node_modules/.bin/uglifyjs -c warnings=false -m > $@
--include src/js/ebook.d
+#docs/static/ebook.js: src/js/ebook.d
+#	$(info * generate JS)
+#	$(MAKE) test-js
+#	@$(BROWSERIFY) -t browserify-hogan src/js/ebook.js | \
+#	    node_modules/.bin/uglifyjs -c warnings=false -m > $@
+#-include src/js/ebook.d
 
 
 docs/static/fonts/%.woff2:
 	@mkdir -p '$(dir $@)'
 	@curl -sSL 'https://github.com/huertatipografica/Alegreya/raw/master/fonts/webfonts/$(notdir $@)' > '$@'
 
-style: \
+fonts: \
 	docs/static/fonts/Alegreya-Black.woff2 \
 	docs/static/fonts/Alegreya-BlackItalic.woff2 \
 	docs/static/fonts/Alegreya-Bold.woff2 \
@@ -175,20 +127,13 @@ style: \
 	docs/static/fonts/AlegreyaSC-Medium.woff2 \
 	docs/static/fonts/AlegreyaSC-MediumItalic.woff2 \
 	docs/static/fonts/AlegreyaSC-Regular.woff2
+.PHONY: fonts
 
 
 test-js: src/jshintrc src/js/*.js
 	$(info * run JS tests)
 	@jshint --config src/jshintrc src/js
 .PHONY: test-js
-
-
-fonts:
-	$(info * Fetch current fonts from GitHub)
-	@for x in static/fonts/*; do \
-	    curl -sS "https://raw.githubusercontent.com/skosch/Crimson/master/Web%20Fonts/$$(basename $$x)" > $$x; \
-	done
-.PHONY: fonts
 
 
 used_classes:
