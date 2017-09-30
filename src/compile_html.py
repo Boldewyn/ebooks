@@ -9,7 +9,8 @@ book <ID>.
 
 
 import json
-import os
+from os import chdir
+from os.path import abspath, dirname, isfile
 import sys
 from urllib.parse import quote as urlquote
 import pystache
@@ -19,10 +20,12 @@ def main(args):
     """Take parts of an ebook and assemble to a nice HTML format
     args is a list of identifiers, like A_Study_in_Scarlet.
     """
-    os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    chdir(dirname(dirname(abspath(__file__))))
+
     for base in args:
         meta =  {}
-        if os.path.isfile("meta/{}.json".format(base)):
+        if isfile("meta/{}.json".format(base)):
             with open("meta/{}.json".format(base)) as _f:
                 meta = json.load(_f)
         with open("text/{}.html".format(base)) as _f:
@@ -80,7 +83,7 @@ def main(args):
 
         # render the template
         result = pystache.render(template.encode("utf-8"), ctx)
-        with open("{}.html".format(base), "w") as _f:
+        with open("docs/{}.html".format(base), "w") as _f:
             _f.write(result)
 
 

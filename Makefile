@@ -3,7 +3,7 @@
 #
 
 
-EBOOKS := $(patsubst text/%,%,$(wildcard text/*.html))
+EBOOKS := $(patsubst text/%,docs/%,$(wildcard text/*.html))
 NPM := npm
 NPM_FLAGS :=
 BROWSERIFY := node_modules/.bin/browserify
@@ -23,12 +23,12 @@ pdf: $(patsubst %.html,%.pdf,$(EBOOKS))
 html: $(EBOOKS) css js
 
 
-$(EBOOKS): %.html : text/%.html meta/%.json src/template.mustache
+$(EBOOKS): docs/%.html : text/%.html meta/%.json src/template.mustache
 	$(info * Compile HTML $@)
-	@src/compile_html.py "$(basename $@)"
+	@src/compile_html.py "$(shell basename $@ .html)"
 
 
-%.pdf: %.html src/colophon.html static/ebook.css
+docs/%.pdf: docs/%.html src/colophon.html docs/static/ebook.css
 	$(info * Create PDF $@)
 	@prince --input=html5 --output="$@" "$<" src/colophon.html
 
@@ -38,7 +38,7 @@ epub: $(EBOOKS) src/epub/*
 	@python src/epub/compose.py
 
 
-%.epub: %.html src/epub/*
+docs/%.epub: docs/%.html src/epub/*
 	$(info * Create EPUB $@)
 	@python src/epub/compose.py "$<"
 
@@ -49,7 +49,7 @@ epub: $(EBOOKS) src/epub/*
 mobi: $(patsubst %.html,%.mobi,$(EBOOKS))
 
 
-%.mobi: %.epub
+docs/%.mobi: docs/%.epub
 	$(info * Create Mobi $@)
 	@ebook-convert "$<" "$@"
 

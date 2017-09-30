@@ -3,74 +3,74 @@
  */
 @font-face {
   font-family: Alegreya;
-  src: url('docs/static/fonts/Alegreya-Regular.woff2') format('woff2');
+  src: url('fonts/Alegreya-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
-  src: url('docs/static/fonts/Alegreya-Italic.woff2') format('woff2');
+  src: url('fonts/Alegreya-Italic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 500;
-  src: url('docs/static/fonts/Alegreya-Medium.woff2') format('woff2');
+  src: url('fonts/Alegreya-Medium.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
   font-weight: 500;
-  src: url('docs/static/fonts/Alegreya-MediumItalic.woff2') format('woff2');
+  src: url('fonts/Alegreya-MediumItalic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 700;
-  src: url('docs/static/fonts/Alegreya-Bold.woff2') format('woff2');
+  src: url('fonts/Alegreya-Bold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
   font-weight: 700;
-  src: url('docs/static/fonts/Alegreya-BoldItalic.woff2') format('woff2');
+  src: url('fonts/Alegreya-BoldItalic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 800;
-  src: url('docs/static/fonts/Alegreya-ExtraBold.woff2') format('woff2');
+  src: url('fonts/Alegreya-ExtraBold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
   font-weight: 800;
-  src: url('docs/static/fonts/Alegreya-ExtraBoldItalic.woff2') format('woff2');
+  src: url('fonts/Alegreya-ExtraBoldItalic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 900;
-  src: url('docs/static/fonts/Alegreya-Black.woff2') format('woff2');
+  src: url('fonts/Alegreya-Black.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
   font-weight: 900;
-  src: url('docs/static/fonts/Alegreya-BlackItalic.woff2') format('woff2');
+  src: url('fonts/Alegreya-BlackItalic.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya SC;
-  src: url('docs/static/fonts/AlegreyaSC-Regular.woff2') format('woff2');
+  src: url('fonts/AlegreyaSC-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: Alegreya SC;
   font-style: italic;
-  src: url('docs/static/fonts/AlegreyaSC-Italic.woff2') format('woff2');
+  src: url('fonts/AlegreyaSC-Italic.woff2') format('woff2');
 }
