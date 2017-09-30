@@ -52,11 +52,22 @@ article {
   margin: 4.000em auto;
   padding: 4.000em;
   box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
+  background: #F9F9F7;
 }
 
 @media (max-width: 38em) {
   article {
     padding: .6667em;
+  }
+}
+
+@media print {
+  article {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    background: transparent;
   }
 }
 

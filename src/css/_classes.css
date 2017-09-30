@@ -1,7 +1,3 @@
-.book {
-  background: #F9F9F7;
-}
-
 h2.author:before {
   content: "by ";
   display: block;

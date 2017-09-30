@@ -7,7 +7,7 @@
   padding: 0;
   counter-increment: page;
   @bottom-center {
-    margin-top: 1.425em;
+    margin-top: 1.425cm;
     vertical-align: top;
     font-size: .9333em;
     line-height: 1.425;
@@ -17,16 +17,16 @@
 }
 
 @page :left {
-  margin-left: 4.667em;
-  margin-right: 2.333em;
+  margin-left: 4.667cm;
+  margin-right: 2.333cm;
   @bottom-center {
     text-align: left;
   }
 }
 
 @page :right {
-  margin-left: 2.333em;
-  margin-right: 4.667em;
+  margin-left: 2.333cm;
+  margin-right: 4.667cm;
   @bottom-center {
     text-align: right;
   }
