@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="static/ebook.css">
+<title>eBooks</title>
+</head>
+<body>
+<article class="book">
+<header>
+<h1>eBooks</h1>
+<h2 class="author">many authors</h2>
+<p><span>english</span> | <a lang="de" href="index.de.html">deutsch</a></p>
+</header>
+<section id="Table_of_Contents">
+<h2>Contents</h2>
+<p>What’s in here?</p>
+<ol>
+{{#books}}
+<li><a href="{{slug}}.html">{{title}}, <em>by {{author}}</em></a>
+({{#language}}{{.}}, {{/language}}<a href="{{slug}}.pdf">PDF</a>,
+<a href="{{slug}}.epub">EPUB</a>, <a href="{{slug}}.mobi">Kindle</a>)</li>
+{{/books}}
+</ol>
+</section>
+<section id="Credits">
+<h2>Credits <em>&amp;</em> Attribution</h2>
+<p>The authors of the respective books are to be thanked first, of course. The
+above list contains from wise and insightful to humorous and entertaining many
+colours of literature. Each was a master of his own kind.</p>
+<p>The serif font used for display is <em>Alegreya</em> by Juan Pablo del Peral,
+available under the SIL Open Font License from <a
+href="https://github.com/huertatipografica/Alegreya">Github</a> or via the
+Google Webfont Directory. The font breathes literature and reading and gives a
+well-balanced view over a large range of languages and styles.</p>
+<p>For special reading support, <em>e. g.</em> bookmarks, the fabulous <a
+  href="http://www.jquery.com">jQuery</a> JavaScript library is used to
+develop fast and consistently. It is published under the <abbr title="GNU General Public
+  License">GPL</abbr> and the <abbr title="Masachussetts Institute of
+Technology">MIT</abbr> licenses and copyrighted by John Resig and the Dōjō
+Foundation, respectively.</p>
+<p>The hosting takes place at <a
+  href="http://github.com/Boldewyn/ebooks/">Github.com</a>. Their “pages” feature
+is great for purposes like this site.</p>
+</section>
+<section id="Help">
+<h2>How to Use This Site</h2>
+<p>The following features rely on Javascript being active in your browser. If you
+don’t know, what that means, you usually don’t have to worry about it.</p>
+<p>At the top right corner you see three icons. They give you access to:</p>
+<ol>
+  <li>the settings for all ebooks, where you can configure viewing details,</li>
+  <li>the table of contents of the current ebook, and</li>
+  <li>the bookmarking utility, that sets the bookmark at the current position in the book.</li>
+</ol>
+<p>The left margin of the screen shows information about where in the book
+you are right now and gives you quick access to jump to the bookmark (“¶”), the
+top of the book (“↸”), the previous and next chapter. If there is a bookmark set, and if
+you haven’t visited it, since you opened the page, the “¶” will blink. If you move the mouse
+over it, the blinking will end.</p>
+<h3>Navigation with the Keyboard</h3>
+<p>If, by chance, you know the <code>vi</code> editor, you will be pleased to learn, that
+you can use <kbd>k</kbd> and <kbd>j</kbd> to scroll the view. <kbd>Ctrl-F</kbd> and
+<kbd>Ctrl-B</kbd> scroll a full screen wide forth and back.</p>
+<p>The <kbd>Ctrl-F</kbd> is usually used to access the text search. If you want or need this
+behaviour, you can simply keep <kbd>Ctrl-F</kbd> pressed for two seconds, and the search field
+will appear.</p>
+</section>
+<section id="reporting_errors">
+<h2>How to Report Errors</h2>
+<p>First of all, thank you for considering reporting an error. It is by far not possible for
+some people doing this project in their spare time to do serious proofreading. We rely on
+the great work done by Project Gutenberg, WikiSource and other people working openly together
+to bring great literature to the web. However, even then errors might slip in.</p>
+<p>If you buy a printed book, you usually have little to no way to tell the publisher, if there
+are typos or other errors in it. The web however makes it possible to give instant feedback. In
+the case of these ebooks you can <a href="http://github.com/Boldewyn/ebooks/issues">file an issue
+here</a> and tell us about the problem.</p>
+<p>You might also consider telling the folks at <a href="http://www.gutenberg.org">Project Gutenberg</a>,
+if you spotted a typo. They are usually open to and thankful for improvements in their ebooks.</p>
+</section>
+</article>
+<script src="static/ebook.js"></script>
+</body>
+</html>

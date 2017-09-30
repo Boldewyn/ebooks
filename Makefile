@@ -68,11 +68,8 @@ docs/index.json: $(EBOOKS)
 	@echo -n '"]' >> "$@"
 
 docs/index.html: $(EBOOKS)
-	@echo "var ebooks=[" > "$@"
-	@for b in $(patsubst docs/%.html,%,$(EBOOKS)); do \
-	    echo '"'"$$b"'",' >> "$@" ; \
-	done
-	@echo "];" >> "$@"
+	$(info * Compile HTML index)
+	@src/compile_index.py
 
 
 css: fonts docs/static/ebook.css
