@@ -1,0 +1,40 @@
+/**
+ * Paged media setup -------------------------------------------------
+ */
+@page {
+  size: A4 portrait;
+  margin: 3.3cm 3.5cm 6.6cm; /* creating a grid of 9x9 fields */
+  padding: 0;
+  counter-increment: page;
+  @bottom-center {
+    margin-top: 1.425em;
+    vertical-align: top;
+    font-size: .9333em;
+    line-height: 1.425;
+    text-align: center;
+    content: counter(page);
+  }
+}
+
+@page :left {
+  margin-left: 4.667em;
+  margin-right: 2.333em;
+  @bottom-center {
+    text-align: left;
+  }
+}
+
+@page :right {
+  margin-left: 2.333em;
+  margin-right: 4.667em;
+  @bottom-center {
+    text-align: right;
+  }
+}
+
+@page :first {
+  margin: 3.3cm 3.5cm 6.6cm;
+  @bottom-center {
+    content: none;
+  }
+}

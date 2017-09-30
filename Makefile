@@ -9,6 +9,9 @@ NPM_FLAGS :=
 BROWSERIFY := node_modules/.bin/browserify
 SHELL := /bin/bash
 
+POSTCSS := node_modules/.bin/postcss
+POSTCSS_ARGS := --use postcss-import --use autoprefixer --use cssnano --no-map
+
 
 all: ui-icons css js html pdf epub index mobi
 .PHONY: all html pdf epub clean index css js mobi ui-icons
@@ -85,15 +88,11 @@ index.xml: $(EBOOKS)
 	@echo "</ebooks>" >> "$@"
 
 
-css: static/ebook.css static/tools.css
+css: docs/static/ebook.css # docs/static/tools.css
 
 
-static/ebook.css: node_modules/.bin/cssmin \
-                  node_modules/normalize.css/normalize.css \
-                  src/sass/ebook.scss src/sass/_*.scss
-	$(info * generate CSS)
-	@cp node_modules/normalize.css/normalize.css src/sass/_normalize.scss
-	@sass src/sass/ebook.scss | node_modules/.bin/cssmin > $@
+docs/static/ebook.css: src/css/ebook.css src/css/_*.css
+	@cd src/css && <"$(notdir $<)" ../../$(POSTCSS) $(POSTCSS_ARGS) >"../../$@"
 
 
 static/tools.css: node_modules/.bin/cssmin \
@@ -151,8 +150,31 @@ static/ebook.js: src/js/ebook.d
 -include src/js/ebook.d
 
 
-static/html5shiv.js: node_modules/html5shiv/dist/html5shiv.min.js
-	@cp "$<" "$@"
+docs/static/fonts/%.woff2:
+	@mkdir -p '$(dir $@)'
+	@curl -sSL 'https://github.com/huertatipografica/Alegreya/raw/master/fonts/webfonts/$(notdir $@)' > '$@'
+
+style: \
+	docs/static/fonts/Alegreya-Black.woff2 \
+	docs/static/fonts/Alegreya-BlackItalic.woff2 \
+	docs/static/fonts/Alegreya-Bold.woff2 \
+	docs/static/fonts/Alegreya-BoldItalic.woff2 \
+	docs/static/fonts/Alegreya-ExtraBold.woff2 \
+	docs/static/fonts/Alegreya-ExtraBoldItalic.woff2 \
+	docs/static/fonts/Alegreya-Italic.woff2 \
+	docs/static/fonts/Alegreya-Medium.woff2 \
+	docs/static/fonts/Alegreya-MediumItalic.woff2 \
+	docs/static/fonts/Alegreya-Regular.woff2 \
+	docs/static/fonts/AlegreyaSC-Black.woff2 \
+	docs/static/fonts/AlegreyaSC-BlackItalic.woff2 \
+	docs/static/fonts/AlegreyaSC-Bold.woff2 \
+	docs/static/fonts/AlegreyaSC-BoldItalic.woff2 \
+	docs/static/fonts/AlegreyaSC-ExtraBold.woff2 \
+	docs/static/fonts/AlegreyaSC-ExtraBoldItalic.woff2 \
+	docs/static/fonts/AlegreyaSC-Italic.woff2 \
+	docs/static/fonts/AlegreyaSC-Medium.woff2 \
+	docs/static/fonts/AlegreyaSC-MediumItalic.woff2 \
+	docs/static/fonts/AlegreyaSC-Regular.woff2
 
 
 test-js: src/jshintrc src/js/*.js

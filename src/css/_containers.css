@@ -1,0 +1,93 @@
+html {
+  line-height: 1.333;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  background: #F9F9F7;
+  color: #222;
+  font-family: Alegreya,Georgia,serif;
+  font-size: calc(8px + 1.5625vw); /* (24-8)/10.24 */
+  text-rendering: optimizeLegibility;
+  font-variant-alternates: normal;
+  font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures contextual;
+  font-variant-numeric: no-ordinal oldstyle-nums proportional-nums diagonal-fractions;
+  hyphens: auto;
+  transition: background 2s;
+
+  counter-reset: page 1 chapter section global_section footnote;
+}
+@media (max-width: 449px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1240px) {
+  html {
+    background: #404040;
+  }
+}
+
+@media print {
+  html {
+    font-size: 11pt;
+    padding: 0;
+    margin: 0;
+    background: none;
+    max-width: none;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+article {
+  max-width: 38em;
+  margin: 4.000em auto;
+  padding: 4.000em;
+  box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
+}
+
+@media (max-width: 38em) {
+  article {
+    padding: .6667em;
+  }
+}
+
+header, section {
+  padding-top: 4.0em;
+}
+
+@media print {
+  header, section {
+    page-break-after: always;
+    page-break-after: right;
+  }
+  section:last-child,
+  section section {
+    page-break-after: auto;
+  }
+  section > *:first-child {
+    page-break-before: avoid;
+  }
+}
+
+section {
+  counter-increment: chapter;
+  counter-reset: section;
+}
+
+section > section {
+  counter-increment: section global_section;
+}
+
+section#Table_of_Contents,
+section.preface {
+  counter-increment: none;
+}

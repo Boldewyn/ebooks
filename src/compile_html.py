@@ -21,8 +21,10 @@ def main(args):
     """
     os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     for base in args:
-        with open("meta/{}.json".format(base)) as _f:
-            meta = json.load(_f)
+        meta =  {}
+        if os.path.isfile("meta/{}.json".format(base)):
+            with open("meta/{}.json".format(base)) as _f:
+                meta = json.load(_f)
         with open("text/{}.html".format(base)) as _f:
             text = _f.read()
         with open("src/template.mustache") as _f:

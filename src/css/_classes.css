@@ -1,0 +1,89 @@
+.book {
+  background: #F9F9F7;
+}
+
+h2.author:before {
+  content: "by ";
+  display: block;
+  font-size: 80%;
+  font-style: italic;
+  margin-bottom: calc(2em / var(--heading-font-mod));
+}
+
+h2.author:lang(de):before {
+  content: "von ";
+}
+
+.letter_header,
+.article_header,
+.signature,
+.postscriptum,
+.poem p,
+.separation,
+.noindent {
+  text-indent: 0;
+}
+
+.separation {
+  margin-top: 1.333em;
+}
+
+.centered,
+.centered p {
+  text-align: center;
+}
+
+.date,
+.signature {
+  text-align: right;
+  font-style: italic;
+}
+
+.dedication {
+  width: 50%;
+  margin: 1.425em 0 1.425em auto;
+  font-style: italic;
+  font-size: .9333em;
+  line-height: 1.425;
+  text-align: right;
+}
+
+.annotation {
+  font-style: italic;
+}
+
+.dialog .annotation {
+  font-style: normal;
+}
+
+.proper_name {
+  font-family: Alegreya SC, Georgia, serif;
+  padding: 0 0 0 .1em;
+}
+
+.slanted,
+.quote {
+  font-style: italic;
+}
+
+.fixed pre {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+}
+
+.poem {
+  display: table;
+  width: auto;
+}
+
+.poem .line {
+  display: block;
+  white-space: nowrap;
+}
+
+.article_header {
+  text-align: center;
+  margin-bottom: 1.333em;
+  font-family: Alegreya SC, Georgia, serif;
+}

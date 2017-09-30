@@ -1,0 +1,123 @@
+table {
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums diagonal-fractions;
+}
+
+:not(p) + p,
+* + table {
+  margin-top: 1.333em;
+}
+
+thead th, tbody {
+  border-bottom: 1px solid #aaa;
+}
+
+table:last-child tbody {
+  border-bottom: none;
+}
+
+caption, th {
+  font-style: italic;
+  font-weight: normal;
+}
+
+caption {
+  caption-side: bottom;
+}
+
+th, td {
+  padding: .333em .333em .333em 0;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 1px 0 0;
+  margin: 1.333em auto;
+}
+
+pre {
+  font-family: inherit;
+  margin: 0;
+  /* there are overly long lines, e.g. in Dorian Gray, that must
+   * wrap to not exceed the page margin */
+  white-space: pre-wrap;
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+abbr[title], dfn[title] {
+  border-bottom-color: rgba(0,0,0,.15);
+  cursor: help;
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+figure {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+figcaption {
+  font-size: .9333em;
+  line-height: 1.425;
+}
+
+a {
+  color: hsl(356, 90%, 37%);
+  text-decoration: none;
+}
+
+a:visited {
+  color: hsl(356, 90%, 32%);
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  color: hsl(356, 90%, 42%);
+  border-bottom: 1px solid;
+}
+
+a:active {
+  background: hsl(356, 90%, 82%);
+  border: none;
+  color: inherit;
+}

@@ -1,0 +1,643 @@
+/**
+ * Fonts -------------------------------------------------------------
+ */
+@font-face {
+  font-family: Alegreya;
+  src: url('docs/static/fonts/Alegreya-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  src: url('docs/static/fonts/Alegreya-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-weight: 500;
+  src: url('docs/static/fonts/Alegreya-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  font-weight: 500;
+  src: url('docs/static/fonts/Alegreya-MediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-weight: 700;
+  src: url('docs/static/fonts/Alegreya-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  font-weight: 700;
+  src: url('docs/static/fonts/Alegreya-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-weight: 800;
+  src: url('docs/static/fonts/Alegreya-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  font-weight: 800;
+  src: url('docs/static/fonts/Alegreya-ExtraBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-weight: 900;
+  src: url('docs/static/fonts/Alegreya-Black.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya;
+  font-style: italic;
+  font-weight: 900;
+  src: url('docs/static/fonts/Alegreya-BlackItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya SC;
+  src: url('docs/static/fonts/AlegreyaSC-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: Alegreya SC;
+  font-style: italic;
+  src: url('docs/static/fonts/AlegreyaSC-Italic.woff2') format('woff2');
+}
+
+/**
+ * Paged media setup -------------------------------------------------
+ */
+@page {
+  size: A4 portrait;
+  margin: 3.3cm 3.5cm 6.6cm; /* creating a grid of 9x9 fields */
+  padding: 0;
+  counter-increment: page;
+  @bottom-center {
+    margin-top: 1.425em;
+    vertical-align: top;
+    font-size: .9333em;
+    line-height: 1.425;
+    text-align: center;
+    content: counter(page);
+  }
+}
+
+@page :left {
+  margin-left: 4.667em;
+  margin-right: 2.333em;
+  @bottom-center {
+    text-align: left;
+  }
+}
+
+@page :right {
+  margin-left: 2.333em;
+  margin-right: 4.667em;
+  @bottom-center {
+    text-align: right;
+  }
+}
+
+@page :first {
+  margin: 3.3cm 3.5cm 6.6cm;
+  @bottom-center {
+    content: none;
+  }
+}
+
+/**
+ * Plain elements ----------------------------------------------------
+ */
+html {
+  line-height: 1.333;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  background: #F9F9F7;
+  color: #222;
+  font-family: Alegreya,Georgia,serif;
+  font-size: calc(8px + 1.5625vw); /* (24-8)/10.24 */
+  text-rendering: optimizeLegibility;
+  font-variant-alternates: normal;
+  font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures contextual;
+  font-variant-numeric: no-ordinal oldstyle-nums proportional-nums diagonal-fractions;
+  hyphens: auto;
+  transition: background 2s;
+
+  counter-reset: page 1 chapter section global_section footnote;
+}
+@media (max-width: 449px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1240px) {
+  html {
+    background: #404040;
+  }
+}
+
+@media print {
+  html {
+    font-size: 11pt;
+    padding: 0;
+    margin: 0;
+    background: none;
+    max-width: none;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+article {
+  max-width: 38em;
+  margin: 4.000em auto;
+  padding: 4.000em;
+  box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
+}
+
+@media (max-width: 38em) {
+  article {
+    padding: .6667em;
+  }
+}
+
+header, section {
+  padding-top: 4.0em;
+}
+
+@media print {
+  header, section {
+    page-break-after: always;
+    page-break-after: right;
+  }
+  section:last-child,
+  section section {
+    page-break-after: auto;
+  }
+  section > *:first-child {
+    page-break-before: avoid;
+  }
+}
+
+section {
+  counter-increment: chapter;
+  counter-reset: section;
+}
+
+section > section {
+  counter-increment: section global_section;
+}
+
+section#Table_of_Contents,
+section.preface {
+  counter-increment: none;
+}
+
+p {
+  margin: 0;
+}
+@media (min-width: 450px) {
+  p {
+    text-align: justify;
+  }
+}
+
+p + p {
+  text-indent: 1.333em;
+}
+
+blockquote {
+  margin: 1.425em auto;
+  font-size: .9333em;
+  line-height: 1.425;
+  display: table;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  --heading-font-mod: 1;
+  --heading-line-mod: 1;
+  font-variant-alternates: swash(2);
+  font-variant-ligatures: common-ligatures discretionary-ligatures no-historical-ligatures contextual;
+  font-variant-numeric: lining-nums proportional-nums stacked-fractions;
+  margin: 0 auto calc(2em / var(--heading-font-mod));
+  font-size: calc(var(--heading-font-mod) * 1em);
+  font-weight: normal;
+  line-height: calc(1.333 * var(--heading-line-mod) / var(--heading-font-mod));
+}
+
+* + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
+  margin-top: calc(2em / var(--heading-font-mod));
+}
+
+h1 {
+  --heading-font-mod: 3.157334; /* 1.333 * 1.333 * 1.333 * 1.333 */
+  --heading-line-mod: 3;
+  text-align: center;
+}
+
+h2 {
+  --heading-font-mod: 2.368593; /* 1.333 * 1.333 * 1.333 */
+  --heading-line-mod: 2;
+}
+
+h3 {
+  --heading-font-mod: 1.776889; /* 1.333 * 1.333 */
+  --heading-line-mod: 1.5;
+  font-family: Alegreya SC, Georgia, serif;
+  letter-spacing: .033em;
+}
+
+h4 {
+  --heading-font-mod: 1.333;
+  --heading-line-mod: 1.5;
+  font-style: italic;
+}
+
+h5 {
+}
+
+h6 {
+  text-indent: 1.333em;
+  font-style: italic;
+}
+
+header h1, header h2, header h3 {
+  text-align: center;
+}
+
+.book--chapters-added > section:not(#Table_of_Contents) h2:before {
+  content: "Chapter\00a0" counter(chapter, upper-roman) ":\00a0";
+}
+
+.book--chapters-added > section:not(#Table_of_Contents) h2:lang(de):before {
+  content: "Kapitel\00a0" counter(chapter, upper-roman) ":\00a0";
+}
+
+table {
+  margin: 0;
+  font-variant-numeric: lining-nums tabular-nums diagonal-fractions;
+}
+
+:not(p) + p,
+* + table {
+  margin-top: 1.333em;
+}
+
+thead th, tbody {
+  border-bottom: 1px solid #aaa;
+}
+
+table:last-child tbody {
+  border-bottom: none;
+}
+
+caption, th {
+  font-style: italic;
+  font-weight: normal;
+}
+
+caption {
+  caption-side: bottom;
+}
+
+th, td {
+  padding: .333em .333em .333em 0;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+
+  border-color: #aaa;
+  border-style: solid;
+  border-width: 1px 0 0;
+  margin: 1.333em auto;
+}
+
+pre {
+  font-family: inherit;
+  margin: 0;
+  /* there are overly long lines, e.g. in Dorian Gray, that must
+   * wrap to not exceed the page margin */
+  white-space: pre-wrap;
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+abbr[title], dfn[title] {
+  border-bottom-color: rgba(0,0,0,.15);
+  cursor: help;
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+figure {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+figcaption {
+  font-size: .9333em;
+  line-height: 1.425;
+}
+
+a {
+  color: hsl(356, 90%, 37%);
+  text-decoration: none;
+}
+
+a:visited {
+  color: hsl(356, 90%, 32%);
+}
+
+a:hover,
+a:focus {
+  outline: none;
+  color: hsl(356, 90%, 42%);
+  border-bottom: 1px solid;
+}
+
+a:active {
+  background: hsl(356, 90%, 82%);
+  border: none;
+  color: inherit;
+}
+
+/**
+ * Classes -----------------------------------------------------------
+ */
+.book {
+  background: #F9F9F7;
+}
+
+h2.author:before {
+  content: "by ";
+  display: block;
+  font-size: 80%;
+  font-style: italic;
+  margin-bottom: calc(2em / var(--heading-font-mod));
+}
+
+h2.author:lang(de):before {
+  content: "von ";
+}
+
+.letter_header,
+.article_header,
+.signature,
+.postscriptum,
+.poem p,
+.separation,
+.noindent {
+  text-indent: 0;
+}
+
+.separation {
+  margin-top: 1.333em;
+}
+
+.centered,
+.centered p {
+  text-align: center;
+}
+
+.date,
+.signature {
+  text-align: right;
+  font-style: italic;
+}
+
+.dedication {
+  width: 50%;
+  margin: 1.425em 0 1.425em auto;
+  font-style: italic;
+  font-size: .9333em;
+  line-height: 1.425;
+  text-align: right;
+}
+
+.annotation {
+  font-style: italic;
+}
+
+.dialog .annotation {
+  font-style: normal;
+}
+
+.proper_name {
+  font-family: Alegreya SC, Georgia, serif;
+  padding: 0 0 0 .1em;
+}
+
+.slanted,
+.quote {
+  font-style: italic;
+}
+
+.fixed pre {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+}
+
+.poem {
+  display: table;
+  width: auto;
+}
+
+.poem .line {
+  display: block;
+  white-space: nowrap;
+}
+
+.article_header {
+  text-align: center;
+  margin-bottom: 1.333em;
+  font-family: Alegreya SC, Georgia, serif;
+}
+
+/**
+ * Footnotes ---------------------------------------------------------
+ */
+.footnote {
+  counter-increment: footnote;
+}
+
+.footnote-unnumbered {
+  counter-increment: none;
+}
+
+.footnote-body {
+  display: block;
+  float: right;
+  width: 10em;
+  margin: 1.425em 0 1.425em 1.425em;
+  padding: 0 0 0 1.425em;
+  border-left: 1px solid #aaa;
+  font-style: italic;
+  font-size: .9333em;
+  line-height: 1.425;
+  text-align: left;
+  text-indent: -.6667em;
+}
+
+@media (min-width: 80.5em) { /* == 53em w/ font-size 24px */
+  .footnote-body {
+    margin: -0.7125em -11.425em 1.425em 0;
+    padding: 0.7125em;
+    border-left: none;
+  }
+}
+
+@media print {
+  .footnote-body {
+    float: footnote;
+  }
+}
+
+.footnote:before,
+.footnote-body:before {
+  content: counter(footnote) ") ";
+  font-size: .9333em;
+  font-style: normal;
+  line-height: 1;
+  position: relative;
+  top: -.5em;
+}
+
+.footnote-unnumbered:before,
+.footnote-unnumbered .footnote-body:before {
+  content: "";
+}
+
+/**
+ * Dialogs -----------------------------------------------------------
+ */
+.dialog dt {
+  float: left;
+  font-family: Alegreya SC, Georgia, serif;
+  margin: 0 .6667em 0 0;
+}
+
+.dialog dd {
+  margin: 0 0 .6667em;
+  padding-left: 1.333em;
+}
+
+/**
+ * Table of Content --------------------------------------------------
+ */
+#Table_of_Contents ol {
+  list-style: none;
+  padding: 0 1.333em;
+  margin: 0 auto;
+  display: table;
+  counter-reset: toc;
+}
+
+#Table_of_Contents ol.continued {
+  counter-reset: none;
+}
+
+#Table_of_Contents ol ol {
+  padding-left: 2.6667em;
+  margin: 0.6667em;
+}
+
+#Table_of_Contents ol li {
+  margin: 0 0 0.6667em;
+  padding-left: 2em;
+  text-indent: -2em;
+  counter-increment: toc;
+}
+
+#Table_of_Contents li.no_chapter {
+  counter-increment: none;
+}
+
+#Table_of_Contents ol li:before {
+  content: counter(toc, upper-roman) ".";
+  min-width: calc(1.333 * 1.618em);
+  padding-right: calc(1.333 * 0.382em);
+  display: inline-block;
+  font-weight: normal;
+  text-indent: 0;
+  text-align: right;
+}
+
+#Table_of_Contents ol ol li:before {
+  content: counter(toc) ".";
+}
+
+#Table_of_Contents ol li.no_chapter:before {
+  content: "\00A0";
+}
+
+#Table_of_Contents.part_and_chapter ol li:before {
+  content: "";
+}
+
+#Table_of_Contents.part_and_chapter ol ol li:before {
+  content: "Chapter " counter(toc, upper-roman);
+  width: 8em;
+  font-variant: small-caps;
+  font-weight: normal;
+}
+
+#Table_of_Contents.part_and_chapter ol ol li:lang(de):before {
+  content: "Kapitel " counter(toc, upper-roman);
+}

@@ -1,0 +1,53 @@
+/**
+ * Footnotes ---------------------------------------------------------
+ */
+.footnote {
+  counter-increment: footnote;
+}
+
+.footnote-unnumbered {
+  counter-increment: none;
+}
+
+.footnote-body {
+  display: block;
+  float: right;
+  width: 10em;
+  margin: 1.425em 0 1.425em 1.425em;
+  padding: 0 0 0 1.425em;
+  border-left: 1px solid #aaa;
+  font-style: italic;
+  font-size: .9333em;
+  line-height: 1.425;
+  text-align: left;
+  text-indent: -.6667em;
+}
+
+@media (min-width: 80.5em) { /* == 53em w/ font-size 24px */
+  .footnote-body {
+    margin: -0.7125em -11.425em 1.425em 0;
+    padding: 0.7125em;
+    border-left: none;
+  }
+}
+
+@media print {
+  .footnote-body {
+    float: footnote;
+  }
+}
+
+.footnote:before,
+.footnote-body:before {
+  content: counter(footnote) ") ";
+  font-size: .9333em;
+  font-style: normal;
+  line-height: 1;
+  position: relative;
+  top: -.5em;
+}
+
+.footnote-unnumbered:before,
+.footnote-unnumbered .footnote-body:before {
+  content: "";
+}

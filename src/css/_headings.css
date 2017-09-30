@@ -1,0 +1,59 @@
+h1, h2, h3, h4, h5, h6 {
+  --heading-font-mod: 1;
+  --heading-line-mod: 1;
+  font-variant-alternates: swash(2);
+  font-variant-ligatures: common-ligatures discretionary-ligatures no-historical-ligatures contextual;
+  font-variant-numeric: lining-nums proportional-nums stacked-fractions;
+  margin: 0 auto calc(2em / var(--heading-font-mod));
+  font-size: calc(var(--heading-font-mod) * 1em);
+  font-weight: normal;
+  line-height: calc(1.333 * var(--heading-line-mod) / var(--heading-font-mod));
+}
+
+* + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
+  margin-top: calc(2em / var(--heading-font-mod));
+}
+
+h1 {
+  --heading-font-mod: 3.157334; /* 1.333 * 1.333 * 1.333 * 1.333 */
+  --heading-line-mod: 3;
+  text-align: center;
+}
+
+h2 {
+  --heading-font-mod: 2.368593; /* 1.333 * 1.333 * 1.333 */
+  --heading-line-mod: 2;
+}
+
+h3 {
+  --heading-font-mod: 1.776889; /* 1.333 * 1.333 */
+  --heading-line-mod: 1.5;
+  font-family: Alegreya SC, Georgia, serif;
+  letter-spacing: .033em;
+}
+
+h4 {
+  --heading-font-mod: 1.333;
+  --heading-line-mod: 1.5;
+  font-style: italic;
+}
+
+h5 {
+}
+
+h6 {
+  text-indent: 1.333em;
+  font-style: italic;
+}
+
+header h1, header h2, header h3 {
+  text-align: center;
+}
+
+.book--chapters-added > section:not(#Table_of_Contents) h2:before {
+  content: "Chapter\00a0" counter(chapter, upper-roman) ":\00a0";
+}
+
+.book--chapters-added > section:not(#Table_of_Contents) h2:lang(de):before {
+  content: "Kapitel\00a0" counter(chapter, upper-roman) ":\00a0";
+}
