@@ -16,12 +16,26 @@
   <manifest>
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
     <item id="stylesheet" href="ebook.css" media-type="text/css" />
-    <item id="Crimson-Roman" href="CrimsonText-Roman.ttf" media-type="font/truetype" />
-    <item id="Crimson-Italic" href="CrimsonText-Italic.ttf" media-type="font/truetype" />
-    <item id="Crimson-Bold" href="CrimsonText-Bold.ttf" media-type="font/truetype" />
-    <item id="Crimson-BoldItalic" href="CrimsonText-BoldItalic.ttf" media-type="font/truetype" />
-    <item id="Crimson-Semibold" href="CrimsonText-Semibold.ttf" media-type="font/truetype" />
-    <item id="Crimson-SemiboldItalic" href="CrimsonText-SemiboldItalic.ttf" media-type="font/truetype" />
+    <item id="Alegreya-BlackItalic.woff2" href="fonts/Alegreya-BlackItalic.woff2" media-type="font/woff2" />
+    <item id="Alegreya-Black.woff2" href="fonts/Alegreya-Black.woff2" media-type="font/woff2" />
+    <item id="Alegreya-BoldItalic.woff2" href="fonts/Alegreya-BoldItalic.woff2" media-type="font/woff2" />
+    <item id="Alegreya-Bold.woff2" href="fonts/Alegreya-Bold.woff2" media-type="font/woff2" />
+    <item id="Alegreya-ExtraBoldItalic.woff2" href="fonts/Alegreya-ExtraBoldItalic.woff2" media-type="font/woff2" />
+    <item id="Alegreya-ExtraBold.woff2" href="fonts/Alegreya-ExtraBold.woff2" media-type="font/woff2" />
+    <item id="Alegreya-Italic.woff2" href="fonts/Alegreya-Italic.woff2" media-type="font/woff2" />
+    <item id="Alegreya-MediumItalic.woff2" href="fonts/Alegreya-MediumItalic.woff2" media-type="font/woff2" />
+    <item id="Alegreya-Medium.woff2" href="fonts/Alegreya-Medium.woff2" media-type="font/woff2" />
+    <item id="Alegreya-Regular.woff2" href="fonts/Alegreya-Regular.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-BlackItalic.woff2" href="fonts/AlegreyaSC-BlackItalic.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-Black.woff2" href="fonts/AlegreyaSC-Black.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-BoldItalic.woff2" href="fonts/AlegreyaSC-BoldItalic.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-Bold.woff2" href="fonts/AlegreyaSC-Bold.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-ExtraBoldItalic.woff2" href="fonts/AlegreyaSC-ExtraBoldItalic.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-ExtraBold.woff2" href="fonts/AlegreyaSC-ExtraBold.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-Italic.woff2" href="fonts/AlegreyaSC-Italic.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-MediumItalic.woff2" href="fonts/AlegreyaSC-MediumItalic.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-Medium.woff2" href="fonts/AlegreyaSC-Medium.woff2" media-type="font/woff2" />
+    <item id="AlegreyaSC-Regular.woff2" href="fonts/AlegreyaSC-Regular.woff2" media-type="font/woff2" />
     % for i,s in enumerate(embeds):
       <item id="static_${i+1}" href="${s | h}" media-type="application/octetstream"/>
     %endfor

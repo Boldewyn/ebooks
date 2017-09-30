@@ -12,7 +12,7 @@ def fetch(name):
     """"""
     if name not in _cache or "html" not in _cache[name]:
         _cache[name] = _cache.get(name, {})
-        with open("%s.html" % name) as fh:
+        with open("docs/%s.html" % name) as fh:
             _cache[name]["html"] = fh.read()
     return _cache[name]["html"]
 

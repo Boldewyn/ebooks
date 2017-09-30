@@ -14,18 +14,34 @@ def compose_epub(name):
     parts = split(name)
     lang = parts[4]
     meta = get_meta(parts[1])
-    target = name + ".epub"
+    target = "docs/" + name + ".epub"
     epub = zipfile.ZipFile(target, 'w')
     epub.write(work_path+"templates/mimetype", "mimetype")
     epub.write(work_path+"templates/META-INF", "META-INF")
     epub.write(work_path+"templates/META-INF/container.xml",
                "META-INF/container.xml")
     epub.write(work_path+"templates/OEBPS", "OEBPS")
-    for style in ["Roman", "Italic", "Bold", "BoldItalic", "Semibold",
-                  "SemiboldItalic"]:
-        epub.write(work_path+'../../static/fonts/crimson-%s-webfont.ttf' % style.lower(),
-                   'OEBPS/CrimsonText-%s.ttf' % style)
-    epub.write(work_path+'../../static/ebook.css', 'OEBPS/ebook.css')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-BlackItalic.woff2', 'OEBPS/fonts/Alegreya-BlackItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-Black.woff2', 'OEBPS/fonts/Alegreya-Black.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-BoldItalic.woff2', 'OEBPS/fonts/Alegreya-BoldItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-Bold.woff2', 'OEBPS/fonts/Alegreya-Bold.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-ExtraBoldItalic.woff2', 'OEBPS/fonts/Alegreya-ExtraBoldItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-ExtraBold.woff2', 'OEBPS/fonts/Alegreya-ExtraBold.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-Italic.woff2', 'OEBPS/fonts/Alegreya-Italic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-MediumItalic.woff2', 'OEBPS/fonts/Alegreya-MediumItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-Medium.woff2', 'OEBPS/fonts/Alegreya-Medium.woff2')
+    epub.write(work_path+'../../docs/static/fonts/Alegreya-Regular.woff2', 'OEBPS/fonts/Alegreya-Regular.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-BlackItalic.woff2', 'OEBPS/fonts/AlegreyaSC-BlackItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-Black.woff2', 'OEBPS/fonts/AlegreyaSC-Black.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-BoldItalic.woff2', 'OEBPS/fonts/AlegreyaSC-BoldItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-Bold.woff2', 'OEBPS/fonts/AlegreyaSC-Bold.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-ExtraBoldItalic.woff2', 'OEBPS/fonts/AlegreyaSC-ExtraBoldItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-ExtraBold.woff2', 'OEBPS/fonts/AlegreyaSC-ExtraBold.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-Italic.woff2', 'OEBPS/fonts/AlegreyaSC-Italic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-MediumItalic.woff2', 'OEBPS/fonts/AlegreyaSC-MediumItalic.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-Medium.woff2', 'OEBPS/fonts/AlegreyaSC-Medium.woff2')
+    epub.write(work_path+'../../docs/static/fonts/AlegreyaSC-Regular.woff2', 'OEBPS/fonts/AlegreyaSC-Regular.woff2')
+    epub.write(work_path+'../../docs/static/ebook.css', 'OEBPS/ebook.css')
     embeds = _copy_statics(epub, parts[5])
 
     chapters = parts[3]
@@ -93,7 +109,7 @@ def compose_all():
 
 def _get_all():
     ebooks = []
-    for f in os.listdir(work_path+"../.."):
+    for f in os.listdir(work_path+"../../docs"):
         if f.endswith(".html"):
             if f not in ["index.html", "index.de.html", "404.html"]:
                 ebooks.append(f)
@@ -104,8 +120,8 @@ def _copy_statics(epub, statics):
     """Copy static files to epub"""
     embeds = []
     for s in statics:
-        if os.path.isfile(work_path+'../../'+s):
-            epub.write(work_path+'../../'+s, "OEBPS/"+s)
+        if os.path.isfile(work_path+'../../docs/'+s):
+            epub.write(work_path+'../../docs/'+s, "OEBPS/"+s)
             embeds.append(s)
         else:
             sys.stderr.write("Couldn't locate %s\n" % s)
