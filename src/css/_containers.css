@@ -16,18 +16,18 @@ html {
 
   counter-reset: page 1 chapter section global_section footnote;
 }
-@media (max-width: 449px) {
+@media (max-width: 28.0625em) {
   html {
     font-size: 15px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 64em) {
   html {
     font-size: 24px;
   }
 }
 
-@media (min-width: 1240px) {
+@media (min-width: 77.5em) {
   html {
     background: #404040;
   }
@@ -51,13 +51,18 @@ article {
   max-width: 38em;
   margin: 4.000em auto;
   padding: 4.000em;
-  box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
   background: #F9F9F7;
 }
 
 @media (max-width: 38em) {
   article {
     padding: .6667em;
+  }
+}
+
+@media (min-width: 77.5em) {
+  article {
+    box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
   }
 }
 

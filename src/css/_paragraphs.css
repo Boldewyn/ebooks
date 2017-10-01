@@ -1,7 +1,7 @@
 p {
   margin: 0;
 }
-@media (min-width: 450px) {
+@media (min-width: 28.125em) {
   p {
     text-align: justify;
   }
