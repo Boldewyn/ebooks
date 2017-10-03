@@ -3,7 +3,7 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 
-  background: #F9F9F7;
+  background: hsl(86, 14.3%, 97.3%);
   color: #222;
   font-family: Alegreya,Georgia,serif;
   font-size: calc(8px + 1.5625vw); /* (24-8)/10.24 */
@@ -29,7 +29,7 @@ html {
 
 @media (min-width: 77.5em) {
   html {
-    background: #404040;
+    background: hsl(176, 6%, 20%);
   }
 }
 
@@ -51,7 +51,7 @@ article {
   max-width: 38em;
   margin: 4.000em auto;
   padding: 4.000em;
-  background: #F9F9F7;
+  background: hsl(86, 14.3%, 97.3%);
 }
 
 @media (max-width: 38em) {
