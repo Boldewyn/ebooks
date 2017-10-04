@@ -50,7 +50,7 @@ body {
 article {
   max-width: 38em;
   margin: 4.000em auto;
-  padding: 4.000em;
+  padding: 4.000em 4.000em 6.667em;
   background: hsl(86, 14.3%, 97.3%);
 }
 
@@ -62,7 +62,8 @@ article {
 
 @media (min-width: 77.5em) {
   article {
-    box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333);
+    box-shadow: 0 -20px 10px -10px rgba(0,0,0,.333),
+                0  20px 10px -10px rgba(0,0,0,.333);
   }
 }
 

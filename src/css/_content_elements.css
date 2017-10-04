@@ -1,11 +1,30 @@
+/**
+ * block elements
+ */
+
+p {
+  margin: 0;
+}
+@media (min-width: 28.125em) {
+  p {
+    text-align: justify;
+  }
+}
+
+p + p {
+  text-indent: 1.333em;
+}
+
+blockquote {
+  margin: 1.425em auto;
+  font-size: .9333em;
+  line-height: 1.425;
+  display: table;
+}
+
 table {
   margin: 0;
   font-variant-numeric: lining-nums tabular-nums diagonal-fractions;
-}
-
-:not(p) + p,
-* + table {
-  margin-top: 1.333em;
 }
 
 thead th, tbody {
@@ -29,6 +48,31 @@ th, td {
   padding: .333em .333em .333em 0;
 }
 
+figure {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+figcaption {
+  font-size: .9333em;
+  line-height: 1.425;
+}
+
+:not(p) + p,
+* + figure,
+* + table {
+  margin-top: 1.333em;
+}
+
+pre {
+  font-family: inherit;
+  margin: 0;
+  /* there are overly long lines, e.g. in Dorian Gray, that must
+   * wrap to not exceed the page margin */
+  white-space: pre-wrap;
+}
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -40,13 +84,9 @@ hr {
   margin: 1.333em auto;
 }
 
-pre {
-  font-family: inherit;
-  margin: 0;
-  /* there are overly long lines, e.g. in Dorian Gray, that must
-   * wrap to not exceed the page margin */
-  white-space: pre-wrap;
-}
+/**
+ * inline elements
+ */
 
 b,
 strong {
@@ -74,7 +114,7 @@ sup {
 }
 
 abbr[title], dfn[title] {
-  border-bottom-color: rgba(0,0,0,.15);
+  border-bottom: 1px dotted rgba(0,0,0,.15);
   cursor: help;
 }
 
@@ -84,20 +124,9 @@ img {
   max-width: 100%;
 }
 
-figure {
-  text-align: center;
-  margin: 0 auto;
-  max-width: 100%;
-}
-
 figure img {
   display: block;
   margin: 0 auto;
-}
-
-figcaption {
-  font-size: .9333em;
-  line-height: 1.425;
 }
 
 a {
