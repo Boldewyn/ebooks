@@ -4,18 +4,21 @@
 @font-face {
   font-family: Alegreya;
   src: url('fonts/Alegreya-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya;
   font-style: italic;
   src: url('fonts/Alegreya-Italic.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 500;
   src: url('fonts/Alegreya-Medium.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -23,12 +26,14 @@
   font-style: italic;
   font-weight: 500;
   src: url('fonts/Alegreya-MediumItalic.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 700;
   src: url('fonts/Alegreya-Bold.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -36,12 +41,14 @@
   font-style: italic;
   font-weight: 700;
   src: url('fonts/Alegreya-BoldItalic.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 800;
   src: url('fonts/Alegreya-ExtraBold.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -49,12 +56,14 @@
   font-style: italic;
   font-weight: 800;
   src: url('fonts/Alegreya-ExtraBoldItalic.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya;
   font-weight: 900;
   src: url('fonts/Alegreya-Black.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
@@ -62,15 +71,18 @@
   font-style: italic;
   font-weight: 900;
   src: url('fonts/Alegreya-BlackItalic.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya SC;
   src: url('fonts/AlegreyaSC-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: Alegreya SC;
   font-style: italic;
   src: url('fonts/AlegreyaSC-Italic.woff2') format('woff2');
+  font-display: swap;
 }
