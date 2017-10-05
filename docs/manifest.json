@@ -4,7 +4,7 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color" : "#303636" ,
+  "background_color" : "#f7f8f6" ,
   "theme_color" : "#303636" ,
   "description": "Free ebooks to read and enjoy.",
   "icons": [{
