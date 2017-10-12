@@ -1,7 +1,7 @@
 import { default as $ } from 'jquery';
 window.$ = $;
 
-navigator.serviceWorker.register('static/sw.js', {
+navigator.serviceWorker.register('sw.js', {
   scope: '.',
 });
 
