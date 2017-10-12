@@ -1,14 +1,18 @@
-var $ = require("jquery");
-window.$=$;
+import { default as $ } from 'jquery';
+window.$ = $;
 
-var _init = require('./_init');
+navigator.serviceWorker.register('static/sw.js', {
+  scope: '.',
+});
 
-var $book = $('.book');
-
-_init($book);
-
-require('./_scrollmarker')($book);
-
-require('./_keycontrol')($book);
-
-require('./_mousecontrol')($book);
+//var _init = require('./_init');
+//
+//var $book = $('.book');
+//
+//_init($book);
+//
+//require('./_scrollmarker')($book);
+//
+//require('./_keycontrol')($book);
+//
+//require('./_mousecontrol')($book);

@@ -6,7 +6,8 @@ SHELL := /bin/bash
 
 EBOOKS := $(patsubst text/%,docs/%,$(wildcard text/*.html))
 
-BROWSERIFY := node_modules/.bin/browserify
+WEBPACK := node_modules/.bin/webpack
+WEBPACK_FLAGS := -p
 
 POSTCSS := node_modules/.bin/postcss
 POSTCSS_ARGS := --use postcss-import --use autoprefixer --use cssnano --no-map
@@ -80,10 +81,10 @@ docs/static/ebook.css: src/css/ebook.css src/css/_*.css
 .SECONDARY: docs/static/ebook.css
 
 
-js: # docs/static/ebook.js
+js: docs/static/ebook.js docs/static/sw.js
 .PHONY: js
 
-#src/js/%.d: node_modules/jquery/dist/jquery.js
+#src/js/%.d:
 #	$(info * generate $@)
 #	@cat <(echo -n '$(patsubst %.d,%.js,$@) $@ : ') \
 #	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed '/^'$$(echo "$(patsubst %.d,%.js,$@)" | sed 's#/#\\/#g')'$$/d' | tr $$'\n' ' ') \
@@ -91,12 +92,10 @@ js: # docs/static/ebook.js
 #	    <($(BROWSERIFY) --list $(patsubst %.d,%.js,$@) | sed 's/$$/:/') \
 #	  > $@
 
-#docs/static/ebook.js: src/js/ebook.d
-#	$(info * generate JS)
-#	$(MAKE) test-js
-#	@$(BROWSERIFY) -t browserify-hogan src/js/ebook.js | \
-#	    node_modules/.bin/uglifyjs -c warnings=false -m > $@
-#-include src/js/ebook.d
+docs/static/ebook.j% \
+docs/static/sw.j%:
+	$(info * generate JS)
+	@$(WEBPACK) $(WEBPACK_FLAGS)
 
 
 docs/static/fonts/%.woff2:
