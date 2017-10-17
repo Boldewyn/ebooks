@@ -4,8 +4,8 @@ self.addEventListener('install', function(evt) {
   evt.waitUntil(caches.open(CACHE).then(function (cache) {
     cache.addAll([
       'index.html',
+      'favicon.ico',
       'static/ebook.css',
-      'static/favicon.ico',
       'static/fonts/AlegreyaSC-Italic.woff2',
       'static/fonts/Alegreya-BlackItalic.woff2',
       'static/fonts/AlegreyaSC-Medium.woff2',
