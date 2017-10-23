@@ -15,7 +15,8 @@ def main():
     chdir(dirname(dirname(abspath(__file__))))
 
     books = []
-    for _file in glob('meta/*.json'):
+    files = glob('meta/*.json')
+    for _file in sorted(files):
         with open(_file) as _f:
             meta = json.load(_f)
             books.append({
