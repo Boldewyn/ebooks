@@ -4,10 +4,21 @@
 
 SHELL := /bin/bash
 
+DEBUG :=
+
+NODE_ENV := production
+ifeq ($(DEBUG), 1)
+    NODE_ENV := development
+endif
+export NODE_ENV
+
 EBOOKS := $(patsubst text/%,docs/%,$(wildcard text/*.html))
 
 WEBPACK := node_modules/.bin/webpack
 WEBPACK_FLAGS := -p
+ifeq ($(DEBUG), 1)
+    WEBPACK_FLAGS := -d --display-reasons --display-chunks --display-modules --profile
+endif
 
 POSTCSS := node_modules/.bin/postcss
 POSTCSS_ARGS := --use postcss-import --use autoprefixer --use cssnano --no-map

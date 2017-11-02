@@ -1,6 +1,14 @@
 var webpack = require('webpack');
-const env = process.env.NODE_ENV || 'production';
+const env = process.env.NODE_ENV || 'development';
 const path = require('path');
+
+const plugins = [];
+if (env !== 'development') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: { warnings: false, },
+    minimize: true,
+  }));
+}
 
 module.exports = {
   entry: {
@@ -23,10 +31,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new webpack.optimize.UglifyJsPlugin({
-    compress: { warnings: false, },
-    minimize: env !== 'development',
-  })],
+  plugins,
   cache: env !== 'development',
   devtool: env === 'development' ? "#inline-source-map" : undefined,
 };
